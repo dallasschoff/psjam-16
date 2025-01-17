@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvlrm7wsc6wk1"]
+[gd_scene load_steps=4 format=3 uid="uid://dvlrm7wsc6wk1"]
 
 [ext_resource type="Texture2D" uid="uid://catnd5vi1j7yu" path="res://Assets/placeholder.png" id="1_ep8kl"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Player.tscn" id="2_8o420"]
+[ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Sword.tscn" id="3_dp3ik"]
 
 [node name="Game" type="Node2D"]
 
@@ -13,3 +14,5 @@ texture = ExtResource("1_ep8kl")
 
 [node name="Player" parent="." instance=ExtResource("2_8o420")]
 position = Vector2(1, -3)
+
+[node name="Sword" parent="." instance=ExtResource("3_dp3ik")]
