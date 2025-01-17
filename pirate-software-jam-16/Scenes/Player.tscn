@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://b78fkf0mi430r"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_q5a3x"]
+[ext_resource type="Texture2D" uid="uid://bnkhu8ye3wg0e" path="res://Assets/sprite.png" id="1_rd32p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8l2lu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s1t2"]
+atlas = ExtResource("1_rd32p")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_md7ro"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s1t2")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_w7s6y"]
+offsets = PackedFloat32Array(0, 0.456667, 1)
+colors = PackedColorArray(0, 0.141186, 1, 1, 0.235588, 0.1163, 0.999955, 1, 1, 1, 1, 1)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_q5a3x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8l2lu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_md7ro")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 64
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.75
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+linear_accel_min = -100.0
+linear_accel_max = -100.0
+color = Color(0, 1, 1, 1)
+color_ramp = SubResource("Gradient_w7s6y")
+
+[connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished"]
