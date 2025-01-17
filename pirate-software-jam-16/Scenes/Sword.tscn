@@ -1,17 +1,17 @@
 [gd_scene load_steps=6 format=3 uid="uid://dwoejeo4nfi3l"]
 
-[ext_resource type="Texture2D" uid="uid://cwe5h61qfnkdp" path="res://Assets/sword.png" id="1_gvf1a"]
 [ext_resource type="Script" path="res://Scripts/sword.gd" id="1_yy2bn"]
+[ext_resource type="Texture2D" uid="uid://cu25st4d04da7" path="res://Assets/weapons.png" id="2_2v6cb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8l0am"]
-atlas = ExtResource("1_gvf1a")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2nfq"]
+atlas = ExtResource("2_2v6cb")
+region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xva1r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8l0am")
+"texture": SubResource("AtlasTexture_r2nfq")
 }],
 "loop": false,
 "name": &"default",
@@ -32,7 +32,6 @@ sprite_frames = SubResource("SpriteFrames_xva1r")
 position = Vector2(5, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(2.28553, -2.28553)
+position = Vector2(3, -2)
 rotation = 0.785398
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_u4psu")

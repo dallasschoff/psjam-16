@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvlrm7wsc6wk1"]
+[gd_scene load_steps=8 format=3 uid="uid://dvlrm7wsc6wk1"]
 
 [ext_resource type="Texture2D" uid="uid://catnd5vi1j7yu" path="res://Assets/placeholder.png" id="1_ep8kl"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Player.tscn" id="2_8o420"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Sword.tscn" id="3_dp3ik"]
+[ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Axe.tscn" id="4_ox16k"]
+[ext_resource type="PackedScene" uid="uid://bgbmmxngfk50r" path="res://Scenes/Mace.tscn" id="5_3t4c7"]
+[ext_resource type="PackedScene" uid="uid://cua8qnmgh54rp" path="res://Scenes/Club.tscn" id="6_rluao"]
+[ext_resource type="PackedScene" uid="uid://ps3600av7t4n" path="res://Scenes/Spear.tscn" id="7_uiwgd"]
 
 [node name="Game" type="Node2D"]
 
@@ -16,3 +20,15 @@ texture = ExtResource("1_ep8kl")
 position = Vector2(1, -3)
 
 [node name="Sword" parent="." instance=ExtResource("3_dp3ik")]
+
+[node name="Axe" parent="." instance=ExtResource("4_ox16k")]
+position = Vector2(53, 20)
+
+[node name="Mace" parent="." instance=ExtResource("5_3t4c7")]
+position = Vector2(-76, -37)
+
+[node name="Club" parent="." instance=ExtResource("6_rluao")]
+position = Vector2(51, -41)
+
+[node name="Spear" parent="." instance=ExtResource("7_uiwgd")]
+position = Vector2(-31, -64)
