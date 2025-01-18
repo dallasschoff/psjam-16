@@ -9,7 +9,6 @@ var looking_left = false
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-
 func _ready():
 	animation_tree.active = true
 
@@ -36,14 +35,6 @@ func _physics_process(delta: float) -> void:
 	# Defining overall movement direction for animations
 	var direction = velocity.normalized()
 	
-	# Player orientation (left v. right facing)
-	if direction_lr < 0 and looking_left == false:
-		scale.x = -1
-		looking_left = true
-	if direction_lr > 0 and looking_left == true:
-		scale.x = -1
-		looking_left = false
-
 	move_and_slide()
 
 
@@ -52,6 +43,7 @@ func _process(delta):
 		particles.emitting = true
 		
 	update_animation_parameters()
+	
 
 
 func update_animation_parameters():

@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvlrm7wsc6wk1"]
+
+[ext_resource type="Texture2D" uid="uid://catnd5vi1j7yu" path="res://Assets/placeholder.png" id="1_ep8kl"]
+[ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Player.tscn" id="2_8o420"]
+[ext_resource type="Texture2D" uid="uid://css664qg802uh" path="res://Assets/circle_progress_bar.png" id="3_cvubu"]
+[ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Sword.tscn" id="3_dp3ik"]
+[ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Axe.tscn" id="4_ox16k"]
+[ext_resource type="PackedScene" uid="uid://bgbmmxngfk50r" path="res://Scenes/Mace.tscn" id="5_3t4c7"]
+[ext_resource type="PackedScene" uid="uid://cua8qnmgh54rp" path="res://Scenes/Club.tscn" id="6_rluao"]
+[ext_resource type="PackedScene" uid="uid://ps3600av7t4n" path="res://Scenes/Spear.tscn" id="7_uiwgd"]
+[ext_resource type="Script" path="res://Scenes/energy.gd" id="9_jd7xw"]
+
+[node name="Game" type="Node2D"]
+position = Vector2(-147, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ep8kl")
+
+[node name="Player" parent="." instance=ExtResource("2_8o420")]
+position = Vector2(-31, -35)
+
+[node name="Sword" parent="." instance=ExtResource("3_dp3ik")]
+
+[node name="Axe" parent="." instance=ExtResource("4_ox16k")]
+position = Vector2(53, 20)
+
+[node name="Mace" parent="." instance=ExtResource("5_3t4c7")]
+position = Vector2(-76, -37)
+
+[node name="Club" parent="." instance=ExtResource("6_rluao")]
+position = Vector2(51, -41)
+
+[node name="Spear" parent="." instance=ExtResource("7_uiwgd")]
+position = Vector2(-31, -64)
+
+[node name="Energy" type="TextureProgressBar" parent="."]
+offset_left = -31.0
+offset_top = -35.0
+offset_right = 33.0
+offset_bottom = 29.0
+value = 33.0
+fill_mode = 4
+texture_under = ExtResource("3_cvubu")
+texture_progress = ExtResource("3_cvubu")
+tint_progress = Color(0, 0.633333, 1, 1)
+script = ExtResource("9_jd7xw")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Energy"]
+remote_path = NodePath("../../Player")
