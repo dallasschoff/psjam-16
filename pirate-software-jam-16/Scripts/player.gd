@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity.limit_length(maxSpeed)
 	
 	# Defining overall movement direction for animations
-	var direction = velocity.normalized()
+	direction = velocity.normalized()
 	
 	move_and_slide()
 
@@ -53,11 +53,3 @@ func update_animation_parameters():
 	if (direction != Vector2.ZERO):
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/walk/blend_position"] = direction
-	
-	
-	
-	
-	
-	
-	
-	
