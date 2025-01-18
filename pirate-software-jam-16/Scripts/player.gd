@@ -1,11 +1,18 @@
 extends CharacterBody2D
 
-
-const maxSpeed = 100.0
+var direction
+const maxSpeed = 120.0
 const acceleration = 10.0
 const deceleration = 4.0
 var looking_left = false
 @onready var particles = $CPUParticles2D
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+
+func _ready():
+	animation_tree.active = true
+
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -23,21 +30,42 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = move_toward(velocity.y, 0, deceleration)
 	
+	# Capping speed in case of diagonal movement
+	velocity = velocity.limit_length(maxSpeed)
+	
+	# Defining overall movement direction for animations
+	var direction = velocity.normalized()
+	
 	# Player orientation (left v. right facing)
-	#if direction_lr < 0 and looking_left == false:
-		#scale.x = -1
-		#looking_left = true
-	#if direction_lr > 0 and looking_left == true:
-		#scale.x = -1
-		#looking_left = false
-	if looking_left:
-		if velocity.x < 0:
-			scale.x = -1
-	#else:
-		#scale.x = -1
+	if direction_lr < 0 and looking_left == false:
+		scale.x = -1
+		looking_left = true
+	if direction_lr > 0 and looking_left == true:
+		scale.x = -1
+		looking_left = false
 
 	move_and_slide()
+
 
 func _process(delta):
 	if Input.is_action_just_pressed("space"):
 		particles.emitting = true
+		
+	update_animation_parameters()
+
+
+func update_animation_parameters():
+	animation_tree["parameters/conditions/idle"] = true if velocity == Vector2.ZERO else false
+	animation_tree["parameters/conditions/is_walking"] = true if velocity != Vector2.ZERO else false
+	
+	if (direction != Vector2.ZERO):
+		animation_tree["parameters/idle/blend_position"] = direction
+		animation_tree["parameters/walk/blend_position"] = direction
+	
+	
+	
+	
+	
+	
+	
+	
