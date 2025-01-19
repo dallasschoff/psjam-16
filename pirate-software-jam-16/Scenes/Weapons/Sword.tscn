@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwoejeo4nfi3l"]
+[gd_scene load_steps=7 format=3 uid="uid://dwoejeo4nfi3l"]
 
 [ext_resource type="Script" path="res://Scripts/sword.gd" id="1_yy2bn"]
 [ext_resource type="Texture2D" uid="uid://cu25st4d04da7" path="res://Assets/weapons.png" id="2_2v6cb"]
+[ext_resource type="Script" path="res://Scripts/hitbox.gd" id="3_ieu20"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r2nfq"]
 atlas = ExtResource("2_2v6cb")
@@ -28,10 +29,16 @@ script = ExtResource("1_yy2bn")
 position = Vector2(5, -5)
 sprite_frames = SubResource("SpriteFrames_xva1r")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(5, -5)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_ieu20")
+attack_damage = 8.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(3, -2)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_u4psu")
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]

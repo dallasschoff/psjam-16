@@ -53,6 +53,12 @@ space={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Physics Collision"
+2d_physics/layer_2="Enemy Hurtbox"
+2d_physics/layer_3="Possession"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

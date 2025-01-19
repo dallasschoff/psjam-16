@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://dlq3qb87jnxby"]
+
+[ext_resource type="Script" path="res://Scripts/orc.gd" id="1_oeyq7"]
+[ext_resource type="Texture2D" uid="uid://0ps4idsffkkm" path="res://Assets/Orc.png" id="1_q41oy"]
+[ext_resource type="PackedScene" uid="uid://7q0wmfw8tjbw" path="res://Scenes/Components/HurtboxComponent.tscn" id="2_vc6gh"]
+[ext_resource type="PackedScene" uid="uid://da3k14i54lb2q" path="res://Scenes/Components/HealthComponent.tscn" id="3_kuk6f"]
+[ext_resource type="PackedScene" uid="uid://b25a1cg647tcp" path="res://Scenes/Components/HealthBar.tscn" id="4_yw3jb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j6ilw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i867"]
+atlas = ExtResource("1_q41oy")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dgpvf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2i867")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu4kt"]
+size = Vector2(16, 20)
+
+[node name="Orc" type="CharacterBody2D"]
+script = ExtResource("1_oeyq7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_j6ilw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dgpvf")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "entity") instance=ExtResource("2_vc6gh")]
+health_component = NodePath("../HealthComponent")
+entity = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_bu4kt")
+debug_color = Color(0.993313, 0, 0.239452, 0.42)
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("3_kuk6f")]
+healthbar_component = NodePath("../HealthBar")
+entity = NodePath("..")
+animated_sprite = NodePath("../AnimatedSprite2D")
+
+[node name="HealthBar" parent="." instance=ExtResource("4_yw3jb")]
+offset_left = -8.0
+offset_top = -23.0
+offset_right = 32.0
+offset_bottom = 17.0
