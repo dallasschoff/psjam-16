@@ -1,14 +1,10 @@
-[gd_scene load_steps=18 format=4 uid="uid://dvlrm7wsc6wk1"]
+[gd_scene load_steps=14 format=4 uid="uid://dvlrm7wsc6wk1"]
 
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ipi6q"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_8o420"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="3_dp3ik"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_xu7bf"]
 [ext_resource type="Texture2D" uid="uid://bqcjgqthjo3wp" path="res://Assets/campfire.png" id="4_273o8"]
-[ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="4_ox16k"]
-[ext_resource type="PackedScene" uid="uid://bgbmmxngfk50r" path="res://Scenes/Weapons/Mace.tscn" id="5_3t4c7"]
-[ext_resource type="PackedScene" uid="uid://cua8qnmgh54rp" path="res://Scenes/Weapons/Club.tscn" id="6_rluao"]
-[ext_resource type="PackedScene" uid="uid://ps3600av7t4n" path="res://Scenes/Weapons/Spear.tscn" id="7_uiwgd"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -99,16 +95,4 @@ position = Vector2(15, 18)
 sprite_frames = SubResource("SpriteFrames_8hpci")
 
 [node name="Sword" parent="." instance=ExtResource("3_dp3ik")]
-position = Vector2(55, -4)
-
-[node name="Axe" parent="." instance=ExtResource("4_ox16k")]
-position = Vector2(65, -255)
-
-[node name="Mace" parent="." instance=ExtResource("5_3t4c7")]
-position = Vector2(-64, -312)
-
-[node name="Club" parent="." instance=ExtResource("6_rluao")]
-position = Vector2(63, -316)
-
-[node name="Spear" parent="." instance=ExtResource("7_uiwgd")]
-position = Vector2(-19, -339)
+position = Vector2(16, 11)

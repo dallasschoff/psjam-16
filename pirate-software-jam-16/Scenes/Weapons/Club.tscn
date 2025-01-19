@@ -1,17 +1,17 @@
 [gd_scene load_steps=6 format=3 uid="uid://cua8qnmgh54rp"]
 
-[ext_resource type="Texture2D" uid="uid://cu25st4d04da7" path="res://Assets/weapons.png" id="1_0ojhx"]
+[ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="1_0ojhx"]
 [ext_resource type="Script" path="res://Scripts/sword.gd" id="1_kr2oj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6aeeq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vb5ip"]
 atlas = ExtResource("1_0ojhx")
-region = Rect2(16, 16, 16, 16)
+region = Rect2(36, 18, 18, 18)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_crhjq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6aeeq")
+"texture": SubResource("AtlasTexture_vb5ip")
 }],
 "loop": false,
 "name": &"default",

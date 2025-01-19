@@ -6,9 +6,11 @@ var vacateCooldownTimer: Timer
 @export var possessCooldown = 1
 @export var vacateCooldown = 1.5
 var isPossessing = false
-var canPossess = true
+var possessAvailable = true
 var isFree = true
-var canVacate = false
+var vacateAvailable = false
+var canPossess: bool
+var cannotPossess: bool
 
 # Physics variables
 var direction
@@ -16,13 +18,13 @@ var direction
 var tempMaxSpeed = 120.0
 @export var acceleration = 10.0
 @export var deceleration = 4.0
-@onready var particles = $CPUParticles2D
+@onready var particlesOut = $CPUParticles2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready():
 	animation_tree.active = true
-	
+
 	# Setting stamina values
 	var maxStamina = $StaminaBar.max_value
 	$StaminaBar.value = maxStamina
@@ -39,6 +41,8 @@ func _ready():
 	vacateCooldownTimer.connect("timeout",onVacateCooldownTimeout)
 	add_child(vacateCooldownTimer)
 
+	SignalBus.can_possess.connect(_can_possess)
+	SignalBus.cannot_possess.connect(_cannot_possess)
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -64,20 +68,19 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-
 func _process(delta):
-	if Input.is_action_just_pressed("space"):
-		particles.emitting = true
-		
-	if Input.is_action_just_pressed("space") and isFree and canPossess:
+	#Possessing
+	if Input.is_action_just_pressed("space")\
+	 and isFree and possessAvailable and canPossess:
+		particlesOut.emitting = true
 		possess()
 	
-	if Input.is_action_just_pressed("space") and isPossessing and canVacate:
+	if Input.is_action_just_pressed("space")\
+	 and isPossessing and vacateAvailable:
 		vacate()
 	
 	updatePlayerStamina()
 	update_animation_parameters()
-	
 
 func updatePlayerStamina():
 	direction = Input.get_vector("left","right","up","down")
@@ -87,31 +90,38 @@ func updatePlayerStamina():
 		
 
 func possess():
-	$StaminaBar.value -= 500
+	SignalBus.possessed.emit() #Connects to weapon.gd
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",0,0.5)
 	tempMaxSpeed = 0
 	isPossessing = true
 	isFree = false
-	canVacate = false
+	vacateAvailable = false
 	vacateCooldownTimer.start()
 	print('p')
 	
 func vacate():
+	SignalBus.vacated.emit() #Connects to weapon.gd
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",1,0.25)
 	tempMaxSpeed = globalMaxSpeed
 	isPossessing = false
 	isFree = true
-	canPossess = false
+	possessAvailable = false
 	possessCooldownTimer.start()
 	print('v')
 
 func onPossessCooldownTimeout():
-	canPossess = true
+	possessAvailable = true
 	print('can p')
 
 func onVacateCooldownTimeout():
-	canVacate = true
+	vacateAvailable = true
 	print('can v')
+
+func _can_possess():
+	canPossess = true
+
+func _cannot_possess():
+	canPossess = false
 
 func update_animation_parameters():
 	animation_tree["parameters/conditions/idle"] = true if velocity == Vector2.ZERO else false

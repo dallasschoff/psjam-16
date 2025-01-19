@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://ps3600av7t4n"]
 
 [ext_resource type="Script" path="res://Scripts/spear.gd" id="1_hq8yv"]
-[ext_resource type="Texture2D" uid="uid://cu25st4d04da7" path="res://Assets/weapons.png" id="1_jbh2n"]
+[ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="1_jbh2n"]
 
 [sub_resource type="Animation" id="Animation_kl5j5"]
 length = 0.001
@@ -41,15 +41,15 @@ _data = {
 "stab": SubResource("Animation_imdjl")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_darcv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttcgj"]
 atlas = ExtResource("1_jbh2n")
-region = Rect2(32, 16, 16, 16)
+region = Rect2(0, 36, 18, 18)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o5kfh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_darcv")
+"texture": SubResource("AtlasTexture_ttcgj")
 }],
 "loop": false,
 "name": &"default",
