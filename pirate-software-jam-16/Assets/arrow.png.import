@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://loo7xmsmt12j"
-path="res://.godot/imported/circle_progress_bar.png-a4694af7e0db7a5d7eb732219653f234.ctex"
+uid="uid://bx3begy8edg7q"
+path="res://.godot/imported/arrow.png-57f8c059c3343415ea6369e587d21c52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/circle_progress_bar.png"
-dest_files=["res://.godot/imported/circle_progress_bar.png-a4694af7e0db7a5d7eb732219653f234.ctex"]
+source_file="res://Assets/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-57f8c059c3343415ea6369e587d21c52.ctex"]
 
 [params]
 

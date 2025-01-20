@@ -19,8 +19,9 @@ var tempMaxSpeed = 120.0
 @export var acceleration = 10.0
 @export var deceleration = 4.0
 @onready var particlesOut = $CPUParticles2D
+@onready var particlesIn = $CPUParticles2D2
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 func _ready():
 	animation_tree.active = true
@@ -72,11 +73,12 @@ func _process(delta):
 	#Possessing
 	if Input.is_action_just_pressed("space")\
 	 and isFree and possessAvailable and canPossess:
-		particlesOut.emitting = true
+		particlesIn.emitting = true
 		possess()
 	
 	if Input.is_action_just_pressed("space")\
 	 and isPossessing and vacateAvailable:
+		particlesOut.emitting = true
 		vacate()
 	
 	updatePlayerStamina()

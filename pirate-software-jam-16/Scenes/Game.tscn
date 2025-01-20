@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=4 uid="uid://dvlrm7wsc6wk1"]
+[gd_scene load_steps=15 format=4 uid="uid://dvlrm7wsc6wk1"]
 
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ipi6q"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_8o420"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="3_dp3ik"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_xu7bf"]
 [ext_resource type="Texture2D" uid="uid://bqcjgqthjo3wp" path="res://Assets/campfire.png" id="4_273o8"]
+[ext_resource type="PackedScene" uid="uid://bv0pn0x3edqlq" path="res://Scenes/ThrowUI.tscn" id="6_ivb42"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -96,3 +97,6 @@ sprite_frames = SubResource("SpriteFrames_8hpci")
 
 [node name="Sword" parent="." instance=ExtResource("3_dp3ik")]
 position = Vector2(16, 11)
+
+[node name="ThrowUI" parent="." instance=ExtResource("6_ivb42")]
+position = Vector2(-89, 6)
