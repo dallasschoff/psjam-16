@@ -6,6 +6,7 @@ extends Node2D
 @onready var particles = $AnimatedSprite2D/CPUParticles2D
 
 var possessed = false
+var thrown : bool
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SignalBus.can_possess.connect(_can_be_possessed)
@@ -18,14 +19,24 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if possessed:
-		if Input.is_action_pressed("up") or Input.is_action_pressed("left"):
-			animated_sprite.rotation -= 0.2
-		if Input.is_action_pressed("down") or Input.is_action_pressed("right"):
-			animated_sprite.rotation += 0.2
-		#rotation = clamp(rotation, -90, 150)
+		if not Input.is_action_pressed("enter"):
+			if Input.is_action_pressed("up") or Input.is_action_pressed("left"):
+				animated_sprite.rotation -= 0.2
+			if Input.is_action_pressed("down") or Input.is_action_pressed("right"):
+				animated_sprite.rotation += 0.2
+		
+		if Input.is_action_pressed("enter") and not thrown:
+			_throwing()
+		else:
+			$ThrowUI.visible = false
+		
+		if Input.is_action_just_released("enter") and not thrown:
+			_throw()
+
+##Possession functions ##
 
 func _can_be_possessed():
-	if possessed == false:
+	if possessed == false and not thrown:
 		anim_player.play("can_be_possessed")
 		create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
 		pass
@@ -44,6 +55,16 @@ func _possessed():
 
 func _vacated():
 	possessed = false
+	$ThrowUI.visible = false
 	particles.emitting = false
 	await get_tree().create_timer(0.5).timeout
 	anim_player.play("can_be_possessed")
+
+##Throwing functions##
+
+func _throwing():
+	$ThrowUI.visible = true
+
+func _throw():
+	anim_player.play("throw")
+	thrown = true

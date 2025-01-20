@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxtaajlr4m4n4"
-path="res://.godot/imported/arrow.png-57f8c059c3343415ea6369e587d21c52.ctex"
+uid="uid://dufffopdqq2dp"
+path="res://.godot/imported/orcshadow.png-b384a9d6cbb7ff75ccd50fe6eb105189.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/arrow.png"
-dest_files=["res://.godot/imported/arrow.png-57f8c059c3343415ea6369e587d21c52.ctex"]
+source_file="res://Assets/orcshadow.png"
+dest_files=["res://.godot/imported/orcshadow.png-b384a9d6cbb7ff75ccd50fe6eb105189.ctex"]
 
 [params]
 

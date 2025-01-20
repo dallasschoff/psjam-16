@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv0pn0x3edqlq"]
+[gd_scene load_steps=8 format=3 uid="uid://bv0pn0x3edqlq"]
 
 [ext_resource type="Script" path="res://Scripts/throwUI.gd" id="1_hyhhw"]
-[ext_resource type="Texture2D" uid="uid://bx3begy8edg7q" path="res://Assets/arrow.png" id="2_p2w7a"]
+[ext_resource type="Texture2D" uid="uid://cxtaajlr4m4n4" path="res://Assets/arrow.png" id="2_p2w7a"]
+[ext_resource type="Texture2D" uid="uid://bnkeqc5if0xrx" path="res://Assets/dot.png" id="3_ux7yl"]
+[ext_resource type="Texture2D" uid="uid://bmgkienwj1evo" path="res://Assets/controller.png" id="4_rn78q"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2tiol"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhv2h"]
 atlas = ExtResource("2_p2w7a")
 region = Rect2(0, 0, 16, 16)
 
@@ -11,15 +13,43 @@ region = Rect2(0, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2tiol")
+"texture": SubResource("AtlasTexture_mhv2h")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_paivd"]
+radius = 2.23607
+
 [node name="ThrowUI" type="Node2D"]
+z_index = 1
 script = ExtResource("1_hyhhw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Arrow" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7pvgu")
+offset = Vector2(-17, 0)
+
+[node name="Dot" type="Sprite2D" parent="."]
+texture = ExtResource("3_ux7yl")
+
+[node name="Controller" type="CharacterBody2D" parent="."]
+position = Vector2(0, 15)
+collision_layer = 128
+collision_mask = 128
+
+[node name="Sprite2D" type="Sprite2D" parent="Controller"]
+texture = ExtResource("4_rn78q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Controller"]
+shape = SubResource("CircleShape2D_paivd")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-48, -43)
+scale = Vector2(4, 4)
+polygon = PackedVector2Array(0, 0, 24, 0, 17, 6, 12, 4.5, 7, 6, 5.75, 10.75, 7, 16, 12, 17.25, 17, 16, 18.25, 10.75, 17, 6, 24, 0, 24, 22, 0, 22)

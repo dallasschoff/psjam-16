@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dlq3qb87jnxby"]
+[gd_scene load_steps=11 format=3 uid="uid://dlq3qb87jnxby"]
 
 [ext_resource type="Script" path="res://Scripts/orc.gd" id="1_oeyq7"]
 [ext_resource type="Texture2D" uid="uid://0ps4idsffkkm" path="res://Assets/Orc.png" id="1_q41oy"]
 [ext_resource type="PackedScene" uid="uid://7q0wmfw8tjbw" path="res://Scenes/Components/HurtboxComponent.tscn" id="2_vc6gh"]
 [ext_resource type="PackedScene" uid="uid://da3k14i54lb2q" path="res://Scenes/Components/HealthComponent.tscn" id="3_kuk6f"]
 [ext_resource type="PackedScene" uid="uid://b25a1cg647tcp" path="res://Scenes/Components/HealthBar.tscn" id="4_yw3jb"]
+[ext_resource type="Texture2D" uid="uid://dufffopdqq2dp" path="res://Assets/orcshadow.png" id="6_m011b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6ilw"]
 
@@ -31,6 +32,12 @@ script = ExtResource("1_oeyq7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_j6ilw")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.278431)
+position = Vector2(-3, 7)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_m011b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dgpvf")

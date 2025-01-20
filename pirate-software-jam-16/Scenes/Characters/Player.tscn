@@ -1,7 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://b78fkf0mi430r"]
+[gd_scene load_steps=35 format=3 uid="uid://b78fkf0mi430r"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_q5a3x"]
 [ext_resource type="Texture2D" uid="uid://bnkhu8ye3wg0e" path="res://Assets/sprite.png" id="1_rd32p"]
+[ext_resource type="Texture2D" uid="uid://b51ula0lrxrbn" path="res://Assets/circle.png" id="3_5qy5l"]
 [ext_resource type="Texture2D" uid="uid://loo7xmsmt12j" path="res://Assets/circle_progress_bar.png" id="3_5v7sj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8l2lu"]
@@ -198,6 +199,13 @@ shape = SubResource("CircleShape2D_8l2lu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_md7ro")
+
+[node name="Drop Shadow" type="Sprite2D" parent="AnimatedSprite2D"]
+modulate = Color(0, 0, 0, 0.278431)
+z_index = -1
+position = Vector2(0, 13)
+scale = Vector2(1.2, 0.6)
+texture = ExtResource("3_5qy5l")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
