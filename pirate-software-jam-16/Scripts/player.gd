@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 # Possession variables
 var possessCooldownTimer: Timer
@@ -22,8 +23,11 @@ var tempMaxSpeed = 120.0
 @onready var particlesIn = $CPUParticles2D2
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
+var interactionArea : Area2D
 
 func _ready():
+	Global.player = self
+	Global.stamina = $StaminaBar
 	animation_tree.active = true
 
 	# Setting stamina values
@@ -42,8 +46,8 @@ func _ready():
 	vacateCooldownTimer.connect("timeout",onVacateCooldownTimeout)
 	add_child(vacateCooldownTimer)
 
-	SignalBus.can_possess.connect(_can_possess)
-	SignalBus.cannot_possess.connect(_cannot_possess)
+	SignalBus.can_possess.connect(_can_possess) #Emitted by interactionArea
+	SignalBus.cannot_possess.connect(_cannot_possess) #Emitted by interactionArea
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -109,6 +113,9 @@ func vacate():
 	isFree = true
 	possessAvailable = false
 	possessCooldownTimer.start()
+	#Moves the player up when vacating
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", (position+Vector2(-5,-5)), 0.4)
 	print('v')
 
 func onPossessCooldownTimeout():
@@ -119,10 +126,12 @@ func onVacateCooldownTimeout():
 	vacateAvailable = true
 	print('can v')
 
-func _can_possess():
+func _can_possess(interactionArea):
 	canPossess = true
+	interactionArea.get_parent()
+	print(interactionArea)
 
-func _cannot_possess():
+func _cannot_possess(interactionArea):
 	canPossess = false
 
 func update_animation_parameters():
