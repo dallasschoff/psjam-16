@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dwoejeo4nfi3l"]
+[gd_scene load_steps=19 format=3 uid="uid://dwoejeo4nfi3l"]
 
 [ext_resource type="Script" path="res://Scripts/sword.gd" id="1_yy2bn"]
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="2_2v6cb"]
@@ -110,6 +110,33 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_chvvk"]
+resource_name = "stop_fx"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_6vt4e"]
 resource_name = "throw"
 tracks/0/type = "value"
@@ -161,66 +188,13 @@ tracks/3/keys = {
 "values": [0.0, 2.61799, 5.23599, 5.75435, 0.354302, 0.352556]
 }
 
-[sub_resource type="Animation" id="Animation_2lykh"]
-resource_name = "up"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
-
-[sub_resource type="Animation" id="Animation_chvvk"]
-resource_name = "stop_fx"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f4f76"]
 _data = {
 "RESET": SubResource("Animation_uwbi7"),
 "can_be_possessed": SubResource("Animation_8bfcv"),
 "stop_fx": SubResource("Animation_chvvk"),
-"throw": SubResource("Animation_6vt4e"),
-"up": SubResource("Animation_2lykh")
+"throw": SubResource("Animation_6vt4e")
 }
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n7xx0"]
-play_mode = 1
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_r11rg"]
-graph_offset = Vector2(-139.897, 32.5233)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_n7xx0")
-nodes/Animation/position = Vector2(40, 120)
-nodes/output/position = Vector2(220, 160)
-node_connections = [&"output", 0, &"Animation"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_btjrv"]
 atlas = ExtResource("5_0woc7")
@@ -273,10 +247,6 @@ visible = false
 libraries = {
 "": SubResource("AnimationLibrary_f4f76")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendTree_r11rg")
-anim_player = NodePath("../AnimationPlayer")
 
 [node name="Text" type="AnimatedSprite2D" parent="."]
 position = Vector2(4, -25)

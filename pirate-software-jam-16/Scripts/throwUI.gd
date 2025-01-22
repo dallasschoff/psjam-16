@@ -19,11 +19,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	arrow.look_at(controller.global_position)
 	controller.look_at(global_position)
-	#angle_to = arrow.get_angle_to(dot.global_position)
-	#arrow.rotation = angle_to - 90
-	#print(angle_to)
-
-	
+	#Gets arrow rotation less than 360, to be used for throw angle
+	if arrow.rotation_degrees >= 0: 
+		Global.throw_angle = (fmod(arrow.rotation_degrees, 360.0))
+		print(fmod(arrow.rotation_degrees, 360.0))
+	else:
+		Global.throw_angle = (fmod(arrow.rotation_degrees,-360.0))
+		print(fmod(arrow.rotation_degrees, -360.0))
 	
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.

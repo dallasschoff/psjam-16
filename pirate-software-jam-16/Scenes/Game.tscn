@@ -88,11 +88,17 @@ tile_set = SubResource("TileSet_ngq5j")
 position = Vector2(-135, -5)
 
 [node name="Orc" parent="." instance=ExtResource("3_xu7bf")]
-position = Vector2(40, 10)
+position = Vector2(130, -15)
+
+[node name="Orc2" parent="." instance=ExtResource("3_xu7bf")]
+position = Vector2(-94, -17)
+
+[node name="Sword" parent="." instance=ExtResource("3_dp3ik")]
+position = Vector2(8, -12)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(15, 18)
 sprite_frames = SubResource("SpriteFrames_8hpci")
 
-[node name="Sword" parent="." instance=ExtResource("3_dp3ik")]
-position = Vector2(-82, 13)
+[node name="Orc3" parent="." instance=ExtResource("3_xu7bf")]
+position = Vector2(64, -6)
