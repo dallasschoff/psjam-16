@@ -8,9 +8,12 @@ extends Node2D
 @onready var throwUI = $ThrowUI
 @onready var text = $Text
 
+@export var throwRatioVH = 0.6
+
 var possessed = false
 var thrown : bool
 var wielded : bool
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -86,22 +89,68 @@ func _throw():
 	thrown = true
 	if Global.throw_angle == null:
 		pass
-	if abs(Global.throw_angle) < 215 and abs(Global.throw_angle) > 145:
+	else:
+	#if abs(Global.throw_angle) < 215 and abs(Global.throw_angle) > 145:
+		
+		#Getting throw information
+		var throwTweenValues = throwCalc(1,Global.throw_angle)
+		var horzTweens = throwTweenValues[0]
+		var vertTweens = throwTweenValues[1]
+		
 		#Right facing throw
 		var tween = get_tree().create_tween()
-		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(66,-23)), 0.3)
-		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(105,-5)), 0.1667)
-		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(112, 5)), 0.067)
-		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(115, 5)), 0.067)
+		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(66,-23)), 0.3)
+		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(105,-5)), 0.1667)
+		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(112, 5)), 0.067)
+		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(115, 5)), 0.067)
+		
+		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[0], vertTweens[0])), 0.3)
+		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[1], vertTweens[1])), 0.1667)
+		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[2], vertTweens[2])), 0.067)
+		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[3], vertTweens[3])), 0.067)
+		
+		
 		var tween2 = get_tree().create_tween()
 		tween2.tween_property(animated_sprite, "rotation", (animated_sprite.rotation + 7.5), 0.6)
-	if abs(Global.throw_angle) < 35 and abs(Global.throw_angle) >=0\
-	or abs(Global.throw_angle) > 325 and abs(Global.throw_angle) < 360:
-		#Left facing throw
-		var tween = get_tree().create_tween()
-		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-66,-23)), 0.3)
-		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-105,-5)), 0.1667)
-		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-112, 5)), 0.067)
-		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-115, 5)), 0.067)
-		var tween2 = get_tree().create_tween()
-		tween2.tween_property(animated_sprite, "rotation", (animated_sprite.rotation - 7.5), 0.6)
+	#if abs(Global.throw_angle) < 35 and abs(Global.throw_angle) >=0\
+	#or abs(Global.throw_angle) > 325 and abs(Global.throw_angle) < 360:
+		##Left facing throw
+		#var tween = get_tree().create_tween()
+		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-66,-23)), 0.3)
+		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-105,-5)), 0.1667)
+		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-112, 5)), 0.067)
+		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-115, 5)), 0.067)
+		#var tween2 = get_tree().create_tween()
+		#tween2.tween_property(animated_sprite, "rotation", (animated_sprite.rotation - 7.5), 0.6)
+
+func throwCalc(throwStrength,throwAngle) -> Array:
+	# If fully throwing in the x-direction, we know exactly how far to throw
+	# However, if we are throwing partially or fully in the y-direction, we need to scale this amount down to account for window height
+	# We also want to make the calculation process abstracted, such that we can allow for variable throw strength
+	
+	# Defining default throw distances
+	var initialT = [66,105,112,115]
+	
+	# Splitting angle into horizontal and vertical components (magnitudes)
+	var horzMag = cos(deg_to_rad(throwAngle))
+	var vertMag = sin(deg_to_rad(throwAngle))
+	
+	# Scaling values appropriately given input direction
+	var horzScaled = initialT.map(func(i): return i*horzMag)
+	var vertScaled = initialT.map(func(i): return i*vertMag)
+	
+	# Getting scaler value for shortening due to vertical component of throw
+	var directionScalar = sqrt((horzMag**2) + ((throwRatioVH*vertMag)**2))
+	
+	# Applying scaler to throw tween values
+	# Multiply by -1 to correct direction
+	var horzTweens = horzScaled.map(func(i): return -i*directionScalar*throwStrength)
+	var vertTweens = vertScaled.map(func(i): return -i*directionScalar*throwStrength)
+	
+	return [horzTweens,vertTweens]
+	
+	
+	
+	
+	
+	
