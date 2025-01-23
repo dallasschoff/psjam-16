@@ -21,7 +21,7 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("1_q41oy")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bj207"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_efi84"]
 atlas = ExtResource("1_q41oy")
 region = Rect2(64, 0, 32, 32)
 
@@ -38,7 +38,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_a218n")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bj207")
+"texture": SubResource("AtlasTexture_efi84")
 }],
 "loop": true,
 "name": &"walk",
@@ -64,6 +64,7 @@ texture = ExtResource("6_m011b")
 sprite_frames = SubResource("SpriteFrames_dgpvf")
 animation = &"walk"
 autoplay = "walk"
+frame_progress = 0.512561
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "entity") instance=ExtResource("2_vc6gh")]
 health_component = NodePath("../HealthComponent")

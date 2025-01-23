@@ -28,10 +28,58 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if possessed:
 		if not Input.is_action_pressed("enter"):
-			if Input.is_action_pressed("up") or Input.is_action_pressed("left"):
-				animated_sprite.rotation -= 0.2
-			if Input.is_action_pressed("down") or Input.is_action_pressed("right"):
-				animated_sprite.rotation += 0.2
+			if Input.is_action_pressed("left"):
+				#Flip things left if pressed left
+				animated_sprite.scale.x = -1
+				shadow.scale.x = -1
+				#Chop left
+				var tween = get_tree().create_tween()
+				tween.tween_property(animated_sprite, "rotation_degrees", 100, 0.1)
+				tween.tween_property(animated_sprite, "rotation_degrees", -120, 0.08)
+				tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
+				var tween2 = get_tree().create_tween()
+				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-10,0)), 0.08)
+			if Input.is_action_pressed("right"):
+				#Flip things right if pressed right
+				animated_sprite.scale.x = 1
+				shadow.scale.x = 1
+				#Chop right
+				var tween = get_tree().create_tween()
+				tween.tween_property(animated_sprite, "rotation_degrees", -100, 0.1)
+				tween.tween_property(animated_sprite, "rotation_degrees", 120, 0.08)
+				tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
+				var tween2 = get_tree().create_tween()
+				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(10,0)), 0.08)
+			if Input.is_action_pressed("up"):
+				#Flip things right if pressed up
+				animated_sprite.scale.x = 1
+				shadow.scale.x = 1
+				#Chop up
+				var tween = get_tree().create_tween()
+				tween.tween_property(animated_sprite, "rotation_degrees", -190, 0.1)
+				tween.tween_property(animated_sprite, "rotation_degrees", 30, 0.08)
+				tween.tween_property(animated_sprite, "rotation_degrees", -90, 0.5)
+				var tween2 = get_tree().create_tween()
+				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,-10)), 0.08)
+			if Input.is_action_pressed("down"):
+				#Flip things right if pressed down
+				animated_sprite.scale.x = 1
+				shadow.scale.x = 1
+				#Chop down
+				var tween = get_tree().create_tween()
+				tween.tween_property(animated_sprite, "rotation_degrees", -10, 0.1)
+				tween.tween_property(animated_sprite, "rotation_degrees", 210, 0.08)
+				tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
+				var tween2 = get_tree().create_tween()
+				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,10)), 0.08)
+			#if Input.is_action_pressed("up") or Input.is_action_pressed("left"):
+				#animated_sprite.rotation -= 0.2
+			#if Input.is_action_pressed("down") or Input.is_action_pressed("right"):
+				#animated_sprite.rotation += 0.2
 		
 		if Input.is_action_pressed("enter"):
 			_throwing()
@@ -49,8 +97,8 @@ func _process(delta: float) -> void:
 	shadow.global_position = animated_sprite.global_position + Vector2(6, 16)
 	#Rotates shadow with sword
 	shadow.rotation = animated_sprite.rotation
-	
-##Possession functions ##
+
+##Possession functions##
 
 func _can_be_possessed(interactionArea):
 	if possessed == false:
@@ -84,7 +132,6 @@ func _throwing():
 	$ThrowUI.visible = true
 
 func _throw():
-	#anim_player.play("throw")
 	Global.stamina.value -= 1000
 	thrown = true
 	if Global.throw_angle == null:
@@ -99,11 +146,6 @@ func _throw():
 		
 		#Right facing throw
 		var tween = get_tree().create_tween()
-		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(66,-23)), 0.3)
-		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(105,-5)), 0.1667)
-		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(112, 5)), 0.067)
-		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(115, 5)), 0.067)
-		
 		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[0], vertTweens[0])), 0.3)
 		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[1], vertTweens[1])), 0.1667)
 		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[2], vertTweens[2])), 0.067)
@@ -112,16 +154,7 @@ func _throw():
 		
 		var tween2 = get_tree().create_tween()
 		tween2.tween_property(animated_sprite, "rotation", (animated_sprite.rotation + 7.5), 0.6)
-	#if abs(Global.throw_angle) < 35 and abs(Global.throw_angle) >=0\
-	#or abs(Global.throw_angle) > 325 and abs(Global.throw_angle) < 360:
-		##Left facing throw
-		#var tween = get_tree().create_tween()
-		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-66,-23)), 0.3)
-		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-105,-5)), 0.1667)
-		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-112, 5)), 0.067)
-		#tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-115, 5)), 0.067)
-		#var tween2 = get_tree().create_tween()
-		#tween2.tween_property(animated_sprite, "rotation", (animated_sprite.rotation - 7.5), 0.6)
+
 
 func throwCalc(throwStrength,throwAngle) -> Array:
 	# If fully throwing in the x-direction, we know exactly how far to throw
@@ -164,8 +197,3 @@ func throwCalc(throwStrength,throwAngle) -> Array:
 	var vertTweens = vertScaled.map(func(x): return -x*directionScalar*throwStrength)
 	
 	return [horzTweens,vertTweens]
-	
-	
-	
-	
-	
