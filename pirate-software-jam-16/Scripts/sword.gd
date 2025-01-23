@@ -130,25 +130,40 @@ func throwCalc(throwStrength,throwAngle) -> Array:
 	
 	# Defining default throw distances
 	var initialT = [66,105,112,115]
+	var arcAdjust = [-23,-5,5,5]
 	
 	# Splitting angle into horizontal and vertical components (magnitudes)
 	var horzMag = cos(deg_to_rad(throwAngle))
 	var vertMag = sin(deg_to_rad(throwAngle))
 	
+	# Getting if throw is going to the left or right
+	var throwSide = 0
+	if horzMag >= 0:
+		throwSide = -1 # right
+	else:
+		throwSide = 1 # left
+	
 	# Scaling values appropriately given input direction
 	var horzScaled = initialT.map(func(i): return i*horzMag)
 	var vertScaled = initialT.map(func(i): return i*vertMag)
 	
+	# Calculating arc adjustment for throw
+	var arcHorz = arcAdjust.map(func(i): return i*horzMag)
+	var arcVert = arcAdjust.map(func(i): return i*vertMag)
+	
 	# Getting scaler value for shortening due to vertical component of throw
 	var directionScalar = sqrt((horzMag**2) + ((throwRatioVH*vertMag)**2))
 	
+	# Adding arc to vertical component of throw, accounting for throw direction
+	for i in 4:
+		vertScaled[i] = vertScaled[i] + throwSide*arcHorz[i]
+	
 	# Applying scaler to throw tween values
 	# Multiply by -1 to correct direction
-	var horzTweens = horzScaled.map(func(i): return -i*directionScalar*throwStrength)
-	var vertTweens = vertScaled.map(func(i): return -i*directionScalar*throwStrength)
+	var horzTweens = horzScaled.map(func(x): return -x*directionScalar*throwStrength)
+	var vertTweens = vertScaled.map(func(x): return -x*directionScalar*throwStrength)
 	
 	return [horzTweens,vertTweens]
-	
 	
 	
 	
