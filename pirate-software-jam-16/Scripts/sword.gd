@@ -13,7 +13,7 @@ extends Node2D
 var possessed = false
 var thrown : bool
 var wielded : bool
-
+@export var wielder : Orc
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -88,6 +88,9 @@ func _process(delta: float) -> void:
 		
 		if Input.is_action_just_released("enter"):
 			_throw()
+			
+	if wielder:
+		position = wielder._weapon_offsets()
 	
 	#Keeps throw UI with weapon. 
 	throwUI.global_position = animated_sprite.global_position + Vector2(6, -5)

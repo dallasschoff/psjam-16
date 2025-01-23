@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=4 uid="uid://dvlrm7wsc6wk1"]
+[gd_scene load_steps=15 format=4 uid="uid://dvlrm7wsc6wk1"]
 
-[ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ipi6q"]
-[ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_8o420"]
-[ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="3_dp3ik"]
-[ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_xu7bf"]
-[ext_resource type="Texture2D" uid="uid://bqcjgqthjo3wp" path="res://Assets/campfire.png" id="4_273o8"]
+[ext_resource type="Script" path="res://Scenes/level_one.gd" id="1_gyyw5"]
+[ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ovse1"]
+[ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_wiw32"]
+[ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_po1m7"]
+[ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="4_s5w5w"]
+[ext_resource type="Texture2D" uid="uid://bqcjgqthjo3wp" path="res://Assets/campfire.png" id="5_l4qr6"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -19,7 +20,7 @@ tile_data = PackedInt32Array(0, 2, 0, 65536, 2, 1, 131072, 2, 2, 1, 65538, 0, 65
 tile_data = PackedInt32Array(0, 196610, 0, 65536, 196610, 1, 1, 262146, 0, 65537, 262146, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dfmox"]
-texture = ExtResource("1_ipi6q")
+texture = ExtResource("1_ovse1")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -59,7 +60,7 @@ pattern_2 = SubResource("TileMapPattern_6qkqo")
 pattern_3 = SubResource("TileMapPattern_ijius")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uqdeo"]
-atlas = ExtResource("4_273o8")
+atlas = ExtResource("5_l4qr6")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8hpci"]
@@ -73,8 +74,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Game" type="Node2D"]
+[node name="Level" type="Node2D"]
 position = Vector2(-147, 1)
+script = ExtResource("1_gyyw5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -84,21 +86,19 @@ modulate = Color(0.827958, 0.848281, 0.993222, 1)
 tile_map_data = PackedByteArray("AAD7//z/AgAAAAEAAAD7//3/AgAAAAIAAAD7//7/AgABAAQAAAD7////AgABAAQAAAD7/wAAAgABAAQAAAD7/wEAAgABAAQAAAD8//z/AgABAAEAAAD8//3/AgABAAIAAAD8//7/AgAEAAQAAAD8////AgABAAQAAAD8/wAAAgABAAQAAAD8/wEAAgABAAQAAAD9//z/AgACAAEAAAD9//3/AgACAAIAAAD9/wEAAgAAAAEAAAD9/wIAAgADAAEAAAD9/wMAAgABAAQAAAD+//z/AgABAAQAAAD+//3/AgABAAQAAAD+/wIAAgABAAIAAAD+/wMAAgABAAQAAAD///z/AgAAAAIAAAD///3/AgABAAQAAAD//wIAAgABAAIAAAD//wMAAgABAAQAAAAAAPz/AgABAAMAAAAAAP3/AgABAAQAAAAAAAIAAgABAAIAAAAAAAMAAgABAAQAAAABAPz/AgABAAMAAAABAP3/AgABAAQAAAABAAIAAgABAAIAAAABAAMAAgABAAQAAAACAPz/AgABAAMAAAACAP3/AgABAAQAAAACAP7/AgABAAAAAAACAP//AgAEAAIAAAACAAAAAgACAAQAAAACAAEAAgAEAAMAAAACAAIAAgABAAIAAAACAAMAAgAEAAQAAAADAPz/AgABAAMAAAADAP3/AgAEAAQAAAADAP7/AgAEAAAAAAADAP//AgACAAEAAAADAAAAAgACAAEAAAADAAEAAgACAAEAAAADAAIAAgAEAAEAAAADAAMAAgABAAQAAAAEAPz/AgACAAMAAAAEAP3/AgACAAQAAAAEAP7/AgACAAQAAAAEAP//AgACAAQAAAAEAAAAAgACAAQAAAAEAAEAAgACAAQAAAAEAAIAAgACAAQAAAAEAAMAAgACAAQAAAABAP//AgABAAMAAAABAAAAAgAEAAQAABABAAEAAgABAAUAAAD/////AgABAAMAAAD//wAAAgAEAAQAAAD//wEAAgABAAUAAAD+////AgADAAIAAAD+/wAAAgAAAAQAAAD+/wEAAgADAAMAAAAAAP//AgABAAMAAAAAAAAAAgABAAQAAAAAAAEAAgABAAUAAAD9/wAAAgAAAAEAAAD9////AgAAAAEAAAD9//7/AgADAAAAAAD+//7/AgABAAAAAAD///7/AgABAAAAAAAAAP7/AgABAAAAAAABAP7/AgABAAAAAAD7//v/AgAAAAAAAAD8//v/AgABAAAAAAD9//v/AgACAAAAAAD7/wIAAgADAAAAAAD7/wMAAgADAAEAAAD8/wIAAgAEAAAAAAD8/wMAAgAEAAEAAAA=")
 tile_set = SubResource("TileSet_ngq5j")
 
-[node name="Player" parent="." instance=ExtResource("2_8o420")]
+[node name="Player" parent="." instance=ExtResource("2_wiw32")]
 position = Vector2(-135, -5)
 
-[node name="Orc" parent="." instance=ExtResource("3_xu7bf")]
-position = Vector2(130, -15)
+[node name="Orc" parent="." groups=["Orcs"] instance=ExtResource("3_po1m7")]
+position = Vector2(-32, 13)
 
-[node name="Orc2" parent="." instance=ExtResource("3_xu7bf")]
-position = Vector2(-94, -17)
+[node name="Orc2" parent="." instance=ExtResource("3_po1m7")]
+position = Vector2(64, 13)
 
-[node name="Sword" parent="." instance=ExtResource("3_dp3ik")]
-position = Vector2(8, -12)
+[node name="Sword" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_s5w5w")]
+position = Vector2(-32, 13)
+wielder = NodePath("../Orc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(15, 18)
 sprite_frames = SubResource("SpriteFrames_8hpci")
-
-[node name="Orc3" parent="." instance=ExtResource("3_xu7bf")]
-position = Vector2(64, -6)

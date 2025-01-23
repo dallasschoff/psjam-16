@@ -237,7 +237,6 @@ size = Vector2(4.24264, 13.5355)
 radius = 20.0
 
 [node name="Sword" type="Node2D"]
-z_index = 1
 script = ExtResource("1_yy2bn")
 
 [node name="ThrowUI" parent="." instance=ExtResource("2_q63d0")]

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://66ff0xl5xvsn"]
+[gd_scene load_steps=2 format=3 uid="uid://66ff0xl5xvsn"]
+
+[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_ttkwm"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ttkwm")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -31,15 +34,18 @@ alignment = 1
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 120
 text = "PS Jam 16"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Start Button" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 40
 text = "Start"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Start Button" to="." method="_on_start_button_pressed"]

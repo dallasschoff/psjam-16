@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pirate Software Jam 16"
-run/main_scene="res://Scenes/Game.tscn"
+run/main_scene="res://Scenes/Master.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -22,9 +22,11 @@ Global="*res://Scripts/global.gd"
 
 [display]
 
-window/size/viewport_width=1600
-window/size/viewport_height=1200
 window/stretch/mode="viewport"
+
+[global_group]
+
+Orcs="Orc entities on any given level"
 
 [input]
 

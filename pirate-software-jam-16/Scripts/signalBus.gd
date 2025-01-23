@@ -1,5 +1,6 @@
 extends Node
 
+signal start_game
 signal change_level(level)
 
 #Emitted by interaction areas, connected in player and weapon
