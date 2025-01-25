@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	var direction_lr := Input.get_axis("left", "right")
 	if direction_lr:
 		# Calculating frame-adjusted velocity
-		angle += direction_lr * radialSpeed * get_process_delta_time()
+		angle -= direction_lr * radialSpeed * get_process_delta_time()
 		
 		# Setting position
 		controller.position.x = distanceFrom * cos(angle)
