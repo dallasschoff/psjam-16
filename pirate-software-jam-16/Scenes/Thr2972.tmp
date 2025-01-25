@@ -44,3 +44,12 @@ texture = ExtResource("4_rn78q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Controller"]
 shape = SubResource("CircleShape2D_paivd")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-48, -43)
+scale = Vector2(4, 4)
+polygon = PackedVector2Array(0, 0, 24, 0, 17, 6, 12, 4.5, 7, 6, 5.75, 10.75, 7, 16, 12, 17.25, 17, 16, 18.25, 10.75, 17, 6, 24, 0, 24, 22, 0, 22)

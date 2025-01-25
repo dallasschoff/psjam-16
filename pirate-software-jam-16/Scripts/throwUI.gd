@@ -3,19 +3,17 @@ extends Node2D
 @onready var arrow = $Arrow
 @onready var controller = $Controller
 @onready var dot = $Dot
-var angle_to : float
 
-var direction
-@export var globalMaxSpeed = 120.0
-var tempMaxSpeed = 120.0
-@export var acceleration = 10.0
-@export var deceleration = 4.0
+@export var scalingSpeed = 1.5
+@export var radialSpeed = 10.0
+@export var innerLimit = 10
+@export var outerLimit = 40
+
+var angle = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	remove_child($StaticBody2D)
-	#pass # Replace with function body.
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -24,59 +22,39 @@ func _process(delta: float) -> void:
 	#Gets arrow rotation less than 360, to be used for throw angle
 	if arrow.rotation_degrees >= 0: 
 		Global.throw_angle = (fmod(arrow.rotation_degrees, 360.0))
-		#print(fmod(arrow.rotation_degrees, 360.0))
 	else:
 		Global.throw_angle = (fmod(arrow.rotation_degrees,-360.0))
-		#print(fmod(arrow.rotation_degrees, -360.0))
-	
+
+
 func _physics_process(delta: float) -> void:
-	# Getting distance from center of body
+	# Getting parameters from relative positions of dot and controller
 	var distanceFrom = controller.position.distance_to(dot.position)
-	var angleFrom = rad_to_deg(controller.position.angle_to_point(dot.position))
-	#print(distanceFrom)
-	#print(angleFrom)
+	var directionFrom = (controller.position - dot.position).normalized()
 	
-	var directionFrom = controller.position - dot.position
-	var angularMovementDirection = directionFrom.rotated(PI/2)
-	
-	# Get the input direction and handle the movement/deceleration.
-	# Horizontal movement
-	var anglingX = 0
-	var anglingY = 0
+	# Radial movement
 	var direction_lr := Input.get_axis("left", "right")
 	if direction_lr:
-		#controller.velocity.x = move_toward(controller.velocity.x, direction_lr * tempMaxSpeed, acceleration)
-		anglingY = move_toward(controller.velocity.y, direction_lr*angularMovementDirection.normalized().y * tempMaxSpeed, acceleration)
-		anglingX = move_toward(controller.velocity.x, direction_lr*angularMovementDirection.normalized().x * tempMaxSpeed, acceleration)
-	else:
-		#controller.velocity.x = move_toward(controller.velocity.x, 0, deceleration)
-		#controller.velocity.x = move_toward(controller.velocity.x, 0, deceleration)
-		#controller.velocity.y = move_toward(controller.velocity.y, 0, acceleration)
-		pass
+		# Calculating frame-adjusted velocity
+		angle += direction_lr * radialSpeed * get_process_delta_time()
+		
+		# Setting position
+		controller.position.x = distanceFrom * cos(angle)
+		controller.position.y = distanceFrom * sin(angle)
 	
-	# Vertical movement
-	var scalingX = 0
-	var scalingY = 0
+	# Scaling movement
 	var direction_ud := Input.get_axis("up", "down")
 	if direction_ud:
-		#controller.velocity.y = move_toward(controller.velocity.y, direction_ud * tempMaxSpeed, acceleration)
-		scalingX = move_toward(controller.velocity.x, -direction_ud*directionFrom.normalized().x * tempMaxSpeed, acceleration)
-		scalingY = move_toward(controller.velocity.y, -direction_ud*directionFrom.normalized().y * tempMaxSpeed, acceleration)
-		#controller.velocity.y = move_toward(controller.velocity.y, 0, acceleration)
-	else:
-		#controller.velocity.y = move_toward(controller.velocity.y, 0, deceleration)
-		#controller.velocity.x = move_toward(controller.velocity.y, 0, deceleration)
-		#controller.velocity.y = move_toward(controller.velocity.y, 0, deceleration)
-		pass
+		# Setting position
+		controller.position.x += direction_ud * directionFrom.x * scalingSpeed
+		controller.position.y += direction_ud * directionFrom.y * scalingSpeed
 	
-	# Summing velocity vectors in case of both simultaneous rotation and scaling
-	controller.velocity.x = anglingX + scalingX
-	controller.velocity.y = anglingY + scalingY
+	# Clamping scaling 
+	if controller.position.length() < innerLimit:
+		controller.position = controller.position.normalized() * innerLimit
+	controller.position = controller.position.limit_length(outerLimit)
 	
-	# Capping speed in case of diagonal movement
-	controller.velocity = controller.velocity.limit_length(tempMaxSpeed)
-	
-	# Defining overall movement direction for animations
-	direction = Input.get_vector("left","right","up","down")
+	# Updating throwing strength
+	#Global.throwStrength = (controller.position.length() - innerLimit)/(outerLimit-innerLimit)
+	Global.throwStrength = controller.position.length() / outerLimit
 	
 	controller.move_and_slide()

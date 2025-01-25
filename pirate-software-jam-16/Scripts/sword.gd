@@ -172,10 +172,8 @@ func _throw():
 	if Global.throw_angle == null:
 		pass
 	else:
-	#if abs(Global.throw_angle) < 215 and abs(Global.throw_angle) > 145:
-		
 		#Getting throw information
-		var throwTweenValues = throwCalc(1,Global.throw_angle)
+		var throwTweenValues = throwCalc(Global.throwStrength,Global.throw_angle)
 		var horzTweens = throwTweenValues[0]
 		var vertTweens = throwTweenValues[1]
 		
@@ -186,9 +184,14 @@ func _throw():
 		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[2], vertTweens[2])), 0.067)
 		tween.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(horzTweens[3], vertTweens[3])), 0.067)
 		
+		# Getting direction of throw in order to adjust spin direction
+		var spinDirection = 1
+		if horzTweens[0] < 0:
+			spinDirection = -1
 		
+		# Inducing spin
 		var tween2 = get_tree().create_tween()
-		tween2.tween_property(animated_sprite, "rotation", (animated_sprite.rotation + 7.5), 0.6)
+		tween2.tween_property(animated_sprite, "rotation", (animated_sprite.rotation + 7.5*spinDirection), 0.6)
 	
 	await get_tree().create_timer(0.4).timeout
 	sword_smear.visible = false
@@ -213,12 +216,12 @@ func throwCalc(throwStrength,throwAngle) -> Array:
 	var throwSide = 0
 	if horzMag >= 0:
 		throwSide = -1 # right
-		animated_sprite.scale.x = 1
-		shadow.scale.x = 1
-	else:
-		throwSide = 1 # left
 		animated_sprite.scale.x = -1
 		shadow.scale.x = -1
+	else:
+		throwSide = 1 # left
+		animated_sprite.scale.x = 1
+		shadow.scale.x = 1
 	
 	# Scaling values appropriately given input direction
 	var horzScaled = initialT.map(func(i): return i*horzMag)
