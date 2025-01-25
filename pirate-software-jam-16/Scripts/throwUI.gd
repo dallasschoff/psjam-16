@@ -13,7 +13,8 @@ var tempMaxSpeed = 120.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	remove_child($StaticBody2D)
+	#pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -46,8 +47,8 @@ func _physics_process(delta: float) -> void:
 	var direction_lr := Input.get_axis("left", "right")
 	if direction_lr:
 		#controller.velocity.x = move_toward(controller.velocity.x, direction_lr * tempMaxSpeed, acceleration)
-		anglingX = move_toward(controller.velocity.x, direction_lr*angularMovementDirection.normalized().x * tempMaxSpeed, acceleration)
 		anglingY = move_toward(controller.velocity.y, direction_lr*angularMovementDirection.normalized().y * tempMaxSpeed, acceleration)
+		anglingX = move_toward(controller.velocity.x, direction_lr*angularMovementDirection.normalized().x * tempMaxSpeed, acceleration)
 	else:
 		#controller.velocity.x = move_toward(controller.velocity.x, 0, deceleration)
 		#controller.velocity.x = move_toward(controller.velocity.x, 0, deceleration)
@@ -61,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	if direction_ud:
 		#controller.velocity.y = move_toward(controller.velocity.y, direction_ud * tempMaxSpeed, acceleration)
 		scalingX = move_toward(controller.velocity.x, -direction_ud*directionFrom.normalized().x * tempMaxSpeed, acceleration)
-		scalingY = move_toward(controller.velocity.x, -direction_ud*directionFrom.normalized().y * tempMaxSpeed, acceleration)
+		scalingY = move_toward(controller.velocity.y, -direction_ud*directionFrom.normalized().y * tempMaxSpeed, acceleration)
 		#controller.velocity.y = move_toward(controller.velocity.y, 0, acceleration)
 	else:
 		#controller.velocity.y = move_toward(controller.velocity.y, 0, deceleration)
