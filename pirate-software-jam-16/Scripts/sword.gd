@@ -16,7 +16,9 @@ var possessed = false
 var thrown : bool = false
 var wielded : bool
 var chop_cooldown: Timer
-var can_chop: bool = true
+var chopAvailable: bool = true
+var throw_cooldown: Timer
+var throwAvailable: bool = true
 var flash_and_grow_timer: Timer
 var sword_flash_and_grow: bool = false
 @export var tug: Vector2
@@ -34,6 +36,11 @@ func _ready() -> void:
 	chop_cooldown.one_shot = true
 	chop_cooldown.connect("timeout", _reset_chop)
 	add_child(chop_cooldown)
+	throw_cooldown = Timer.new()
+	throw_cooldown.wait_time = 1.0
+	throw_cooldown.one_shot = true
+	throw_cooldown.connect("timeout", _reset_throw)
+	add_child(throw_cooldown)
 	flash_and_grow_timer = Timer.new()
 	flash_and_grow_timer.wait_time = 1.0
 	flash_and_grow_timer.one_shot = false
@@ -51,7 +58,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if possessed:
 		##Chopping
-		if not Input.is_action_pressed("enter") and can_chop:
+		if not Input.is_action_pressed("enter") and chopAvailable and throwAvailable:
 			if Input.is_action_pressed("left"):
 				#Flip things left if pressed left
 				animated_sprite.scale.x = -1
@@ -107,7 +114,7 @@ func _process(delta: float) -> void:
 			##Sword smear and stamina
 			if (Input.is_action_just_released("left") or Input.is_action_just_released("right")
 			or Input.is_action_just_released("down") or Input.is_action_just_released("up")):
-				can_chop = false
+				chopAvailable = false
 				chop_cooldown.start()
 				await get_tree().create_timer(0.1).timeout
 				sword_smear.visible = true
@@ -120,8 +127,12 @@ func _process(delta: float) -> void:
 		else:
 			$ThrowUI.visible = false
 		##Throwing
-		if Input.is_action_just_released("enter"):
+		if Input.is_action_just_released("enter") and throwAvailable:
 			_throw()
+			chopAvailable = false
+			chop_cooldown.start()
+			throwAvailable = false
+			throw_cooldown.start()
 			
 		if wielder != null and not thrown:
 			wielder._weapon_drag(position + animated_sprite.position + wielder._weapon_offsets())
@@ -136,7 +147,10 @@ func _process(delta: float) -> void:
 	shadow.rotation = animated_sprite.rotation
 
 func _reset_chop():
-	can_chop = true
+	chopAvailable = true
+	
+func _reset_throw():
+	throwAvailable = true
 
 ##Possession functions##
 func _unassign_wielder():
