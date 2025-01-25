@@ -184,8 +184,12 @@ func throwCalc(throwStrength,throwAngle) -> Array:
 	var throwSide = 0
 	if horzMag >= 0:
 		throwSide = -1 # right
+		animated_sprite.scale.x = 1
+		shadow.scale.x = 1
 	else:
 		throwSide = 1 # left
+		animated_sprite.scale.x = -1
+		shadow.scale.x = -1
 	
 	# Scaling values appropriately given input direction
 	var horzScaled = initialT.map(func(i): return i*horzMag)
