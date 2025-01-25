@@ -4,7 +4,8 @@ extends Node2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var shadow = $Shadow
 @onready var text_sprite = $Text
-@onready var particles = $AnimatedSprite2D/CPUParticles2D
+@onready var possess_particles = $AnimatedSprite2D/PossessParticles
+@onready var sword_smear = $AnimatedSprite2D/SwordSmear
 @onready var throwUI = $ThrowUI
 @onready var text = $Text
 
@@ -27,12 +28,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if possessed:
+		##Chopping
 		if not Input.is_action_pressed("enter"):
 			if Input.is_action_pressed("left"):
 				#Flip things left if pressed left
 				animated_sprite.scale.x = -1
 				shadow.scale.x = -1
-				#Chop left
+				##Chop left
 				var tween = get_tree().create_tween()
 				tween.tween_property(animated_sprite, "rotation_degrees", 100, 0.1)
 				tween.tween_property(animated_sprite, "rotation_degrees", -120, 0.08)
@@ -44,7 +46,7 @@ func _process(delta: float) -> void:
 				#Flip things right if pressed right
 				animated_sprite.scale.x = 1
 				shadow.scale.x = 1
-				#Chop right
+				##Chop right
 				var tween = get_tree().create_tween()
 				tween.tween_property(animated_sprite, "rotation_degrees", -100, 0.1)
 				tween.tween_property(animated_sprite, "rotation_degrees", 120, 0.08)
@@ -56,7 +58,7 @@ func _process(delta: float) -> void:
 				#Flip things right if pressed up
 				animated_sprite.scale.x = 1
 				shadow.scale.x = 1
-				#Chop up
+				##Chop up
 				var tween = get_tree().create_tween()
 				tween.tween_property(animated_sprite, "rotation_degrees", -190, 0.1)
 				tween.tween_property(animated_sprite, "rotation_degrees", 30, 0.08)
@@ -68,7 +70,7 @@ func _process(delta: float) -> void:
 				#Flip things right if pressed down
 				animated_sprite.scale.x = 1
 				shadow.scale.x = 1
-				#Chop down
+				##Chop down
 				var tween = get_tree().create_tween()
 				tween.tween_property(animated_sprite, "rotation_degrees", -10, 0.1)
 				tween.tween_property(animated_sprite, "rotation_degrees", 210, 0.08)
@@ -76,16 +78,19 @@ func _process(delta: float) -> void:
 				var tween2 = get_tree().create_tween()
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,10)), 0.08)
-			#if Input.is_action_pressed("up") or Input.is_action_pressed("left"):
-				#animated_sprite.rotation -= 0.2
-			#if Input.is_action_pressed("down") or Input.is_action_pressed("right"):
-				#animated_sprite.rotation += 0.2
-		
+			##Sword smear and stamina
+			if Input.is_action_just_released("left") or Input.is_action_just_released("right")\
+			or Input.is_action_just_released("down") or Input.is_action_just_released("up"):
+				await get_tree().create_timer(0.1).timeout
+				sword_smear.visible = true
+				Global.stamina.value -= 500
+				await get_tree().create_timer(0.1).timeout
+				sword_smear.visible = false
 		if Input.is_action_pressed("enter"):
 			_throwing()
 		else:
 			$ThrowUI.visible = false
-		
+		##Throwing
 		if Input.is_action_just_released("enter"):
 			_throw()
 			
@@ -120,12 +125,12 @@ func _possessed():
 	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
 	anim_player.play("stop_fx")
 	await get_tree().create_timer(0.75).timeout
-	particles.emitting = true
+	possess_particles.emitting = true
 
 func _vacated():
 	possessed = false
 	$ThrowUI.visible = false
-	particles.emitting = false
+	possess_particles.emitting = false
 	await get_tree().create_timer(0.5).timeout
 	anim_player.play("can_be_possessed")
 
@@ -136,6 +141,7 @@ func _throwing():
 
 func _throw():
 	Global.stamina.value -= 1000
+	sword_smear.visible = true
 	thrown = true
 	if Global.throw_angle == null:
 		pass
@@ -157,7 +163,9 @@ func _throw():
 		
 		var tween2 = get_tree().create_tween()
 		tween2.tween_property(animated_sprite, "rotation", (animated_sprite.rotation + 7.5), 0.6)
-
+	
+	await get_tree().create_timer(0.4).timeout
+	sword_smear.visible = false
 
 func throwCalc(throwStrength,throwAngle) -> Array:
 	# If fully throwing in the x-direction, we know exactly how far to throw

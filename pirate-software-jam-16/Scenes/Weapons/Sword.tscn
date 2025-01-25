@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dwoejeo4nfi3l"]
+[gd_scene load_steps=20 format=3 uid="uid://dwoejeo4nfi3l"]
 
 [ext_resource type="Script" path="res://Scripts/sword.gd" id="1_yy2bn"]
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="2_2v6cb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/hitbox.gd" id="3_ieu20"]
 [ext_resource type="PackedScene" uid="uid://bb0y5fm38iw30" path="res://Scenes/Components/InteractionArea.tscn" id="4_553gn"]
 [ext_resource type="Texture2D" uid="uid://drb1k2q7j46jp" path="res://Assets/Text.png" id="5_0woc7"]
+[ext_resource type="Texture2D" uid="uid://kns3t8jy6e0" path="res://Assets/sword smear.png" id="5_fd4dv"]
 
 [sub_resource type="Animation" id="Animation_uwbi7"]
 length = 0.001
@@ -266,7 +267,7 @@ frame = 4
 sprite_frames = SubResource("SpriteFrames_xva1r")
 offset = Vector2(5, -5)
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="AnimatedSprite2D"]
+[node name="PossessParticles" type="CPUParticles2D" parent="AnimatedSprite2D"]
 position = Vector2(8, -5)
 emitting = false
 amount = 10
@@ -283,6 +284,12 @@ scale_amount_min = 0.5
 scale_amount_max = 1.5
 color = Color(0, 1, 1, 1)
 color_ramp = SubResource("Gradient_huv4d")
+
+[node name="SwordSmear" type="Sprite2D" parent="AnimatedSprite2D"]
+visible = false
+z_index = -1
+position = Vector2(5, -5)
+texture = ExtResource("5_fd4dv")
 
 [node name="Hitbox" type="Area2D" parent="AnimatedSprite2D"]
 position = Vector2(5, -5)
