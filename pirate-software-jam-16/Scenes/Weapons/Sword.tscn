@@ -235,7 +235,7 @@ colors = PackedColorArray(0.235294, 0.117647, 1, 1, 0.235294, 0.117647, 1, 1, 1,
 size = Vector2(4.24264, 13.5355)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3t5m"]
-radius = 20.0
+radius = 15.5563
 
 [node name="Sword" type="Node2D"]
 script = ExtResource("1_yy2bn")
@@ -307,7 +307,6 @@ shape = SubResource("RectangleShape2D_u4psu")
 position = Vector2(5, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/InteractionArea"]
-position = Vector2(-5, 5)
 rotation = 0.785398
 shape = SubResource("CircleShape2D_o3t5m")
 debug_color = Color(0.664119, 0.512489, 0, 0.42)

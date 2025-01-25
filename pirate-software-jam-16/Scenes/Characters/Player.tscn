@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://loo7xmsmt12j" path="res://Assets/circle_progress_bar.png" id="3_5v7sj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8l2lu"]
+radius = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8s1t2"]
 atlas = ExtResource("1_rd32p")

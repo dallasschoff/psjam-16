@@ -7,6 +7,7 @@ var bloodScene = load("res://Scenes/Blood.tscn")
 @onready var leftArm = $"Left Arm"
 @onready var rightArm = $"Right Arm"
 var weapon
+@export var left_handed : bool
 
 func _ready():
 	add_to_group("Orcs")
@@ -27,10 +28,15 @@ func _hit(attack_damage):
 	blood.global_position = global_position + Vector2(0, -5)
 
 func _die():
+	if weapon != null:
+		weapon._drop_weapon()
 	queue_free()
 
 func _weapon_offsets() -> Vector2:
-	return Vector2(-10, -5)
+	if left_handed:
+		return Vector2(10, -5)
+	else:
+		return Vector2 (-10, -5)
 
 func _weapon_drag(tug: Vector2) -> void:
 	var tween = get_tree().create_tween()

@@ -109,10 +109,11 @@ tile_set = SubResource("TileSet_ngq5j")
 position = Vector2(-89, 7)
 
 [node name="Orc" parent="." instance=ExtResource("3_4hdwt")]
-position = Vector2(-32, 12)
+position = Vector2(-11, 11)
 
 [node name="Orc2" parent="." instance=ExtResource("3_4hdwt")]
-position = Vector2(64, 10)
+position = Vector2(41, 11)
+left_handed = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(15, 18)
@@ -120,5 +121,10 @@ sprite_frames = SubResource("SpriteFrames_8hpci")
 
 [node name="Sword" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_5bx80")]
 z_as_relative = false
-position = Vector2(-22, 17)
+position = Vector2(-1, 16)
 wielder = NodePath("../Orc")
+
+[node name="Sword2" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_5bx80")]
+position = Vector2(31, 16)
+wielder = NodePath("../Orc2")
+flip_left = true

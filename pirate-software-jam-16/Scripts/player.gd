@@ -46,8 +46,23 @@ func _ready():
 	vacateCooldownTimer.connect("timeout",onVacateCooldownTimeout)
 	add_child(vacateCooldownTimer)
 
-	SignalBus.can_possess.connect(_can_possess) #Emitted by interactionArea
-	SignalBus.cannot_possess.connect(_cannot_possess) #Emitted by interactionArea
+func _process(delta):
+	#Possessing
+	if Input.is_action_just_pressed("space")\
+	 and isFree and possessAvailable and canPossess:
+		particlesIn.emitting = true
+		possess()
+	
+	if Input.is_action_just_pressed("space")\
+	 and isPossessing and vacateAvailable:
+		particlesOut.emitting = true
+		vacate()
+	
+	if interactionArea != null and isPossessing and vacateAvailable:
+		position = interactionArea.global_position + Vector2(148,0)
+		
+	updatePlayerStamina()
+	update_animation_parameters()
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -73,21 +88,6 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func _process(delta):
-	#Possessing
-	if Input.is_action_just_pressed("space")\
-	 and isFree and possessAvailable and canPossess:
-		particlesIn.emitting = true
-		possess()
-	
-	if Input.is_action_just_pressed("space")\
-	 and isPossessing and vacateAvailable:
-		particlesOut.emitting = true
-		vacate()
-	
-	updatePlayerStamina()
-	update_animation_parameters()
-
 func updatePlayerStamina():
 	direction = Input.get_vector("left","right","up","down")
 	
@@ -96,21 +96,24 @@ func updatePlayerStamina():
 		
 
 func possess():
-	SignalBus.possessed.emit() #Connects to weapon.gd
+	interactionArea.root._possessed()
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", (interactionArea.global_position + Vector2(148,0)), 0.4)
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",0,0.5)
 	tempMaxSpeed = 0
 	isPossessing = true
 	isFree = false
 	vacateAvailable = false
 	vacateCooldownTimer.start()
-		
+
 func vacate():
-	SignalBus.vacated.emit() #Connects to weapon.gd
+	interactionArea.root._vacated()
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",1,0.25)
 	tempMaxSpeed = globalMaxSpeed
 	isPossessing = false
 	isFree = true
 	possessAvailable = false
+	canPossess = true
 	possessCooldownTimer.start()
 	#Moves the player up when vacating
 	var tween = get_tree().create_tween()
@@ -122,12 +125,11 @@ func onPossessCooldownTimeout():
 func onVacateCooldownTimeout():
 	vacateAvailable = true
 
-func _can_possess(interactionArea):
-	canPossess = true
-	interactionArea.get_parent()
+func _can_possess(area):
+	if !isPossessing:
+		canPossess = true
+		interactionArea = area
 
-func _cannot_possess(interactionArea):
-	canPossess = false
 
 func update_animation_parameters():
 	animation_tree["parameters/conditions/idle"] = true if velocity == Vector2.ZERO else false

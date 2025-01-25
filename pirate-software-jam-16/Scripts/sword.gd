@@ -17,13 +17,15 @@ var thrown : bool = false
 var wielded : bool
 var chop_cooldown: Timer
 var can_chop: bool = true
+var flash_and_grow_timer: Timer
+var sword_flash_and_grow: bool = false
 @export var tug: Vector2
 @export var wielder : Orc
 
+@export var flip_left : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SignalBus.can_possess.connect(_can_be_possessed) #Emitted by interactionArea
-	SignalBus.cannot_possess.connect(_cannot_be_possessed) #Emitted by interactionArea
 	SignalBus.possessed.connect(_possessed) #Emitted by player
 	SignalBus.vacated.connect(_vacated) #Emitted by player
 	text_sprite.modulate = Color(1,1,1,0)
@@ -32,10 +34,18 @@ func _ready() -> void:
 	chop_cooldown.one_shot = true
 	chop_cooldown.connect("timeout", _reset_chop)
 	add_child(chop_cooldown)
+	flash_and_grow_timer = Timer.new()
+	flash_and_grow_timer.wait_time = 1.0
+	flash_and_grow_timer.one_shot = false
+	flash_and_grow_timer.connect("timeout", _test)
+	add_child(flash_and_grow_timer)
 	if wielder != null:
 		hitbox.wielder = wielder
 		wielder.weapon = self
 		wielder._weapon_drag(position + wielder._weapon_offsets())
+	if flip_left == true: 
+		animated_sprite.scale.x = -1
+		shadow.scale.x = -1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -125,7 +135,6 @@ func _process(delta: float) -> void:
 	#Rotates shadow with sword
 	shadow.rotation = animated_sprite.rotation
 
-
 func _reset_chop():
 	can_chop = true
 
@@ -134,22 +143,33 @@ func _unassign_wielder():
 	wielder = null
 	hitbox.wielder = null
 
-func _can_be_possessed(interactionArea):
+func _can_be_possessed():
 	if possessed == false:
-		anim_player.play("can_be_possessed")
+		#Appear text
 		create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
-		pass
+		#Make sword flash and grow
+		flash_and_grow_timer.start()
+		_sword_flash_and_grow()
+		#anim_player.play("can_be_possessed")
 
-func _cannot_be_possessed(interactionArea):
+func _cannot_be_possessed():
 	if possessed == false:
+		#Disappear text
 		create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
-		anim_player.play("stop_fx")
-		pass
+		#Stop sword flash and grow
+		flash_and_grow_timer.stop()
+		_reset_sword_flash_and_grow()
+		#anim_player.play("stop_fx")
 
 func _possessed():
 	possessed = true
+	#Disappear text
 	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
-	anim_player.play("stop_fx")
+	#Stop sword flash and grow
+	flash_and_grow_timer.stop()
+	_reset_sword_flash_and_grow()
+	#anim_player.play("stop_fx")
+	#Wait, then emit possess particles
 	await get_tree().create_timer(0.75).timeout
 	possess_particles.emitting = true
 
@@ -157,8 +177,11 @@ func _vacated():
 	possessed = false
 	$ThrowUI.visible = false
 	possess_particles.emitting = false
+	#Wait, then make sword flash and grow
 	await get_tree().create_timer(0.5).timeout
-	anim_player.play("can_be_possessed")
+	flash_and_grow_timer.start()
+	_sword_flash_and_grow()
+	#anim_player.play("can_be_possessed")
 
 ##Throwing functions##
 
@@ -244,3 +267,36 @@ func throwCalc(throwStrength,throwAngle) -> Array:
 	var vertTweens = vertScaled.map(func(x): return -x*directionScalar*throwStrength)
 	
 	return [horzTweens,vertTweens]
+
+func _test():
+	_reset_sword_flash_and_grow()
+	_sword_flash_and_grow()
+
+func _sword_flash_and_grow():
+	var sizeTween = get_tree().create_tween()
+	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale * 1.1, 0.125)
+	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale / 1.1, 0.25)
+	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale * 1.1, 0.25)
+	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale / 1.1, 0.25)
+	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale * 1.0, 0.125)
+	var modulateTween = get_tree().create_tween()
+	modulateTween.tween_property(animated_sprite, "modulate", Color.html("#6091ff"), 0.4)
+	modulateTween.tween_property(animated_sprite, "modulate", Color.WHITE, 0.6)
+	#_reset_sword_flash_and_grow()
+
+func _reset_sword_flash_and_grow():
+	if animated_sprite.scale.x < 0:
+		animated_sprite.scale = Vector2(-1,1)
+	if animated_sprite.scale.x > 0:
+		animated_sprite.scale = Vector2(1,1)
+
+func _drop_weapon():
+	pass
+	#var tween = get_tree().create_tween()
+	#tween.tween_property(animated_sprite, "position", animated_sprite.position + Vector2(0,10), 0.1)
+	#if animated_sprite.rotation < 0:
+		#var tween2 = get_tree().create_tween()
+		#tween2.tween_property(animated_sprite, "rotation_degrees", 45, 0.5)
+	#else: 
+		#var tween2 = get_tree().create_tween()
+		#tween2.tween_property(animated_sprite, "rotation_degrees", -160, 0.5)
