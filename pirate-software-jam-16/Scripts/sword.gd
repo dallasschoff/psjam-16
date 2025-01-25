@@ -13,7 +13,7 @@ extends Node2D
 @export var throwRatioVH = 0.6
 
 var possessed = false
-var thrown : bool
+var thrown : bool = false
 var wielded : bool
 var chop_cooldown: Timer
 var can_chop: bool = true
@@ -113,7 +113,7 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_released("enter"):
 			_throw()
 			
-		if wielder != null:
+		if wielder != null and not thrown:
 			wielder._weapon_drag(position + animated_sprite.position + wielder._weapon_offsets())
 	
 	#Keeps throw UI with weapon. 
@@ -131,7 +131,6 @@ func _reset_chop():
 
 ##Possession functions##
 func _unassign_wielder():
-	wielder.weapon = null
 	wielder = null
 	hitbox.wielder = null
 
