@@ -103,8 +103,7 @@ func possess():
 	isFree = false
 	vacateAvailable = false
 	vacateCooldownTimer.start()
-	print('p')
-	
+		
 func vacate():
 	SignalBus.vacated.emit() #Connects to weapon.gd
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",1,0.25)
@@ -116,20 +115,16 @@ func vacate():
 	#Moves the player up when vacating
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", (position+Vector2(-5,-5)), 0.4)
-	print('v')
 
 func onPossessCooldownTimeout():
 	possessAvailable = true
-	print('can p')
 
 func onVacateCooldownTimeout():
 	vacateAvailable = true
-	print('can v')
 
 func _can_possess(interactionArea):
 	canPossess = true
 	interactionArea.get_parent()
-	print(interactionArea)
 
 func _cannot_possess(interactionArea):
 	canPossess = false

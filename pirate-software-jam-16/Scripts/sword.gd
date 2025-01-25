@@ -8,12 +8,16 @@ extends Node2D
 @onready var sword_smear = $AnimatedSprite2D/SwordSmear
 @onready var throwUI = $ThrowUI
 @onready var text = $Text
+@onready var hitbox: Area2D = $AnimatedSprite2D/Hitbox
 
 @export var throwRatioVH = 0.6
 
 var possessed = false
 var thrown : bool
 var wielded : bool
+var chop_cooldown: Timer
+var can_chop: bool = true
+@export var tug: Vector2
 @export var wielder : Orc
 
 # Called when the node enters the scene tree for the first time.
@@ -23,13 +27,21 @@ func _ready() -> void:
 	SignalBus.possessed.connect(_possessed) #Emitted by player
 	SignalBus.vacated.connect(_vacated) #Emitted by player
 	text_sprite.modulate = Color(1,1,1,0)
-
+	chop_cooldown = Timer.new()
+	chop_cooldown.wait_time = 0.35
+	chop_cooldown.one_shot = true
+	chop_cooldown.connect("timeout", _reset_chop)
+	add_child(chop_cooldown)
+	if wielder != null:
+		hitbox.wielder = wielder
+		wielder.weapon = self
+		wielder._weapon_drag(position + wielder._weapon_offsets())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if possessed:
 		##Chopping
-		if not Input.is_action_pressed("enter"):
+		if not Input.is_action_pressed("enter") and can_chop:
 			if Input.is_action_pressed("left"):
 				#Flip things left if pressed left
 				animated_sprite.scale.x = -1
@@ -42,6 +54,7 @@ func _process(delta: float) -> void:
 				var tween2 = get_tree().create_tween()
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-10,0)), 0.08)
+				tug = Vector2(-10,0)
 			if Input.is_action_pressed("right"):
 				#Flip things right if pressed right
 				animated_sprite.scale.x = 1
@@ -54,6 +67,7 @@ func _process(delta: float) -> void:
 				var tween2 = get_tree().create_tween()
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(10,0)), 0.08)
+				tug = Vector2(10,0)
 			if Input.is_action_pressed("up"):
 				#Flip things right if pressed up
 				animated_sprite.scale.x = 1
@@ -66,6 +80,7 @@ func _process(delta: float) -> void:
 				var tween2 = get_tree().create_tween()
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,-10)), 0.08)
+				tug = Vector2(0,-10)
 			if Input.is_action_pressed("down"):
 				#Flip things right if pressed down
 				animated_sprite.scale.x = 1
@@ -78,14 +93,18 @@ func _process(delta: float) -> void:
 				var tween2 = get_tree().create_tween()
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
 				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,10)), 0.08)
+				tug = Vector2(0,10)
 			##Sword smear and stamina
-			if Input.is_action_just_released("left") or Input.is_action_just_released("right")\
-			or Input.is_action_just_released("down") or Input.is_action_just_released("up"):
+			if (Input.is_action_just_released("left") or Input.is_action_just_released("right")
+			or Input.is_action_just_released("down") or Input.is_action_just_released("up")):
+				can_chop = false
+				chop_cooldown.start()
 				await get_tree().create_timer(0.1).timeout
 				sword_smear.visible = true
 				Global.stamina.value -= 500
 				await get_tree().create_timer(0.1).timeout
 				sword_smear.visible = false
+		
 		if Input.is_action_pressed("enter"):
 			_throwing()
 		else:
@@ -94,8 +113,8 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_released("enter"):
 			_throw()
 			
-	if wielder:
-		position = wielder._weapon_offsets()
+		if wielder != null:
+			wielder._weapon_drag(position + animated_sprite.position + wielder._weapon_offsets())
 	
 	#Keeps throw UI with weapon. 
 	throwUI.global_position = animated_sprite.global_position + Vector2(6, -5)
@@ -106,7 +125,15 @@ func _process(delta: float) -> void:
 	#Rotates shadow with sword
 	shadow.rotation = animated_sprite.rotation
 
+
+func _reset_chop():
+	can_chop = true
+
 ##Possession functions##
+func _unassign_wielder():
+	wielder.weapon = null
+	wielder = null
+	hitbox.wielder = null
 
 func _can_be_possessed(interactionArea):
 	if possessed == false:
@@ -166,6 +193,9 @@ func _throw():
 	
 	await get_tree().create_timer(0.4).timeout
 	sword_smear.visible = false
+	await get_tree().create_timer(0.6).timeout
+	_unassign_wielder()
+
 
 func throwCalc(throwStrength,throwAngle) -> Array:
 	# If fully throwing in the x-direction, we know exactly how far to throw

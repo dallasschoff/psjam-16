@@ -1221,7 +1221,6 @@ entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_bu4kt")
-disabled = true
 debug_color = Color(0.993313, 0, 0.239452, 0.42)
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("healthbar_component", "entity", "animated_sprite") instance=ExtResource("3_kuk6f")]

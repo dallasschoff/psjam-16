@@ -288,6 +288,7 @@ color_ramp = SubResource("Gradient_huv4d")
 [node name="SwordSmear" type="Sprite2D" parent="AnimatedSprite2D"]
 visible = false
 z_index = -1
+z_as_relative = false
 position = Vector2(5, -5)
 texture = ExtResource("5_fd4dv")
 
