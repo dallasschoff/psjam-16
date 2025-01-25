@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://bc8vbwvt71gfy"]
+[gd_scene load_steps=17 format=4 uid="uid://bc8vbwvt71gfy"]
 
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ovse1"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_uyec4"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_4hdwt"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="4_5bx80"]
-[ext_resource type="Texture2D" uid="uid://bqcjgqthjo3wp" path="res://Assets/campfire.png" id="5_l4qr6"]
+[ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Campfire.tscn" id="5_ujxpj"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -78,21 +78,6 @@ pattern_6 = SubResource("TileMapPattern_183g0")
 pattern_7 = SubResource("TileMapPattern_yqecu")
 pattern_8 = SubResource("TileMapPattern_hgpqy")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uqdeo"]
-atlas = ExtResource("5_l4qr6")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8hpci"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uqdeo")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="Game" type="Node2D"]
 z_index = -5
 position = Vector2(-147, 1)
@@ -115,10 +100,6 @@ position = Vector2(-11, 11)
 position = Vector2(41, 11)
 left_handed = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(15, 18)
-sprite_frames = SubResource("SpriteFrames_8hpci")
-
 [node name="Sword" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_5bx80")]
 z_as_relative = false
 position = Vector2(-1, 16)
@@ -128,3 +109,6 @@ wielder = NodePath("../Orc")
 position = Vector2(31, 16)
 wielder = NodePath("../Orc2")
 flip_left = true
+
+[node name="Campfire" parent="." instance=ExtResource("5_ujxpj")]
+position = Vector2(18, 14)

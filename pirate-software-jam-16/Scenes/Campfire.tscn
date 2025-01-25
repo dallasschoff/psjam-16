@@ -1,0 +1,123 @@
+[gd_scene load_steps=15 format=3 uid="uid://cfo8qepsskxfh"]
+
+[ext_resource type="Texture2D" uid="uid://byfuauui3emwx" path="res://Assets/campfire.png" id="1_v11d4"]
+[ext_resource type="Texture2D" uid="uid://b51ula0lrxrbn" path="res://Assets/circle.png" id="2_3erip"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwtmr"]
+atlas = ExtResource("1_v11d4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdau5"]
+atlas = ExtResource("1_v11d4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibx44"]
+atlas = ExtResource("1_v11d4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xyaq"]
+atlas = ExtResource("1_v11d4")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lu4ml"]
+atlas = ExtResource("1_v11d4")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40yna"]
+atlas = ExtResource("1_v11d4")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j85tn"]
+atlas = ExtResource("1_v11d4")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61mdw"]
+atlas = ExtResource("1_v11d4")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iqlb7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwtmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdau5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibx44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xyaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lu4ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40yna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j85tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61mdw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_bex0o"]
+offsets = PackedFloat32Array(0, 0.703125, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_urmmq"]
+colors = PackedColorArray(0.487756, 1.06489e-06, 1.68458e-07, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_jrm6c"]
+offsets = PackedFloat32Array(0, 0.578125)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Campfire" type="AnimatedSprite2D"]
+z_index = 1
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_iqlb7")
+autoplay = "default"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+z_as_relative = false
+position = Vector2(0, 7)
+amount = 6
+lifetime = 1.2
+speed_scale = 1.2
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, -50)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+color = Color(0.912154, 0.343451, 0.0575644, 1)
+color_ramp = SubResource("Gradient_bex0o")
+color_initial_ramp = SubResource("Gradient_urmmq")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+z_index = -1
+z_as_relative = false
+amount = 32
+lifetime = 3.0
+texture = ExtResource("2_3erip")
+direction = Vector2(0, 1)
+spread = 15.0
+gravity = Vector2(0, -50)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+color = Color(0.368479, 0.368479, 0.368479, 1)
+color_ramp = SubResource("Gradient_jrm6c")
