@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cau5qana436tr"]
+[gd_scene load_steps=4 format=3 uid="uid://cau5qana436tr"]
 
 [ext_resource type="Script" path="res://Scripts/master.gd" id="1_6oa5g"]
 [ext_resource type="PackedScene" uid="uid://66ff0xl5xvsn" path="res://Scenes/MainMenu.tscn" id="1_gxth6"]
+[ext_resource type="PackedScene" uid="uid://c4ty38rhpqlw8" path="res://Scenes/Transitioner.tscn" id="2_rh7kv"]
 
 [node name="Master" type="Control"]
 layout_mode = 3
@@ -14,3 +15,5 @@ script = ExtResource("1_6oa5g")
 
 [node name="MainMenu" parent="." instance=ExtResource("1_gxth6")]
 layout_mode = 1
+
+[node name="Transitioner" parent="." instance=ExtResource("2_rh7kv")]

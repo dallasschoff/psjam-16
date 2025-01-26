@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://bc8vbwvt71gfy"]
+[gd_scene load_steps=18 format=4 uid="uid://bc8vbwvt71gfy"]
 
+[ext_resource type="Script" path="res://Scripts/level_one.gd" id="1_j8rgj"]
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ovse1"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_uyec4"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_4hdwt"]
@@ -78,9 +79,10 @@ pattern_6 = SubResource("TileMapPattern_183g0")
 pattern_7 = SubResource("TileMapPattern_yqecu")
 pattern_8 = SubResource("TileMapPattern_hgpqy")
 
-[node name="Game" type="Node2D"]
+[node name="LevelOne" type="Node2D"]
 z_index = -5
 position = Vector2(-147, 1)
+script = ExtResource("1_j8rgj")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)

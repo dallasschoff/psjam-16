@@ -1,11 +1,21 @@
 extends Node2D
 
+var orcs: Array[Node]
+var originalOrcCount: int
+var objective_complete: bool
+var handled_win: bool
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	orcs = get_tree().get_nodes_in_group("Orcs")
+	originalOrcCount = orcs.size()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	orcs = get_tree().get_nodes_in_group("Orcs")
+	objective_complete = orcs.size() < originalOrcCount
+	
+	if objective_complete and not handled_win:
+		handled_win = true
+		#**Uncomment this to see transition after win**
+		#await get_tree().create_timer(1).timeout
+		#Global.Transitioner._fade(false)
+		print("Objective Complete!")
