@@ -67,12 +67,16 @@ func _process(delta: float) -> void:
 		##Chopping
 		if not Input.is_action_pressed("enter") and chopAvailable and throwAvailable:
 			if Input.is_action_pressed("left"):
+				_undo_spins()
 				_chop_left()
 			if Input.is_action_pressed("right"):
+				_undo_spins()
 				_chop_right()
 			if Input.is_action_pressed("up"):
+				_undo_spins()
 				_chop_up()
 			if Input.is_action_pressed("down"):
+				_undo_spins()
 				_chop_down()
 			##Sword smear and stamina
 			if (Input.is_action_just_released("left") or Input.is_action_just_released("right")

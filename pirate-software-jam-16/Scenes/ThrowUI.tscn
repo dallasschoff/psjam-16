@@ -26,6 +26,7 @@ radius = 2.23607
 [node name="ThrowUI" type="Node2D"]
 z_index = 1
 script = ExtResource("1_hyhhw")
+radialSpeed = 5.0
 
 [node name="Arrow" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7pvgu")
