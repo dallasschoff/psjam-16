@@ -19,16 +19,20 @@ var direction
 var tempMaxSpeed = 120.0
 @export var acceleration = 10.0
 @export var deceleration = 4.0
+
+# Node tree
 @onready var particlesOut = $CPUParticles2D
 @onready var particlesIn = $CPUParticles2D2
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var text_sprite = $Text
 var interactionArea : Area2D
 
 func _ready():
 	Global.player = self
 	Global.stamina = $StaminaBar
 	animation_tree.active = true
+	text_sprite.modulate = Color(1,1,1,0)
 
 	# Setting stamina values
 	var maxStamina = $StaminaBar.max_value
@@ -97,6 +101,8 @@ func updatePlayerStamina():
 
 func possess():
 	interactionArea.root._possessed()
+	#Disappear text
+	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", (interactionArea.global_position + Vector2(148,0)), 0.4)
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",0,0.5)
@@ -129,11 +135,15 @@ func _can_possess(area):
 	if !isPossessing:
 		canPossess = true
 		interactionArea = area
+		#Appear text
+		create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
 
 func _cannot_possess():
 	#This needs changes, since it is called whenever you leave the interactionArea.
 	#If you leave one while entering another, you'll lose the ability to possess either
 	canPossess = false
+	#Disappear text
+	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
 
 
 func update_animation_parameters():

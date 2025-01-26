@@ -183,8 +183,8 @@ func _unassign_wielder():
 
 func _can_be_possessed():
 	if possessed == false:
-		#Appear text
-		create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
+		##Appear text
+		#create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
 		#Make sword flash and grow
 		flash_and_grow_timer.start()
 		_sword_flash_and_grow()
@@ -192,8 +192,8 @@ func _can_be_possessed():
 
 func _cannot_be_possessed():
 	if possessed == false:
-		#Disappear text
-		create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
+		##Disappear text
+		#create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
 		#Stop sword flash and grow
 		flash_and_grow_timer.stop()
 		_reset_sword_flash_and_grow()
@@ -204,8 +204,8 @@ func _possessed():
 		_pickup_weapon()
 	_raise_weapon()
 	possessed = true
-	#Disappear text
-	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
+	##Disappear text
+	#create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
 	#Stop sword flash and grow
 	flash_and_grow_timer.stop()
 	_reset_sword_flash_and_grow()
