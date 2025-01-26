@@ -238,6 +238,8 @@ size = Vector2(4.24264, 13.5355)
 radius = 15.5563
 
 [node name="Sword" type="Node2D"]
+z_as_relative = false
+y_sort_enabled = true
 script = ExtResource("1_yy2bn")
 
 [node name="ThrowUI" parent="." instance=ExtResource("2_q63d0")]
@@ -254,7 +256,8 @@ scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_otqlv")
 
 [node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 0, 0.278431)
+visible = false
+modulate = Color(0, 0, 0, 0.27451)
 position = Vector2(6, 16)
 rotation = 0.174533
 scale = Vector2(1, 0.5)
@@ -294,8 +297,8 @@ texture = ExtResource("5_fd4dv")
 
 [node name="Hitbox" type="Area2D" parent="AnimatedSprite2D"]
 position = Vector2(5, -5)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("3_ieu20")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Hitbox"]

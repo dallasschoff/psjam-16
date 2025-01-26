@@ -16,7 +16,7 @@ func _unfade():
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "fade_to_black" and emit_on_finish:
-		SignalBus.transition_finished.emit()
+		SignalBus.transition_finished.emit() #Connects to main menu
 	if anim_name == "fade_to_normal":
 		$ColorRect.visible = false
 	emit_on_finish = false

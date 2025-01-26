@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bmy0xqsjsdv6g" path="res://Assets/splatter.png" id="2_xkaim"]
 
 [node name="Blood" type="Node2D"]
+z_index = -2
+z_as_relative = false
 script = ExtResource("1_cx6g2")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

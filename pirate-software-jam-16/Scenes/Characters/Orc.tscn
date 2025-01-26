@@ -1188,6 +1188,8 @@ animations = [{
 size = Vector2(16, 20)
 
 [node name="Orc" type="CharacterBody2D"]
+z_as_relative = false
+y_sort_enabled = true
 script = ExtResource("1_oeyq7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -190,7 +190,8 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(231.005, 3.87749)
 
 [node name="Player" type="CharacterBody2D"]
-z_index = 2
+z_index = 5
+z_as_relative = false
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_q5a3x")
@@ -261,10 +262,10 @@ parameters/idle/blend_position = Vector2(0.0683625, 0.136283)
 parameters/walk/blend_position = Vector2(0, 0)
 
 [node name="StaminaBar" type="TextureProgressBar" parent="."]
-offset_left = -19.0
+offset_left = 9.0
 offset_top = -16.0
-offset_right = 45.0
-offset_bottom = 48.0
+offset_right = 79.0
+offset_bottom = 54.0
 scale = Vector2(0.12, 0.12)
 max_value = 2500.0
 value = 50.0

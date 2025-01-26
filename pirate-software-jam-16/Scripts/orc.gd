@@ -13,8 +13,6 @@ func _ready():
 	add_to_group("Orcs")
 
 func _physics_process(delta: float) -> void:
-	#if weapon != null:
-		#print("weapon position: ", weapon.animated_sprite.position)
 	var animation = "idle_down"
 	head.play(animation)
 	body.play(animation)
@@ -28,7 +26,7 @@ func _hit(attack_damage):
 	blood.global_position = global_position + Vector2(0, -5)
 
 func _die():
-	if weapon != null:
+	if weapon != null and !weapon.dropped:
 		weapon._drop_weapon()
 	queue_free()
 
@@ -40,5 +38,4 @@ func _weapon_offsets() -> Vector2:
 
 func _weapon_drag(tug: Vector2) -> void:
 	var tween = get_tree().create_tween()
-	#tween2.tween_property(self, "position", position + Vector2(0,0), 0.05)
 	tween.tween_property(self, "position", tug, 0.08)

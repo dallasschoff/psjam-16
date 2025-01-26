@@ -14,7 +14,8 @@ extends Node2D
 
 var possessed = false
 var thrown : bool = false
-var wielded : bool
+var wielded : bool #Use "wielder != null" instead
+var dropped : bool
 var chop_cooldown: Timer
 var chopAvailable: bool = true
 var throw_cooldown: Timer
@@ -23,7 +24,7 @@ var flash_and_grow_timer: Timer
 var sword_flash_and_grow: bool = false
 @export var tug: Vector2
 @export var wielder : Orc
-
+@export var animated_sprite_rotation : float
 @export var flip_left : bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -31,21 +32,25 @@ func _ready() -> void:
 	SignalBus.possessed.connect(_possessed) #Emitted by player
 	SignalBus.vacated.connect(_vacated) #Emitted by player
 	text_sprite.modulate = Color(1,1,1,0)
+	
 	chop_cooldown = Timer.new()
 	chop_cooldown.wait_time = 0.35
 	chop_cooldown.one_shot = true
 	chop_cooldown.connect("timeout", _reset_chop)
 	add_child(chop_cooldown)
+	
 	throw_cooldown = Timer.new()
 	throw_cooldown.wait_time = 1.0
 	throw_cooldown.one_shot = true
 	throw_cooldown.connect("timeout", _reset_throw)
 	add_child(throw_cooldown)
+	
 	flash_and_grow_timer = Timer.new()
 	flash_and_grow_timer.wait_time = 1.0
 	flash_and_grow_timer.one_shot = false
 	flash_and_grow_timer.connect("timeout", _test)
 	add_child(flash_and_grow_timer)
+	
 	if wielder != null:
 		hitbox.wielder = wielder
 		wielder.weapon = self
@@ -53,6 +58,8 @@ func _ready() -> void:
 	if flip_left == true: 
 		animated_sprite.scale.x = -1
 		shadow.scale.x = -1
+	if animated_sprite_rotation != null:
+		animated_sprite.rotation_degrees = animated_sprite_rotation
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -60,60 +67,17 @@ func _process(delta: float) -> void:
 		##Chopping
 		if not Input.is_action_pressed("enter") and chopAvailable and throwAvailable:
 			if Input.is_action_pressed("left"):
-				#Flip things left if pressed left
-				animated_sprite.scale.x = -1
-				shadow.scale.x = -1
-				##Chop left
-				var tween = get_tree().create_tween()
-				tween.tween_property(animated_sprite, "rotation_degrees", 100, 0.1)
-				tween.tween_property(animated_sprite, "rotation_degrees", -120, 0.08)
-				tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
-				var tween2 = get_tree().create_tween()
-				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
-				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-10,0)), 0.08)
-				tug = Vector2(-10,0)
+				_chop_left()
 			if Input.is_action_pressed("right"):
-				#Flip things right if pressed right
-				animated_sprite.scale.x = 1
-				shadow.scale.x = 1
-				##Chop right
-				var tween = get_tree().create_tween()
-				tween.tween_property(animated_sprite, "rotation_degrees", -100, 0.1)
-				tween.tween_property(animated_sprite, "rotation_degrees", 120, 0.08)
-				tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
-				var tween2 = get_tree().create_tween()
-				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
-				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(10,0)), 0.08)
-				tug = Vector2(10,0)
+				_chop_right()
 			if Input.is_action_pressed("up"):
-				#Flip things right if pressed up
-				animated_sprite.scale.x = 1
-				shadow.scale.x = 1
-				##Chop up
-				var tween = get_tree().create_tween()
-				tween.tween_property(animated_sprite, "rotation_degrees", -190, 0.1)
-				tween.tween_property(animated_sprite, "rotation_degrees", 30, 0.08)
-				tween.tween_property(animated_sprite, "rotation_degrees", -90, 0.5)
-				var tween2 = get_tree().create_tween()
-				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
-				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,-10)), 0.08)
-				tug = Vector2(0,-10)
+				_chop_up()
 			if Input.is_action_pressed("down"):
-				#Flip things right if pressed down
-				animated_sprite.scale.x = 1
-				shadow.scale.x = 1
-				##Chop down
-				var tween = get_tree().create_tween()
-				tween.tween_property(animated_sprite, "rotation_degrees", -10, 0.1)
-				tween.tween_property(animated_sprite, "rotation_degrees", 210, 0.08)
-				tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
-				var tween2 = get_tree().create_tween()
-				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
-				tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,10)), 0.08)
-				tug = Vector2(0,10)
+				_chop_down()
 			##Sword smear and stamina
 			if (Input.is_action_just_released("left") or Input.is_action_just_released("right")
 			or Input.is_action_just_released("down") or Input.is_action_just_released("up")):
+				_activate_chop_hitbox()
 				chopAvailable = false
 				chop_cooldown.start()
 				await get_tree().create_timer(0.1).timeout
@@ -142,9 +106,65 @@ func _process(delta: float) -> void:
 	#Keeps text with weapon. If we changed the node tree instead, text would rotate with weapon
 	text.global_position = animated_sprite.global_position + Vector2(4, -25)
 	#Moves shadow with sword
-	shadow.global_position = animated_sprite.global_position + Vector2(6, 16)
+	shadow.global_position = animated_sprite.global_position + Vector2(6, 9)
 	#Rotates shadow with sword
 	shadow.rotation = animated_sprite.rotation
+
+func _chop_left():
+	#Flip things left if pressed left
+	animated_sprite.scale.x = -1
+	shadow.scale.x = -1
+	##Chop left
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite, "rotation_degrees", 100, 0.1)
+	tween.tween_property(animated_sprite, "rotation_degrees", -120, 0.08)
+	tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
+	var tween2 = get_tree().create_tween()
+	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(-10,0)), 0.08)
+	tug = Vector2(-10,0)
+
+func _chop_right():
+	#Flip things right if pressed right
+	animated_sprite.scale.x = 1
+	shadow.scale.x = 1
+	##Chop right
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite, "rotation_degrees", -100, 0.1)
+	tween.tween_property(animated_sprite, "rotation_degrees", 120, 0.08)
+	tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
+	var tween2 = get_tree().create_tween()
+	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(10,0)), 0.08)
+	tug = Vector2(10,0)
+
+func _chop_up():
+	#Flip things right if pressed up
+	animated_sprite.scale.x = 1
+	shadow.scale.x = 1
+	##Chop up
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite, "rotation_degrees", -190, 0.1)
+	tween.tween_property(animated_sprite, "rotation_degrees", 30, 0.08)
+	tween.tween_property(animated_sprite, "rotation_degrees", -90, 0.5)
+	var tween2 = get_tree().create_tween()
+	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,-10)), 0.08)
+	tug = Vector2(0,-10)
+
+func _chop_down():
+	#Flip things right if pressed down
+	animated_sprite.scale.x = 1
+	shadow.scale.x = 1
+	##Chop down
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite, "rotation_degrees", -10, 0.1)
+	tween.tween_property(animated_sprite, "rotation_degrees", 210, 0.08)
+	tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
+	var tween2 = get_tree().create_tween()
+	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,10)), 0.08)
+	tug = Vector2(0,10)
 
 func _reset_chop():
 	chopAvailable = true
@@ -176,6 +196,9 @@ func _cannot_be_possessed():
 		#anim_player.play("stop_fx")
 
 func _possessed():
+	if dropped:
+		_pickup_weapon()
+	_raise_weapon()
 	possessed = true
 	#Disappear text
 	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
@@ -188,6 +211,7 @@ func _possessed():
 	possess_particles.emitting = true
 
 func _vacated():
+	_drop_weapon()
 	possessed = false
 	$ThrowUI.visible = false
 	possess_particles.emitting = false
@@ -203,9 +227,12 @@ func _throwing():
 	$ThrowUI.visible = true
 
 func _throw():
+	_active_throw_hitbox()
 	Global.stamina.value -= 1000
 	sword_smear.visible = true
+	shadow.visible = true
 	thrown = true
+	dropped = true
 	if Global.throw_angle == null:
 		pass
 	else:
@@ -296,7 +323,6 @@ func _sword_flash_and_grow():
 	var modulateTween = get_tree().create_tween()
 	modulateTween.tween_property(animated_sprite, "modulate", Color.html("#6091ff"), 0.4)
 	modulateTween.tween_property(animated_sprite, "modulate", Color.WHITE, 0.6)
-	#_reset_sword_flash_and_grow()
 
 func _reset_sword_flash_and_grow():
 	if animated_sprite.scale.x < 0:
@@ -305,12 +331,53 @@ func _reset_sword_flash_and_grow():
 		animated_sprite.scale = Vector2(1,1)
 
 func _drop_weapon():
-	pass
-	#var tween = get_tree().create_tween()
-	#tween.tween_property(animated_sprite, "position", animated_sprite.position + Vector2(0,10), 0.1)
-	#if animated_sprite.rotation < 0:
-		#var tween2 = get_tree().create_tween()
-		#tween2.tween_property(animated_sprite, "rotation_degrees", 45, 0.5)
-	#else: 
-		#var tween2 = get_tree().create_tween()
-		#tween2.tween_property(animated_sprite, "rotation_degrees", -160, 0.5)
+	_unassign_wielder()
+	z_index = -1 #Allows orcs to walk over dropped weapons
+	dropped = true
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite, "position", animated_sprite.position + Vector2(0,10), 0.2)
+	#Undo any spins. Without this, the rotation tween below will spin very fast to get rotation to 0
+	_undo_spins()
+	if animated_sprite.scale.x > 0:
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(animated_sprite, "rotation_degrees", 45, 0.2)
+	if animated_sprite.scale.x < 0: 
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(animated_sprite, "rotation_degrees", -45, 0.2)
+	var tween3 = get_tree().create_tween()
+	tween3.tween_property(shadow, "modulate:a", 0, 0.15)
+
+#This is used if a weapon is on the ground
+func _pickup_weapon():
+	z_index = 0 #Reset after the drop made it -1
+	shadow.visible = true
+	shadow.modulate = 70
+	#Undo any spins. Without this, the rotation tween below will spin very fast to get rotation to 0
+	_undo_spins()
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite, "position", animated_sprite.position + Vector2(0,-15), 0.8)
+	var tween2 = get_tree().create_tween()
+	tween2.tween_property(animated_sprite, "rotation_degrees", 0, 0.8)
+
+#This is used if a weapon is wielded
+func _raise_weapon():
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.8)
+
+#Undo any spins. Without this, rotation tweens will spin very fast to get rotation to 0
+#Use this before rotation tweens
+func _undo_spins():
+	if animated_sprite.rotation_degrees >= 0: 
+		animated_sprite.rotation_degrees = (fmod(animated_sprite.rotation_degrees, 360.0))
+	else:
+		animated_sprite.rotation_degrees = (fmod(animated_sprite.rotation_degrees,-360.0))
+
+func _activate_chop_hitbox():
+	hitbox.set_collision_mask_value(2, true)
+	await get_tree().create_timer(0.2).timeout
+	hitbox.set_collision_mask_value(2, false)
+
+func _active_throw_hitbox():
+	hitbox.set_collision_mask_value(2, true)
+	await get_tree().create_timer(0.7).timeout
+	hitbox.set_collision_mask_value(2, false)

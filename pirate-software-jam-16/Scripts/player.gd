@@ -130,6 +130,11 @@ func _can_possess(area):
 		canPossess = true
 		interactionArea = area
 
+func _cannot_possess():
+	#This needs changes, since it is called whenever you leave the interactionArea.
+	#If you leave one while entering another, you'll lose the ability to possess either
+	canPossess = false
+
 
 func update_animation_parameters():
 	animation_tree["parameters/conditions/idle"] = true if velocity == Vector2.ZERO else false
