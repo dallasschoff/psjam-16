@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/sword.gd" id="1_yy2bn"]
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="2_2v6cb"]
-[ext_resource type="PackedScene" uid="uid://bv0pn0x3edqlq" path="res://Scenes/ThrowUI.tscn" id="2_q63d0"]
+[ext_resource type="PackedScene" uid="uid://bv0pn0x3edqlq" path="res://Scenes/Weapons/ThrowUI.tscn" id="2_q63d0"]
 [ext_resource type="Script" path="res://Scripts/hitbox.gd" id="3_ieu20"]
 [ext_resource type="PackedScene" uid="uid://bb0y5fm38iw30" path="res://Scenes/Components/InteractionArea.tscn" id="4_553gn"]
 [ext_resource type="Texture2D" uid="uid://drb1k2q7j46jp" path="res://Assets/Text.png" id="5_0woc7"]

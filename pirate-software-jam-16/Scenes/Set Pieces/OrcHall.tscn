@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://vj20fsue0ntk"]
+
+[ext_resource type="Texture2D" uid="uid://dr364vvqhkrnf" path="res://Assets/orc hall.png" id="1_psdva"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjinv"]
+size = Vector2(234, 76)
+
+[node name="Orc Hall" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_psdva")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_mjinv")
