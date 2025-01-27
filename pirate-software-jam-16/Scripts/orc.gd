@@ -6,8 +6,11 @@ var bloodScene = load("res://Scenes/Blood.tscn")
 @onready var body = $Body
 @onready var leftArm = $"Left Arm"
 @onready var rightArm = $"Right Arm"
+@onready var walking_raycast: RayCast2D = $WalkingRaycast
 var weapon
+var dropped_weapon
 @export var left_handed : bool
+@export var move_speed: int = 30
 
 func _ready():
 	add_to_group("Orcs")

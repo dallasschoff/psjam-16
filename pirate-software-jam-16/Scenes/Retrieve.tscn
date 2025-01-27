@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsx6rk10wdljo"]
+
+[ext_resource type="Script" path="res://Scripts/State Machine/retrieve_state.gd" id="1_f0n36"]
+
+[node name="RetrieveState" type="Node"]
+script = ExtResource("1_f0n36")

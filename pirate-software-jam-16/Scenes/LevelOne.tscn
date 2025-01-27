@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://bc8vbwvt71gfy"]
+[gd_scene load_steps=21 format=4 uid="uid://bc8vbwvt71gfy"]
 
 [ext_resource type="Script" path="res://Scripts/level_one.gd" id="1_j8rgj"]
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ovse1"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_4hdwt"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="4_5bx80"]
 [ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Campfire.tscn" id="5_ujxpj"]
+[ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/StateMachine.tscn" id="6_0sbho"]
+[ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/Roam.tscn" id="7_a4vdp"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -107,9 +109,21 @@ position = Vector2(-15, -16)
 [node name="Orc" parent="." instance=ExtResource("3_4hdwt")]
 position = Vector2(-42, -21)
 
+[node name="StateMachine" parent="Orc" node_paths=PackedStringArray("initial_state") instance=ExtResource("6_0sbho")]
+initial_state = NodePath("Roam")
+
+[node name="Roam" parent="Orc/StateMachine" instance=ExtResource("7_a4vdp")]
+spawned_with_weapon = true
+
 [node name="Orc2" parent="." instance=ExtResource("3_4hdwt")]
 position = Vector2(10, -21)
 left_handed = true
+
+[node name="StateMachine" parent="Orc2" node_paths=PackedStringArray("initial_state") instance=ExtResource("6_0sbho")]
+initial_state = NodePath("Roam")
+
+[node name="Roam" parent="Orc2/StateMachine" instance=ExtResource("7_a4vdp")]
+spawned_with_weapon = true
 
 [node name="Sword" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_5bx80")]
 position = Vector2(-32, -16)

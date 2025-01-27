@@ -105,6 +105,8 @@ func _process(delta: float) -> void:
 		if wielder != null and not thrown:
 			wielder._weapon_drag(position + animated_sprite.position + wielder._weapon_offsets())
 	
+	if wielder != null and not possessed:
+		global_position = wielder.global_position - wielder._weapon_offsets()
 	#Keeps throw UI with weapon. 
 	throwUI.global_position = animated_sprite.global_position + Vector2(6, -5)
 	#Keeps text with weapon. If we changed the node tree instead, text would rotate with weapon
@@ -177,7 +179,15 @@ func _reset_throw():
 	throwAvailable = true
 
 ##Possession functions##
+func _picked_up(new_wielder):
+	wielder = new_wielder
+	wielder.weapon = self
+	wielder.dropped_weapon = null
+	hitbox.wielder = wielder
+
 func _unassign_wielder():
+	wielder.dropped_weapon = self
+	wielder.weapon = null
 	wielder = null
 	hitbox.wielder = null
 

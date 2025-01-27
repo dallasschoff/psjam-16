@@ -7,4 +7,4 @@ var throwStrength
 var Transitioner
 
 #Levels
-var levelOne = "res://Scenes/LevelOne.tscn"
+var level_one = "res://Scenes/LevelOne.tscn"

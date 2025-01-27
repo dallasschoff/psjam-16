@@ -1190,6 +1190,8 @@ size = Vector2(16, 20)
 [node name="Orc" type="CharacterBody2D"]
 z_as_relative = false
 y_sort_enabled = true
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_oeyq7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1235,3 +1237,6 @@ offset_left = -8.0
 offset_top = -23.0
 offset_right = 32.0
 offset_bottom = 17.0
+
+[node name="WalkingRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 20)

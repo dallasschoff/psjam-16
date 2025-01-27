@@ -8,7 +8,7 @@ func _ready():
 	Global.Transitioner = $Transitioner
 
 func _start_game():
-	var scene = load(Global.levelOne).instantiate()
+	var scene = load(Global.level_one).instantiate()
 	mainMenu.hide()
 	add_child(scene)
 	Global.Transitioner._unfade()
