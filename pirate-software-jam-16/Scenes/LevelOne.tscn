@@ -1,13 +1,13 @@
-[gd_scene load_steps=21 format=4 uid="uid://bc8vbwvt71gfy"]
+[gd_scene load_steps=22 format=4 uid="uid://bc8vbwvt71gfy"]
 
 [ext_resource type="Script" path="res://Scripts/level_one.gd" id="1_j8rgj"]
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ovse1"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_uyec4"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_4hdwt"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="4_5bx80"]
+[ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Set Pieces/Campfire.tscn" id="5_ujxpj"]
 [ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/StateMachine.tscn" id="6_0sbho"]
 [ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/Roam.tscn" id="7_a4vdp"]
-[ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Set Pieces/Campfire.tscn" id="5_ujxpj"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="7_lp3k2"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]

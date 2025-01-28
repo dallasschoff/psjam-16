@@ -274,7 +274,8 @@ func _throw():
 	await get_tree().create_timer(0.4).timeout
 	sword_smear.visible = false
 	await get_tree().create_timer(0.6).timeout
-	_unassign_wielder()
+	if wielder != null:
+		_unassign_wielder()
 
 
 func throwCalc(throwStrength,throwAngle) -> Array:

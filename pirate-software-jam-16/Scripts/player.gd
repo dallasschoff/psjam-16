@@ -63,7 +63,7 @@ func _process(delta):
 		vacate()
 	
 	if interactionArea != null and isPossessing and vacateAvailable:
-		position = interactionArea.global_position + Vector2(148,0)
+		global_position = interactionArea.global_position
 		
 	updatePlayerStamina()
 	update_animation_parameters()
@@ -104,7 +104,7 @@ func possess():
 	#Disappear text
 	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", (interactionArea.global_position + Vector2(148,0)), 0.4)
+	tween.tween_property(self, "global_position", (interactionArea.global_position), 0.4)
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",0,0.5)
 	tempMaxSpeed = 0
 	isPossessing = true
@@ -123,7 +123,7 @@ func vacate():
 	possessCooldownTimer.start()
 	#Moves the player up when vacating
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", (position+Vector2(-5,-5)), 0.4)
+	tween.tween_property(self, "global_position", (global_position+Vector2(-5,-5)), 0.4)
 
 func onPossessCooldownTimeout():
 	possessAvailable = true
