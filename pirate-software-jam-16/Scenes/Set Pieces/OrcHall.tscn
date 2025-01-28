@@ -1,11 +1,50 @@
-[gd_scene load_steps=3 format=3 uid="uid://vj20fsue0ntk"]
+[gd_scene load_steps=9 format=3 uid="uid://vj20fsue0ntk"]
 
-[ext_resource type="Texture2D" uid="uid://dr364vvqhkrnf" path="res://Assets/orc hall.png" id="1_psdva"]
+[ext_resource type="Texture2D" uid="uid://bummt5kshj00f" path="res://Assets/orc hall.png" id="1_psdva"]
+[ext_resource type="Texture2D" uid="uid://bqo04jmjs3rex" path="res://Assets/torch.png" id="2_ifocc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjinv"]
 size = Vector2(234, 76)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmk4n"]
+atlas = ExtResource("2_ifocc")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec615"]
+atlas = ExtResource("2_ifocc")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsw2r"]
+atlas = ExtResource("2_ifocc")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6whfp"]
+atlas = ExtResource("2_ifocc")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_veq3l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmk4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec615")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsw2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6whfp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Orc Hall" type="Node2D"]
+z_index = -4
+z_as_relative = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_psdva")
@@ -15,3 +54,15 @@ texture = ExtResource("1_psdva")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_mjinv")
+
+[node name="Torch" type="AnimatedSprite2D" parent="."]
+position = Vector2(-40, 44)
+sprite_frames = SubResource("SpriteFrames_veq3l")
+autoplay = "default"
+frame_progress = 0.103052
+
+[node name="Torch2" type="AnimatedSprite2D" parent="."]
+position = Vector2(41, 44)
+sprite_frames = SubResource("SpriteFrames_veq3l")
+autoplay = "default"
+frame_progress = 0.611083
