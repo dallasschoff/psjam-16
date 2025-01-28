@@ -17,7 +17,11 @@ func enter():
 	
 func update(_delta: float):
 	if spawned_with_weapon and character.weapon == null:
-		transitioned.emit(self, "retrieve")
+		#transitioned.emit(self, "retrieve")
+		pass
+	if spawned_with_weapon and character.weapon != null and character.weapon.possessed:
+		allow_roaming = false
+		randomize = false
 	if randomize:
 		randomize = false
 		await get_tree().create_timer(2).timeout
