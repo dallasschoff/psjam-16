@@ -59,10 +59,10 @@ shape = SubResource("RectangleShape2D_mjinv")
 position = Vector2(-40, 44)
 sprite_frames = SubResource("SpriteFrames_veq3l")
 autoplay = "default"
-frame_progress = 0.103052
+frame_progress = 0.895878
 
 [node name="Torch2" type="AnimatedSprite2D" parent="."]
 position = Vector2(41, 44)
 sprite_frames = SubResource("SpriteFrames_veq3l")
 autoplay = "default"
-frame_progress = 0.611083
+frame_progress = 0.403909

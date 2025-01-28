@@ -72,6 +72,7 @@ enter={
 2d_physics/layer_1="Physics Collision"
 2d_physics/layer_2="Enemy Hurtbox"
 2d_physics/layer_3="Possession"
+2d_physics/layer_4="Map Boundary"
 2d_physics/layer_8="ThrowControl"
 
 [rendering]
