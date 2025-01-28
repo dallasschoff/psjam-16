@@ -23,6 +23,7 @@ var throw_cooldown: Timer
 var throwAvailable: bool = true
 var flash_and_grow_timer: Timer
 var weapon_flash_and_grow: bool = false
+var direction
 @export var tug: Vector2
 @export var wielder : Orc
 @export var animated_sprite_rotation : float
@@ -70,15 +71,19 @@ func _process(delta: float) -> void:
 			if Input.is_action_pressed("left"):
 				_undo_spins()
 				_swing_left()
+				direction = Vector2(-1, 0)
 			if Input.is_action_pressed("right"):
 				_undo_spins()
 				_swing_right()
+				direction = Vector2(1, 0)
 			if Input.is_action_pressed("up"):
 				_undo_spins()
 				_swing_up()
+				direction = Vector2(0, -1)
 			if Input.is_action_pressed("down"):
 				_undo_spins()
 				_swing_down()
+				direction = Vector2(0, 1)
 			##Weapon smear and stamina
 			if (Input.is_action_just_released("left") or Input.is_action_just_released("right")
 			or Input.is_action_just_released("down") or Input.is_action_just_released("up")):
@@ -102,12 +107,38 @@ func _process(delta: float) -> void:
 			swing_cooldown.start()
 			throwAvailable = false
 			throw_cooldown.start()
-			
+		
+		#Updates the wielder's location when a swing happens and the weapon has not been thrown yet
 		if wielder != null and not thrown:
 			wielder._weapon_drag(position + animated_sprite.position + wielder._weapon_offsets())
 	
+	#Updates weapon to stay in wielder's hand when not possessed
 	if wielder != null and not possessed:
 		global_position = wielder.global_position - wielder._weapon_offsets()
+		if wielder.left_handed:
+			match wielder.direction:
+				Vector2(1, 0):
+					animated_sprite.scale.x = 1
+					shadow.scale.x = 1
+				Vector2(0, -1):
+					animated_sprite.scale.x = 1
+					shadow.scale.x = 1
+				_:
+					animated_sprite.scale.x = -1
+					shadow.scale.x = -1
+		else:
+			match wielder.direction:
+				Vector2(-1, 0):
+					animated_sprite.scale.x = -1
+					shadow.scale.x = -1
+				Vector2(0, -1):
+					animated_sprite.scale.x = 1
+					shadow.scale.x = 1
+					#This corrected upward motion, but doesnt influence orc if weapon is possessed
+					#animated_sprite.rotation_degrees = -90
+				_:
+					animated_sprite.scale.x = 1
+					shadow.scale.x = 1
 	
 	#Keeps throw UI with weapon. 
 	throwUI.global_position = animated_sprite.global_position + Vector2(6, -5)
@@ -225,6 +256,7 @@ func _possessed():
 	#Wait, then emit possess particles
 	await get_tree().create_timer(0.75).timeout
 	possess_particles.emitting = true
+	direction = wielder.walking_raycast.target_position.normalized()
 
 func _vacated():
 	_drop_weapon()
@@ -348,7 +380,8 @@ func _reset_weapon_flash_and_grow():
 		animated_sprite.scale = Vector2(1,1)
 
 func _drop_weapon():
-	_unassign_wielder()
+	if wielder != null:
+		_unassign_wielder()
 	z_index = -1 #Allows orcs to walk over dropped weapons
 	dropped = true
 	var tween = get_tree().create_tween()

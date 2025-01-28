@@ -132,6 +132,7 @@ spawned_with_weapon = true
 [node name="Sword" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_5bx80")]
 position = Vector2(-32, -16)
 wielder = NodePath("../Orc")
+animated_sprite_rotation = 90.0
 
 [node name="Sword2" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_5bx80")]
 position = Vector2(0, -16)

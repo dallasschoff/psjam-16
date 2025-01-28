@@ -274,8 +274,8 @@ tree_root = SubResource("AnimationNodeStateMachine_h4ngm")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/idle = false
 parameters/conditions/is_walking = false
-parameters/idle/blend_position = Vector2(0.0683625, 0.136283)
-parameters/walk/blend_position = Vector2(0, 0)
+parameters/idle/blend_position = Vector2(-0.00317967, 0.00833333)
+parameters/walk/blend_position = Vector2(-0.00317967, 0.133333)
 
 [node name="StaminaBar" type="TextureProgressBar" parent="."]
 offset_left = 9.0
