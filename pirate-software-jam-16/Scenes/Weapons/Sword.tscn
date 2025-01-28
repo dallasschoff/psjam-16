@@ -232,9 +232,10 @@ offsets = PackedFloat32Array(0, 0.516667, 1)
 colors = PackedColorArray(0.235294, 0.117647, 1, 1, 0.235294, 0.117647, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u4psu"]
-size = Vector2(4.24264, 13.5355)
+size = Vector2(5.65685, 14.8492)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3t5m"]
+resource_local_to_scene = true
 radius = 15.5563
 
 [node name="Sword" type="Node2D"]
@@ -288,7 +289,7 @@ scale_amount_max = 1.5
 color = Color(0, 1, 1, 1)
 color_ramp = SubResource("Gradient_huv4d")
 
-[node name="SwordSmear" type="Sprite2D" parent="AnimatedSprite2D"]
+[node name="WeaponSmear" type="Sprite2D" parent="AnimatedSprite2D"]
 visible = false
 z_index = -1
 z_as_relative = false
@@ -302,7 +303,7 @@ collision_mask = 0
 script = ExtResource("3_ieu20")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Hitbox"]
-position = Vector2(3, -2)
+position = Vector2(3.25, -2.25)
 rotation = 0.785398
 shape = SubResource("RectangleShape2D_u4psu")
 

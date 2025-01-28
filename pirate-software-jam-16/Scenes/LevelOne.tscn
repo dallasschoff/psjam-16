@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://bc8vbwvt71gfy"]
+[gd_scene load_steps=26 format=4 uid="uid://bc8vbwvt71gfy"]
 
 [ext_resource type="Script" path="res://Scripts/level_one.gd" id="1_j8rgj"]
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ovse1"]
@@ -9,6 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/StateMachine.tscn" id="6_0sbho"]
 [ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/Roam.tscn" id="7_a4vdp"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="7_lp3k2"]
+[ext_resource type="PackedScene" uid="uid://bgbmmxngfk50r" path="res://Scenes/Weapons/Mace.tscn" id="7_xhepl"]
+[ext_resource type="PackedScene" uid="uid://cua8qnmgh54rp" path="res://Scenes/Weapons/Club.tscn" id="9_kiola"]
+[ext_resource type="PackedScene" uid="uid://ps3600av7t4n" path="res://Scenes/Weapons/Spear.tscn" id="10_rcs68"]
+[ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="10_sptgw"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -128,7 +132,6 @@ spawned_with_weapon = true
 [node name="Sword" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_5bx80")]
 position = Vector2(-32, -16)
 wielder = NodePath("../Orc")
-animated_sprite_rotation = 90.0
 
 [node name="Sword2" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("4_5bx80")]
 position = Vector2(0, -16)
@@ -138,3 +141,15 @@ flip_left = true
 
 [node name="Orc Hall" parent="." instance=ExtResource("7_lp3k2")]
 position = Vector2(160, -200)
+
+[node name="Axe" parent="." instance=ExtResource("10_sptgw")]
+position = Vector2(-127, 60)
+
+[node name="Club" parent="." instance=ExtResource("9_kiola")]
+position = Vector2(-72, 63)
+
+[node name="Mace" parent="." instance=ExtResource("7_xhepl")]
+position = Vector2(-25, 62)
+
+[node name="Spear" parent="." instance=ExtResource("10_rcs68")]
+position = Vector2(16, 59)
