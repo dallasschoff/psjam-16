@@ -5,7 +5,6 @@ class_name Weapon
 @onready var anim_player = $AnimationPlayer
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var shadow = $Shadow
-@onready var text_sprite = $Text
 @onready var possess_particles = $AnimatedSprite2D/PossessParticles
 @onready var weapon_smear = $AnimatedSprite2D/WeaponSmear
 @onready var throwUI = $ThrowUI
@@ -33,7 +32,6 @@ var direction
 func _ready() -> void:
 	SignalBus.possessed.connect(_possessed) #Emitted by player
 	SignalBus.vacated.connect(_vacated) #Emitted by player
-	text_sprite.modulate = Color(1,1,1,0)
 	
 	swing_cooldown = Timer.new()
 	swing_cooldown.wait_time = 0.35
@@ -142,8 +140,6 @@ func _process(delta: float) -> void:
 	
 	#Keeps throw UI with weapon. 
 	throwUI.global_position = animated_sprite.global_position + Vector2(6, -5)
-	#Keeps text with weapon. If we changed the node tree instead, text would rotate with weapon
-	text.global_position = animated_sprite.global_position + Vector2(4, -25)
 	#Moves shadow with weapon
 	shadow.global_position = animated_sprite.global_position + Vector2(6, 9)
 	#Rotates shadow with weapon
@@ -226,8 +222,6 @@ func _unassign_wielder():
 
 func _can_be_possessed():
 	if possessed == false:
-		##Appear text
-		#create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
 		#Make weapon flash and grow
 		flash_and_grow_timer.start()
 		_weapon_flash_and_grow()
@@ -235,8 +229,6 @@ func _can_be_possessed():
 
 func _cannot_be_possessed():
 	if possessed == false:
-		##Disappear text
-		#create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
 		#Stop weapon flash and grow
 		flash_and_grow_timer.stop()
 		_reset_weapon_flash_and_grow()
@@ -247,8 +239,6 @@ func _possessed():
 		_pickup_weapon()
 	_raise_weapon()
 	possessed = true
-	##Disappear text
-	#create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
 	#Stop weapon flash and grow
 	flash_and_grow_timer.stop()
 	_reset_weapon_flash_and_grow()

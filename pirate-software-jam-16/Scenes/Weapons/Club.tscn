@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://cua8qnmgh54rp"]
+[gd_scene load_steps=17 format=3 uid="uid://cua8qnmgh54rp"]
 
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="1_0ojhx"]
 [ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_k5mtc"]
 [ext_resource type="PackedScene" uid="uid://bv0pn0x3edqlq" path="res://Scenes/Weapons/ThrowUI.tscn" id="2_3anuc"]
-[ext_resource type="Texture2D" uid="uid://drb1k2q7j46jp" path="res://Assets/Text.png" id="3_xnb61"]
 [ext_resource type="Texture2D" uid="uid://kns3t8jy6e0" path="res://Assets/sword smear.png" id="5_ajscx"]
 [ext_resource type="Script" path="res://Scripts/hitbox.gd" id="6_1ghmo"]
 [ext_resource type="PackedScene" uid="uid://bb0y5fm38iw30" path="res://Scenes/Components/InteractionArea.tscn" id="7_lj8lq"]
@@ -197,21 +196,6 @@ _data = {
 "throw": SubResource("Animation_6vt4e")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_btjrv"]
-atlas = ExtResource("3_xnb61")
-region = Rect2(0, 0, 64, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_otqlv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_btjrv")
-}],
-"loop": false,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_vb5ip"]
 atlas = ExtResource("1_0ojhx")
 region = Rect2(36, 18, 18, 18)
@@ -251,11 +235,6 @@ libraries = {
 "": SubResource("AnimationLibrary_f4f76")
 }
 
-[node name="Text" type="AnimatedSprite2D" parent="."]
-position = Vector2(4, -25)
-scale = Vector2(0.8, 0.8)
-sprite_frames = SubResource("SpriteFrames_otqlv")
-
 [node name="Shadow" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0, 0, 0, 0.27451)
@@ -265,7 +244,7 @@ scale = Vector2(1, 0.5)
 texture = ExtResource("1_0ojhx")
 hframes = 3
 vframes = 3
-frame = 4
+frame = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, -6)

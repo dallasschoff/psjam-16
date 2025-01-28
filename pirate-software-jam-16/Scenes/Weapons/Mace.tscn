@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bgbmmxngfk50r"]
+[gd_scene load_steps=17 format=3 uid="uid://bgbmmxngfk50r"]
 
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="1_fr0ej"]
 [ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_pixwn"]
 [ext_resource type="PackedScene" uid="uid://bv0pn0x3edqlq" path="res://Scenes/Weapons/ThrowUI.tscn" id="2_a8ska"]
-[ext_resource type="Texture2D" uid="uid://drb1k2q7j46jp" path="res://Assets/Text.png" id="3_cs3b3"]
 [ext_resource type="Texture2D" uid="uid://kns3t8jy6e0" path="res://Assets/sword smear.png" id="5_fnxvo"]
+[ext_resource type="Script" path="res://Scripts/hitbox.gd" id="5_xnyi7"]
 [ext_resource type="PackedScene" uid="uid://bb0y5fm38iw30" path="res://Scenes/Components/InteractionArea.tscn" id="6_obttx"]
 
 [sub_resource type="Animation" id="Animation_uwbi7"]
@@ -196,21 +196,6 @@ _data = {
 "throw": SubResource("Animation_6vt4e")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_btjrv"]
-atlas = ExtResource("3_cs3b3")
-region = Rect2(0, 0, 64, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_otqlv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_btjrv")
-}],
-"loop": false,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qk7k"]
 atlas = ExtResource("1_fr0ej")
 region = Rect2(0, 18, 18, 18)
@@ -250,11 +235,6 @@ libraries = {
 "": SubResource("AnimationLibrary_f4f76")
 }
 
-[node name="Text" type="AnimatedSprite2D" parent="."]
-position = Vector2(4, -25)
-scale = Vector2(0.8, 0.8)
-sprite_frames = SubResource("SpriteFrames_otqlv")
-
 [node name="Shadow" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0, 0, 0, 0.27451)
@@ -264,7 +244,7 @@ scale = Vector2(1, 0.5)
 texture = ExtResource("1_fr0ej")
 hframes = 3
 vframes = 3
-frame = 4
+frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, -6)
@@ -296,8 +276,9 @@ position = Vector2(-1, 1)
 texture = ExtResource("5_fnxvo")
 
 [node name="Hitbox" type="Area2D" parent="AnimatedSprite2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("5_xnyi7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Hitbox"]
 position = Vector2(3.25, -3.25)
@@ -311,3 +292,5 @@ position = Vector2(-1, 1)
 rotation = 0.785398
 shape = SubResource("CircleShape2D_o3t5m")
 debug_color = Color(0.664119, 0.512489, 0, 0.42)
+
+[connection signal="area_entered" from="AnimatedSprite2D/Hitbox" to="AnimatedSprite2D/Hitbox" method="_on_area_entered"]
