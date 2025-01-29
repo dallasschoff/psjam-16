@@ -102,6 +102,9 @@ func updatePlayerStamina():
 		
 
 func possess():
+	# Play audio
+	$PossessSound.play()
+	
 	interactionArea.root._possessed()
 	#Disappear text
 	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
@@ -115,6 +118,9 @@ func possess():
 	vacateCooldownTimer.start()
 
 func vacate():
+	# Play audio
+	$VacateSound.play()
+	
 	interactionArea.root._vacated()
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",1,0.25)
 	tempMaxSpeed = globalMaxSpeed

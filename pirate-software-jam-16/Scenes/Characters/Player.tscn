@@ -1,10 +1,12 @@
-[gd_scene load_steps=38 format=3 uid="uid://b78fkf0mi430r"]
+[gd_scene load_steps=40 format=3 uid="uid://b78fkf0mi430r"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_q5a3x"]
 [ext_resource type="Texture2D" uid="uid://bnkhu8ye3wg0e" path="res://Assets/sprite.png" id="1_rd32p"]
 [ext_resource type="Texture2D" uid="uid://b51ula0lrxrbn" path="res://Assets/circle.png" id="3_5qy5l"]
 [ext_resource type="Texture2D" uid="uid://loo7xmsmt12j" path="res://Assets/circle_progress_bar.png" id="3_5v7sj"]
 [ext_resource type="Texture2D" uid="uid://drb1k2q7j46jp" path="res://Assets/Text.png" id="5_3qifp"]
+[ext_resource type="AudioStream" uid="uid://sdpq8hy6bvpd" path="res://Assets/Sounds/possess.wav" id="6_ax6ll"]
+[ext_resource type="AudioStream" uid="uid://cmj3jfnvtnvui" path="res://Assets/Sounds/vacate.wav" id="7_rr72g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8l2lu"]
 radius = 6.0
@@ -295,6 +297,14 @@ tint_progress = Color(0.21, 0.631333, 1, 1)
 position = Vector2(2.38419e-07, -26)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_w0dve")
+
+[node name="PossessSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_ax6ll")
+volume_db = -5.0
+
+[node name="VacateSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_rr72g")
+volume_db = -10.0
 
 [connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished"]
 [connection signal="finished" from="CPUParticles2D2" to="." method="_on_cpu_particles_2d_finished"]

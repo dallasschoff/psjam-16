@@ -42,8 +42,15 @@ func _hit(attack_damage):
 
 func _die():
 	Global.stamina.value += 1000
+	
+	# Play audio
+	$DeathSound.play()
+	
 	if weapon != null and !weapon.dropped:
 		weapon._drop_weapon()
+		
+	$".".hide()
+	await get_tree().create_timer(5).timeout
 	queue_free()
 
 func _weapon_offsets():

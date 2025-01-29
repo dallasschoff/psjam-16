@@ -180,6 +180,9 @@ func _process(delta: float) -> void:
 	shadow.rotation = animated_sprite.rotation
 
 func _swing_left():
+	# Play audio
+	$SwingSound.play()
+	
 	z_index = 0
 	#Flip things left if pressed left
 	animated_sprite.scale.x = -1
@@ -195,6 +198,9 @@ func _swing_left():
 	tug = Vector2(-10,0)
 
 func _swing_right():
+	# Play audio
+	$SwingSound.play()
+	
 	z_index = 0
 	#Flip things right if pressed right
 	animated_sprite.scale.x = 1
@@ -210,6 +216,9 @@ func _swing_right():
 	tug = Vector2(10,0)
 
 func _swing_up():
+	# Play audio
+	$SwingSound.play()
+	
 	z_index = -1
 	##Left handed up swing needs different behavior
 	if wielder != null and wielder.left_handed:
@@ -241,6 +250,9 @@ func _swing_up():
 		tug = Vector2(0,-10)
 
 func _swing_down():
+	# Play audio
+	$SwingSound.play()
+	
 	z_index = 0
 	##Left handed down swing needs different behavior
 	if wielder != null and wielder.left_handed:
@@ -304,6 +316,7 @@ func _cannot_be_possessed():
 		#anim_player.play("stop_fx")
 
 func _possessed():
+	
 	if dropped:
 		_pickup_weapon()
 	_raise_weapon()
@@ -344,6 +357,9 @@ func _throw():
 	if Global.throw_angle == null:
 		pass
 	else:
+		# Play audio
+		$ThrowSound.play()
+		
 		#Getting throw information
 		var throwTweenValues = throwCalc(Global.throwStrength,Global.throw_angle)
 		var horzTweens = throwTweenValues[0]

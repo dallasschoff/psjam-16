@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dwoejeo4nfi3l"]
+[gd_scene load_steps=21 format=3 uid="uid://dwoejeo4nfi3l"]
 
 [ext_resource type="Script" path="res://Scripts/sword.gd" id="1_yy2bn"]
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="2_2v6cb"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Scripts/hitbox.gd" id="3_ieu20"]
 [ext_resource type="PackedScene" uid="uid://bb0y5fm38iw30" path="res://Scenes/Components/InteractionArea.tscn" id="4_553gn"]
 [ext_resource type="Texture2D" uid="uid://kns3t8jy6e0" path="res://Assets/sword smear.png" id="5_fd4dv"]
+[ext_resource type="AudioStream" uid="uid://u4ufjvnoayxs" path="res://Assets/Sounds/swing.wav" id="7_a5qpo"]
+[ext_resource type="AudioStream" uid="uid://dkpwegk37ayxn" path="res://Assets/Sounds/throw.wav" id="8_ermb5"]
 
 [sub_resource type="Animation" id="Animation_uwbi7"]
 length = 0.001
@@ -222,6 +224,16 @@ size = Vector2(5.65685, 14.8492)
 resource_local_to_scene = true
 radius = 10.8167
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fk0yp"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("7_a5qpo")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y6ci4"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("8_ermb5")
+
 [node name="Sword" type="Node2D"]
 z_as_relative = false
 y_sort_enabled = true
@@ -293,6 +305,14 @@ position = Vector2(5, -5)
 rotation = 0.785398
 shape = SubResource("CircleShape2D_o3t5m")
 debug_color = Color(0.664119, 0.512489, 0, 0.42)
+
+[node name="SwingSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_fk0yp")
+volume_db = -10.0
+
+[node name="ThrowSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_y6ci4")
+volume_db = -10.0
 
 [connection signal="area_entered" from="AnimatedSprite2D/Hitbox" to="AnimatedSprite2D/Hitbox" method="_on_area_entered"]
 [connection signal="body_shape_entered" from="AnimatedSprite2D/InteractionArea" to="." method="_on_interaction_area_body_shape_entered"]
