@@ -221,4 +221,3 @@ position = Vector2(371, -58)
 
 [node name="OST" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_f7veu")
-autoplay = true

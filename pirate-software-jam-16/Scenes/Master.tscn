@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cau5qana436tr"]
+[gd_scene load_steps=5 format=3 uid="uid://cau5qana436tr"]
 
 [ext_resource type="Script" path="res://Scripts/master.gd" id="1_6oa5g"]
 [ext_resource type="PackedScene" uid="uid://66ff0xl5xvsn" path="res://Scenes/MainMenu.tscn" id="1_gxth6"]
 [ext_resource type="PackedScene" uid="uid://c4ty38rhpqlw8" path="res://Scenes/Transitioner.tscn" id="2_rh7kv"]
+[ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="4_eaq4n"]
 
 [node name="Master" type="Control"]
 layout_mode = 3
@@ -17,3 +18,7 @@ script = ExtResource("1_6oa5g")
 layout_mode = 1
 
 [node name="Transitioner" parent="." instance=ExtResource("2_rh7kv")]
+
+[node name="OST" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_eaq4n")
+autoplay = true

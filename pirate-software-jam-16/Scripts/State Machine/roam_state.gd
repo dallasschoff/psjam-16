@@ -9,6 +9,7 @@ var move_to: Vector2
 var randomize: bool = false
 var allow_roaming = false
 var arrived_x: bool = false
+var wander_option: int
 
 func enter():
 	character = get_parent().get_parent()
@@ -43,6 +44,8 @@ func physics_update(_delta: float):
 		character.velocity = Vector2(0,0)
 		allow_roaming = false
 		randomize = true
+		#wander_option = 1 #Go home
+		randomize_wander()
 	character.move_and_slide()
 		
 func _move_to_x():
@@ -58,7 +61,7 @@ func _move_to_y():
 	character.velocity.x = 0
 
 func randomize_wander():
-	var wander_option = randi_range(1, 4)
+	wander_option = randi_range(1, 4)
 	#Return to home
 	if wander_option == 1:
 		move_to = home_location

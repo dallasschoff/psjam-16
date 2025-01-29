@@ -5,8 +5,9 @@ var current_level_string
 var current_level
 var levels: Array[String] = [
 	"res://Scenes/LevelOne.tscn",
-	"res://Scenes/LevelTwo.tscn"
-]
+	"res://Scenes/LevelTwo.tscn",
+	"res://Scenes/LevelThree.tscn"
+	]
 var level_index: int = 0
 
 # Called when the node enters the scene tree for the first time.

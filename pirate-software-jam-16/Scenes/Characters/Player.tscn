@@ -222,7 +222,8 @@ sprite_frames = SubResource("SpriteFrames_md7ro")
 
 [node name="Drop Shadow" type="Sprite2D" parent="AnimatedSprite2D"]
 modulate = Color(0, 0, 0, 0.278431)
-z_index = -2
+z_index = -4
+z_as_relative = false
 position = Vector2(0, 13)
 scale = Vector2(1.2, 0.6)
 texture = ExtResource("3_5qy5l")
