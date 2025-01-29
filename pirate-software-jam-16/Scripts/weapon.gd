@@ -325,8 +325,8 @@ func _vacated():
 	possess_particles.emitting = false
 	#Wait, then make weapon flash and grow
 	await get_tree().create_timer(0.5).timeout
-	flash_and_grow_timer.start()
-	_weapon_flash_and_grow()
+	#flash_and_grow_timer.start()
+	#_weapon_flash_and_grow()
 	#anim_player.play("can_be_possessed")
 
 ##Throwing functions##

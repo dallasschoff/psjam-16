@@ -29,6 +29,8 @@ var tempMaxSpeed = 120.0
 var interactionArea : Area2D
 
 func _ready():
+	SignalBus.can_possess.connect(_can_possess) #Emitted by interactionArea
+	
 	Global.player = self
 	Global.stamina = $StaminaBar
 	animation_tree.active = true

@@ -220,7 +220,7 @@ size = Vector2(5.65685, 14.8492)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3t5m"]
 resource_local_to_scene = true
-radius = 15.5563
+radius = 10.8167
 
 [node name="Sword" type="Node2D"]
 z_as_relative = false

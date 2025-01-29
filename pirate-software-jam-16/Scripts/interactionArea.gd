@@ -2,6 +2,10 @@ extends Area2D
 
 @onready var root = get_parent().get_parent()
 
+func _process(delta: float) -> void:
+	if has_overlapping_bodies():
+		SignalBus.can_possess.emit(self)
+
 #body is player, root is weapon
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:

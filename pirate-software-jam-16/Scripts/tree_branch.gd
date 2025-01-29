@@ -13,9 +13,9 @@ func _hurtbox_entered(area):
 	if not fallen:
 		fallen = true
 		tween = get_tree().create_tween()
-		tween.parallel().tween_property(self, "global_position", Vector2(global_position.x - 30, global_position.y + 60), 1)
-		tween.parallel().tween_property(self, "rotation_degrees", 165.0, 1)
-		await get_tree().create_timer(1).timeout
+		tween.parallel().tween_property(self, "global_position", Vector2(global_position.x - 20, global_position.y + 60), 1)
+		tween.parallel().tween_property(self, "rotation_degrees", -190.0, 1)
+		await get_tree().create_timer(0.8).timeout
 		hitbox.set_collision_mask_value(2, true)
 		await get_tree().create_timer(1).timeout
 		hitbox.set_collision_mask_value(2, false)
