@@ -8,6 +8,7 @@ var handled_win: bool
 func _ready():
 	orcs = get_tree().get_nodes_in_group("Orcs")
 	originalOrcCount = orcs.size()
+	$TileMapLayer.visible = false
 
 func _process(delta):
 	orcs = get_tree().get_nodes_in_group("Orcs")

@@ -115,28 +115,62 @@ func _process(delta: float) -> void:
 		global_position = wielder.global_position - wielder._weapon_offsets()
 		if wielder.left_handed:
 			match wielder.direction:
-				Vector2(1, 0):
-					animated_sprite.scale.x = 1
-					shadow.scale.x = 1
-				Vector2(0, -1):
-					animated_sprite.scale.x = 1
-					shadow.scale.x = 1
-				_:
+				##Left
+				Vector2(-1, 0):
+					z_index = 0
 					animated_sprite.scale.x = -1
+					animated_sprite.rotation_degrees = -90
 					shadow.scale.x = -1
+					shadow.rotation_degrees = -90
+				##Right
+				Vector2(1, 0):
+					z_index = 0
+					animated_sprite.scale.x = 1
+					animated_sprite.rotation_degrees = 90
+					shadow.scale.x = 1
+				##Up
+				Vector2(0, -1):
+					z_index = -1
+					animated_sprite.scale.x = 1
+					animated_sprite.rotation_degrees = 90
+					shadow.scale.x = 1
+				##Down
+				Vector2(0, 1):
+					z_index = 0
+					animated_sprite.scale.x = -1
+					animated_sprite.rotation_degrees = -90
+					shadow.scale.x = -1
+					shadow.rotation_degrees = -90
 		else:
 			match wielder.direction:
+				##Left
 				Vector2(-1, 0):
+					z_index = 0
 					animated_sprite.scale.x = -1
+					animated_sprite.rotation_degrees = -90
 					shadow.scale.x = -1
+					shadow.rotation_degrees = -90
+				##Right
+				Vector2(1, 0):
+					z_index = 0
+					animated_sprite.scale.x = 1
+					animated_sprite.rotation_degrees = 90
+					shadow.scale.x = 1
+					shadow.rotation_degrees = 90
+				##Up
 				Vector2(0, -1):
+					z_index = -1
 					animated_sprite.scale.x = 1
+					animated_sprite.rotation_degrees = -180
 					shadow.scale.x = 1
-					#This corrected upward motion, but doesnt influence orc if weapon is possessed
-					#animated_sprite.rotation_degrees = -90
-				_:
+					shadow.rotation_degrees = -180
+				##Down
+				Vector2(0, 1):
+					z_index = 0
 					animated_sprite.scale.x = 1
+					animated_sprite.rotation_degrees = 90
 					shadow.scale.x = 1
+					shadow.rotation_degrees = 90
 	
 	#Keeps throw UI with weapon. 
 	throwUI.global_position = animated_sprite.global_position + Vector2(6, -5)
@@ -146,6 +180,7 @@ func _process(delta: float) -> void:
 	shadow.rotation = animated_sprite.rotation
 
 func _swing_left():
+	z_index = 0
 	#Flip things left if pressed left
 	animated_sprite.scale.x = -1
 	shadow.scale.x = -1
@@ -160,6 +195,7 @@ func _swing_left():
 	tug = Vector2(-10,0)
 
 func _swing_right():
+	z_index = 0
 	#Flip things right if pressed right
 	animated_sprite.scale.x = 1
 	shadow.scale.x = 1
@@ -174,32 +210,65 @@ func _swing_right():
 	tug = Vector2(10,0)
 
 func _swing_up():
-	#Flip things right if pressed up
-	animated_sprite.scale.x = 1
-	shadow.scale.x = 1
-	##swing up
-	var tween = get_tree().create_tween()
-	tween.tween_property(animated_sprite, "rotation_degrees", -190, 0.1)
-	tween.tween_property(animated_sprite, "rotation_degrees", 30, 0.08)
-	tween.tween_property(animated_sprite, "rotation_degrees", -90, 0.5)
-	var tween2 = get_tree().create_tween()
-	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
-	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,-10)), 0.08)
-	tug = Vector2(0,-10)
+	z_index = -1
+	##Left handed up swing needs different behavior
+	if wielder != null and wielder.left_handed:
+		#Flip things right if pressed up
+		animated_sprite.scale.x = -1
+		shadow.scale.x = -1
+		##swing up
+		var tween = get_tree().create_tween()
+		tween.tween_property(animated_sprite, "rotation_degrees", 190, 0.1)
+		tween.tween_property(animated_sprite, "rotation_degrees", -50, 0.08)
+		tween.tween_property(animated_sprite, "rotation_degrees", 90, 0.5)
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+		tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,-10)), 0.08)
+		tug = Vector2(0,-10)
+	##Right handed up swing
+	else:
+		#Flip things right if pressed up
+		animated_sprite.scale.x = 1
+		shadow.scale.x = 1
+		##swing up
+		var tween = get_tree().create_tween()
+		tween.tween_property(animated_sprite, "rotation_degrees", -190, 0.1)
+		tween.tween_property(animated_sprite, "rotation_degrees", 30, 0.08)
+		tween.tween_property(animated_sprite, "rotation_degrees", -90, 0.5)
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+		tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,-10)), 0.08)
+		tug = Vector2(0,-10)
 
 func _swing_down():
-	#Flip things right if pressed down
-	animated_sprite.scale.x = 1
-	shadow.scale.x = 1
-	##swing down
-	var tween = get_tree().create_tween()
-	tween.tween_property(animated_sprite, "rotation_degrees", -10, 0.1)
-	tween.tween_property(animated_sprite, "rotation_degrees", 210, 0.08)
-	tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
-	var tween2 = get_tree().create_tween()
-	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
-	tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,10)), 0.08)
-	tug = Vector2(0,10)
+	z_index = 0
+	##Left handed down swing needs different behavior
+	if wielder != null and wielder.left_handed:
+		#Flip things right if pressed down
+		animated_sprite.scale.x = -1
+		shadow.scale.x = -1
+		##swing down
+		var tween = get_tree().create_tween()
+		tween.tween_property(animated_sprite, "rotation_degrees", 20, 0.1)
+		tween.tween_property(animated_sprite, "rotation_degrees", -230, 0.08)
+		tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+		tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,10)), 0.08)
+		tug = Vector2(0,10)
+	else:
+		#Flip things right if pressed down
+		animated_sprite.scale.x = 1
+		shadow.scale.x = 1
+		##swing down
+		var tween = get_tree().create_tween()
+		tween.tween_property(animated_sprite, "rotation_degrees", -20, 0.1)
+		tween.tween_property(animated_sprite, "rotation_degrees", 210, 0.08)
+		tween.tween_property(animated_sprite, "rotation_degrees", 0, 0.5)
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,0)), 0.05)
+		tween2.tween_property(animated_sprite, "position", (animated_sprite.position + Vector2(0,10)), 0.08)
+		tug = Vector2(0,10)
 
 func _reset_swing():
 	swingAvailable = true
