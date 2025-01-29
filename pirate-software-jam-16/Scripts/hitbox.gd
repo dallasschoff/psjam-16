@@ -9,3 +9,5 @@ func _on_area_entered(area):
 	if area is HurtboxComponent and area.get_parent() != wielder:
 		var hurtbox: HurtboxComponent = area
 		hurtbox.damage(attack_damage)
+	if area.get_parent() is TreeBranch:
+		area.get_parent()._hurtbox_entered(self)

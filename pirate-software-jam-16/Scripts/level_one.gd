@@ -15,7 +15,4 @@ func _process(delta):
 	
 	if objective_complete and not handled_win:
 		handled_win = true
-		#**Uncomment this to see transition after win**
-		#await get_tree().create_timer(1).timeout
-		#Global.Transitioner._fade(false)
-		print("Objective Complete!")
+		Global.master._next_level()

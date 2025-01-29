@@ -246,7 +246,8 @@ func _possessed():
 	#Wait, then emit possess particles
 	await get_tree().create_timer(0.75).timeout
 	possess_particles.emitting = true
-	direction = wielder.walking_raycast.target_position.normalized()
+	if wielder != null:
+		direction = wielder.walking_raycast.target_position.normalized()
 
 func _vacated():
 	_drop_weapon()

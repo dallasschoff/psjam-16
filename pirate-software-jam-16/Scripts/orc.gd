@@ -13,8 +13,11 @@ var weapon
 var dropped_weapon
 @export var left_handed : bool
 @export var move_speed: int = 30
+@export var target: bool = false
 
 func _ready():
+	if target:
+		add_to_group("Targets")
 	add_to_group("Orcs")
 	animation_tree.active = true
 
@@ -35,7 +38,7 @@ func _physics_process(delta: float) -> void:
 func _hit(attack_damage):
 	#Use this to handle hurting animations or any other FX when the orc gets hit
 	var blood = bloodScene.instantiate()
-	get_tree().current_scene.add_child(blood)
+	get_parent().add_child(blood)
 	blood.global_position = global_position + Vector2(0, -5)
 
 func _die():
