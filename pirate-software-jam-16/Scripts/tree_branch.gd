@@ -11,6 +11,9 @@ var fallen: bool = false
 #When falling branch hits a character with a hurtbox, deal collision damage
 func _hurtbox_entered(area):
 	if not fallen:
+		# Play audio
+		$CrackSound.play()
+		
 		fallen = true
 		tween = get_tree().create_tween()
 		tween.parallel().tween_property(self, "global_position", Vector2(global_position.x - 20, global_position.y + 60), 1)

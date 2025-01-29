@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://bc8vbwvt71gfy"]
+[gd_scene load_steps=31 format=4 uid="uid://bc8vbwvt71gfy"]
 
 [ext_resource type="Script" path="res://Scripts/level_one.gd" id="1_j8rgj"]
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="1_ovse1"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cua8qnmgh54rp" path="res://Scenes/Weapons/Club.tscn" id="9_kiola"]
 [ext_resource type="PackedScene" uid="uid://ps3600av7t4n" path="res://Scenes/Weapons/Spear.tscn" id="10_rcs68"]
 [ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="10_sptgw"]
+[ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="16_f7veu"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -217,3 +218,7 @@ position = Vector2(330, -55)
 
 [node name="Spear" parent="." instance=ExtResource("10_rcs68")]
 position = Vector2(371, -58)
+
+[node name="OST" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_f7veu")
+autoplay = true

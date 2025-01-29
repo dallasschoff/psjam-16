@@ -2285,12 +2285,13 @@ _data = {
 }
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_img17"]
+playback_mode = 1
 streams_count = 3
 stream_0/stream = ExtResource("12_yb3nq")
 stream_1/stream = ExtResource("10_0s5pf")
-stream_1/weight = 10.0
+stream_1/weight = 20.0
 stream_2/stream = ExtResource("11_7ckuv")
-stream_2/weight = 10.0
+stream_2/weight = 20.0
 
 [node name="Orc" type="CharacterBody2D"]
 z_as_relative = false

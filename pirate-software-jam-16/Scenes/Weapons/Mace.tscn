@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bgbmmxngfk50r"]
+[gd_scene load_steps=21 format=3 uid="uid://bgbmmxngfk50r"]
 
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="1_fr0ej"]
 [ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_pixwn"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://kns3t8jy6e0" path="res://Assets/sword smear.png" id="5_fnxvo"]
 [ext_resource type="Script" path="res://Scripts/hitbox.gd" id="5_xnyi7"]
 [ext_resource type="PackedScene" uid="uid://bb0y5fm38iw30" path="res://Scenes/Components/InteractionArea.tscn" id="6_obttx"]
+[ext_resource type="AudioStream" uid="uid://u4ufjvnoayxs" path="res://Assets/Sounds/swing.wav" id="7_e2t4m"]
+[ext_resource type="AudioStream" uid="uid://dkpwegk37ayxn" path="res://Assets/Sounds/throw.wav" id="8_1nhjy"]
 
 [sub_resource type="Animation" id="Animation_uwbi7"]
 length = 0.001
@@ -223,6 +225,18 @@ size = Vector2(8.48528, 9.19239)
 resource_local_to_scene = true
 radius = 15.5563
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sdexc"]
+resource_local_to_scene = true
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("7_e2t4m")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4mme5"]
+resource_local_to_scene = true
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("8_1nhjy")
+
 [node name="Mace" type="Node2D"]
 script = ExtResource("1_pixwn")
 
@@ -292,5 +306,13 @@ position = Vector2(-1, 1)
 rotation = 0.785398
 shape = SubResource("CircleShape2D_o3t5m")
 debug_color = Color(0.664119, 0.512489, 0, 0.42)
+
+[node name="SwingSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_sdexc")
+volume_db = -10.0
+
+[node name="ThrowSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_4mme5")
+volume_db = -10.0
 
 [connection signal="area_entered" from="AnimatedSprite2D/Hitbox" to="AnimatedSprite2D/Hitbox" method="_on_area_entered"]

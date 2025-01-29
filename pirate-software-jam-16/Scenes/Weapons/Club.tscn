@@ -1,11 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://cua8qnmgh54rp"]
+[gd_scene load_steps=21 format=3 uid="uid://cua8qnmgh54rp"]
 
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="1_0ojhx"]
 [ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_k5mtc"]
 [ext_resource type="PackedScene" uid="uid://bv0pn0x3edqlq" path="res://Scenes/Weapons/ThrowUI.tscn" id="2_3anuc"]
 [ext_resource type="Texture2D" uid="uid://kns3t8jy6e0" path="res://Assets/sword smear.png" id="5_ajscx"]
 [ext_resource type="Script" path="res://Scripts/hitbox.gd" id="6_1ghmo"]
+[ext_resource type="AudioStream" uid="uid://u4ufjvnoayxs" path="res://Assets/Sounds/swing.wav" id="7_cm0bm"]
 [ext_resource type="PackedScene" uid="uid://bb0y5fm38iw30" path="res://Scenes/Components/InteractionArea.tscn" id="7_lj8lq"]
+[ext_resource type="AudioStream" uid="uid://dkpwegk37ayxn" path="res://Assets/Sounds/throw.wav" id="8_ylnp6"]
 
 [sub_resource type="Animation" id="Animation_uwbi7"]
 length = 0.001
@@ -223,6 +225,18 @@ size = Vector2(9.19239, 18.3848)
 resource_local_to_scene = true
 radius = 15.5563
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ktakf"]
+resource_local_to_scene = true
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("7_cm0bm")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0gjli"]
+resource_local_to_scene = true
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("8_ylnp6")
+
 [node name="Club" type="Node2D"]
 script = ExtResource("1_k5mtc")
 
@@ -293,5 +307,13 @@ position = Vector2(-1, 1)
 rotation = 0.785398
 shape = SubResource("CircleShape2D_o3t5m")
 debug_color = Color(0.664119, 0.512489, 0, 0.42)
+
+[node name="SwingSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ktakf")
+volume_db = -10.0
+
+[node name="ThrowSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_0gjli")
+volume_db = -10.0
 
 [connection signal="area_entered" from="AnimatedSprite2D/Hitbox" to="AnimatedSprite2D/Hitbox" method="_on_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://ce5fsdpixrbo8"]
+[gd_scene load_steps=29 format=4 uid="uid://ce5fsdpixrbo8"]
 
 [ext_resource type="Script" path="res://Scripts/level_two.gd" id="1_0pbyy"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_jbcap"]
@@ -7,11 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Set Pieces/Campfire.tscn" id="4_5oow8"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="5_nw1d1"]
 [ext_resource type="Texture2D" uid="uid://bhhdg5whl4pp" path="res://Assets/Log.png" id="6_merbx"]
+[ext_resource type="AudioStream" uid="uid://bxebd81repvvg" path="res://Assets/Sounds/tree_crack.wav" id="7_0nq5b"]
 [ext_resource type="PackedScene" uid="uid://by1wba68g70s" path="res://Scenes/Tree.tscn" id="7_jnmwv"]
 [ext_resource type="PackedScene" uid="uid://17d1cdsasioy" path="res://Scenes/TreeBranch.tscn" id="8_c1vv3"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="9_eqpak"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="10_uisd6"]
 [ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="12_vr7xp"]
+[ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="14_fufo4"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -133,6 +135,9 @@ position = Vector2(492, -177)
 z_index = 1
 position = Vector2(471, -153)
 
+[node name="CrackSound" type="AudioStreamPlayer2D" parent="Set/TreeBranch"]
+stream = ExtResource("7_0nq5b")
+
 [node name="Tree2" parent="Set" instance=ExtResource("7_jnmwv")]
 position = Vector2(541, -72)
 
@@ -184,3 +189,7 @@ position = Vector2(350, -168)
 [node name="Axe3" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("12_vr7xp")]
 position = Vector2(361, -165)
 wielder = NodePath("../Orc3")
+
+[node name="OST" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_fufo4")
+autoplay = true
