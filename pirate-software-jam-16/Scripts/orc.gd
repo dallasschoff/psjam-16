@@ -25,7 +25,6 @@ func _process(delta):
 	if weapon != null and not weapon.possessed:
 		update_animation_parameters()
 	else:
-		velocity = Vector2(0,0)
 		update_animation_parameters()
 
 func _physics_process(delta: float) -> void:

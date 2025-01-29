@@ -147,7 +147,8 @@ spawned_with_weapon = true
 position = Vector2(10, -21)
 left_handed = true
 
-[node name="StateMachine" parent="Orc2" instance=ExtResource("6_0sbho")]
+[node name="StateMachine" parent="Orc2" node_paths=PackedStringArray("initial_state") instance=ExtResource("6_0sbho")]
+initial_state = NodePath("Roam")
 
 [node name="Roam" parent="Orc2/StateMachine" instance=ExtResource("7_a4vdp")]
 spawned_with_weapon = true
