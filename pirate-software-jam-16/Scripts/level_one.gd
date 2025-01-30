@@ -13,7 +13,6 @@ func _ready():
 func _process(delta):
 	orcs = get_tree().get_nodes_in_group("Orcs")
 	objective_complete = orcs.size() < originalOrcCount
-	
 	if objective_complete and not handled_win:
 		handled_win = true
 		Global.master._next_level()

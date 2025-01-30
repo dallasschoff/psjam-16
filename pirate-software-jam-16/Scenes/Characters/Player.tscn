@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b78fkf0mi430r"]
+[gd_scene load_steps=42 format=3 uid="uid://b78fkf0mi430r"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_q5a3x"]
 [ext_resource type="Texture2D" uid="uid://bnkhu8ye3wg0e" path="res://Assets/sprite.png" id="1_rd32p"]
@@ -26,6 +26,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_udthd"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_ejkvg"]
+colors = PackedColorArray(0.447059, 0.686275, 1, 1, 1, 1, 1, 1)
+
 [sub_resource type="Gradient" id="Gradient_w7s6y"]
 offsets = PackedFloat32Array(0, 0.456667, 1)
 colors = PackedColorArray(0, 0.141186, 1, 1, 0.235588, 0.1163, 0.999955, 1, 1, 1, 1, 1)
@@ -44,6 +50,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D/GhostParticles:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_hdgtp"]
 resource_name = "idle_left"
@@ -60,6 +78,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D/GhostParticles:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ehoyc"]
 resource_name = "idle_right"
@@ -75,6 +105,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D/GhostParticles:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jddah"]
@@ -219,6 +261,23 @@ shape = SubResource("CircleShape2D_8l2lu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_md7ro")
+
+[node name="GhostParticles" type="CPUParticles2D" parent="AnimatedSprite2D"]
+z_index = -1
+amount = 12
+lifetime = 0.5
+randomness = 0.25
+texture = ExtResource("3_5qy5l")
+direction = Vector2(1, -0.5)
+spread = 15.0
+gravity = Vector2(0, 10)
+initial_velocity_min = 15.0
+initial_velocity_max = 25.0
+scale_amount_min = 0.5
+scale_amount_max = 0.75
+color = Color(1, 1, 1, 0.329412)
+color_ramp = SubResource("Gradient_udthd")
+color_initial_ramp = SubResource("Gradient_ejkvg")
 
 [node name="Drop Shadow" type="Sprite2D" parent="AnimatedSprite2D"]
 modulate = Color(0, 0, 0, 0.278431)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=164 format=3 uid="uid://dlq3qb87jnxby"]
+[gd_scene load_steps=162 format=3 uid="uid://dlq3qb87jnxby"]
 
 [ext_resource type="Script" path="res://Scripts/orc.gd" id="1_oeyq7"]
 [ext_resource type="PackedScene" uid="uid://7q0wmfw8tjbw" path="res://Scenes/Components/HurtboxComponent.tscn" id="2_vc6gh"]
@@ -9,9 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dv85vrogmosmt" path="res://Assets/Orc Left Arm.png" id="5_2i5na"]
 [ext_resource type="Texture2D" uid="uid://dufffopdqq2dp" path="res://Assets/orcshadow.png" id="6_m011b"]
 [ext_resource type="Texture2D" uid="uid://bcyjmpnrg604n" path="res://Assets/Orc Right Arm.png" id="6_w40pn"]
-[ext_resource type="AudioStream" uid="uid://cpkd8md3mtfm5" path="res://Assets/Sounds/death_groan.wav" id="10_0s5pf"]
-[ext_resource type="AudioStream" uid="uid://0cjt2pr6moa7" path="res://Assets/Sounds/death_grunt.wav" id="11_7ckuv"]
-[ext_resource type="AudioStream" uid="uid://bhhkxclkj3ppm" path="res://Assets/Sounds/death_terrible_scream.wav" id="12_yb3nq"]
+[ext_resource type="Texture2D" uid="uid://1nii5pobq6ek" path="res://Assets/star.png" id="13_11bju"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6ilw"]
 
@@ -2284,14 +2282,8 @@ _data = {
 "walk_up": SubResource("Animation_cj5gh")
 }
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_img17"]
-playback_mode = 1
-streams_count = 3
-stream_0/stream = ExtResource("12_yb3nq")
-stream_1/stream = ExtResource("10_0s5pf")
-stream_1/weight = 20.0
-stream_2/stream = ExtResource("11_7ckuv")
-stream_2/weight = 20.0
+[sub_resource type="Gradient" id="Gradient_sy5gg"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.262745, 0, 1)
 
 [node name="Orc" type="CharacterBody2D"]
 z_as_relative = false
@@ -2365,5 +2357,23 @@ libraries = {
 "": SubResource("AnimationLibrary_tufl2")
 }
 
-[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_img17")
+[node name="TargetParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 4.0
+preprocess = 2.0
+randomness = 0.5
+lifetime_randomness = 0.5
+local_coords = true
+texture = ExtResource("13_11bju")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+angular_velocity_min = 100.0
+angular_velocity_max = 100.0
+orbit_velocity_min = 0.5
+orbit_velocity_max = 0.5
+scale_amount_min = 0.05
+scale_amount_max = 0.3
+color_ramp = SubResource("Gradient_sy5gg")

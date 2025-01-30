@@ -8,6 +8,7 @@ var bloodScene = load("res://Scenes/Blood.tscn")
 @onready var rightArm = $"Right Arm"
 @onready var walking_raycast: RayCast2D = $WalkingRaycast
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var target_particles = $TargetParticles
 var direction
 var weapon
 var dropped_weapon
@@ -18,6 +19,7 @@ var dropped_weapon
 func _ready():
 	if target:
 		add_to_group("Targets")
+		target_particles.emitting = true
 	add_to_group("Orcs")
 	animation_tree.active = true
 
@@ -42,16 +44,32 @@ func _hit(attack_damage):
 
 func _die():
 	Global.stamina.value += 1000
-	
-	# Play audio
-	$DeathSound.play()
+	_play_sound()
 	
 	if weapon != null and !weapon.dropped:
 		weapon._drop_weapon()
-		
-	$".".hide()
-	await get_tree().create_timer(5).timeout
 	queue_free()
+
+func _play_sound():
+	var rand = randf()
+	if rand < 0.475:
+		var sound_player = AudioStreamPlayer.new()
+		sound_player.stream = load("res://Assets/Sounds/death_groan.wav")
+		get_parent().add_child(sound_player)
+		var parent = get_parent()
+		sound_player.play()
+	elif rand > 0.475 and rand < 0.95:
+		var sound_player = AudioStreamPlayer.new()
+		sound_player.stream = load("res://Assets/Sounds/death_grunt.wav")
+		get_parent().add_child(sound_player)
+		var parent = get_parent()
+		sound_player.play()
+	else:
+		var sound_player = AudioStreamPlayer.new()
+		sound_player.stream = load("res://Assets/Sounds/death_terrible_scream.wav")
+		get_parent().add_child(sound_player)
+		var parent = get_parent()
+		sound_player.play()
 
 func _weapon_offsets():
 	if left_handed:
