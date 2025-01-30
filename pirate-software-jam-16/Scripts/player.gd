@@ -93,6 +93,9 @@ func _physics_process(delta: float) -> void:
 	direction = Input.get_vector("left","right","up","down")
 	
 	move_and_slide()
+	
+	if Global.stamina.value <= 0:
+		velocity = Vector2.ZERO
 
 func updatePlayerStamina():
 	direction = Input.get_vector("left","right","up","down")
