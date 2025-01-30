@@ -1,11 +1,13 @@
-[gd_scene load_steps=32 format=4 uid="uid://ce5fsdpixrbo8"]
+[gd_scene load_steps=34 format=4 uid="uid://ce5fsdpixrbo8"]
 
 [ext_resource type="Script" path="res://Scripts/level_two.gd" id="1_0pbyy"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_jbcap"]
 [ext_resource type="Texture2D" uid="uid://cts7fobx1g5du" path="res://Assets/collision texture.png" id="3_08q8x"]
 [ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="3_cqg6x"]
 [ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Set Pieces/Campfire.tscn" id="4_5oow8"]
+[ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="4_sypqk"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="5_nw1d1"]
+[ext_resource type="Texture2D" uid="uid://cg01g0f1co0ex" path="res://Assets/WeaponUI.png" id="5_sn1gl"]
 [ext_resource type="Texture2D" uid="uid://bhhdg5whl4pp" path="res://Assets/Log.png" id="6_merbx"]
 [ext_resource type="AudioStream" uid="uid://bxebd81repvvg" path="res://Assets/Sounds/tree_crack.wav" id="7_0nq5b"]
 [ext_resource type="PackedScene" uid="uid://by1wba68g70s" path="res://Scenes/Tree.tscn" id="7_jnmwv"]
@@ -125,6 +127,20 @@ tile_set = SubResource("TileSet_03h36")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(352, -88)
 zoom = Vector2(5, 5)
+
+[node name="bg" type="Sprite2D" parent="Camera2D"]
+modulate = Color(1, 1, 1, 0.568627)
+z_index = 6
+z_as_relative = false
+position = Vector2(0, 137)
+texture = ExtResource("4_sypqk")
+
+[node name="WeaponUI" type="Sprite2D" parent="Camera2D"]
+modulate = Color(1, 1, 1, 0.745098)
+z_index = 6
+z_as_relative = false
+position = Vector2(0, 139)
+texture = ExtResource("5_sn1gl")
 
 [node name="Player" parent="." instance=ExtResource("2_jbcap")]
 position = Vector2(276, -103)
