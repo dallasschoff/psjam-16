@@ -14,7 +14,7 @@ var wander_option: int
 func enter():
 	character = get_parent().get_parent()
 	home_location = character.global_position
-	randomize_wander()
+	randomize_wander(false)
 	
 func update(_delta: float):
 	if spawned_with_weapon and character.weapon == null:
@@ -26,7 +26,7 @@ func update(_delta: float):
 	if randomize:
 		randomize = false
 		await get_tree().create_timer(2).timeout
-		randomize_wander()
+		randomize_wander(false)
 	
 func physics_update(_delta: float):
 	if allow_roaming and not character.walking_raycast.is_colliding():
@@ -42,10 +42,11 @@ func physics_update(_delta: float):
 				randomize = true
 	if allow_roaming and character.walking_raycast.is_colliding():
 		character.velocity = Vector2(0,0)
+		#Flip character raycast so its not colliding anymore
+		character.walking_raycast.target_position = Vector2.ZERO - character.walking_raycast.target_position
 		allow_roaming = false
-		randomize = true
-		#wander_option = 1 #Go home
-		randomize_wander()
+		await get_tree().create_timer(1).timeout
+		randomize_wander(true)
 	character.move_and_slide()
 		
 func _move_to_x():
@@ -60,8 +61,12 @@ func _move_to_y():
 	character.velocity.y = direction * character.move_speed
 	character.velocity.x = 0
 
-func randomize_wander():
+func randomize_wander(override_to_home: bool):
 	wander_option = randi_range(1, 4)
+	if override_to_home:
+		move_to = home_location
+		allow_roaming = true
+		return
 	#Return to home
 	if wander_option == 1:
 		move_to = home_location
