@@ -180,6 +180,7 @@ texture = ExtResource("6_kb34f")
 
 [node name="Orc" parent="." instance=ExtResource("3_4hdwt")]
 position = Vector2(-42, -21)
+target = true
 
 [node name="StateMachine" parent="Orc" instance=ExtResource("6_0sbho")]
 
@@ -189,6 +190,7 @@ spawned_with_weapon = true
 [node name="Orc2" parent="." instance=ExtResource("3_4hdwt")]
 position = Vector2(10, -21)
 left_handed = true
+target = true
 
 [node name="StateMachine" parent="Orc2" instance=ExtResource("6_0sbho")]
 

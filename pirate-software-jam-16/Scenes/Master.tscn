@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cau5qana436tr"]
+[gd_scene load_steps=7 format=3 uid="uid://cau5qana436tr"]
 
 [ext_resource type="Script" path="res://Scripts/master.gd" id="1_6oa5g"]
 [ext_resource type="PackedScene" uid="uid://66ff0xl5xvsn" path="res://Scenes/MainMenu.tscn" id="1_gxth6"]
 [ext_resource type="PackedScene" uid="uid://c4ty38rhpqlw8" path="res://Scenes/Transitioner.tscn" id="2_rh7kv"]
 [ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="4_eaq4n"]
+[ext_resource type="AudioStream" uid="uid://cbbm2dnt660vf" path="res://Assets/Sounds/winning_sound.wav" id="5_cnisp"]
+[ext_resource type="AudioStream" uid="uid://cdbc3th6d7hud" path="res://Assets/Sounds/losing_sound.wav" id="6_5tmj3"]
 
 [node name="Master" type="Control"]
 layout_mode = 3
@@ -22,3 +24,9 @@ layout_mode = 1
 [node name="OST" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_eaq4n")
 autoplay = true
+
+[node name="WinningSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_cnisp")
+
+[node name="LosingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_5tmj3")

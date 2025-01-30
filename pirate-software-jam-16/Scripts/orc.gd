@@ -52,23 +52,20 @@ func _die():
 
 func _play_sound():
 	var rand = randf()
-	if rand < 0.475:
+	if rand < 0.49:
 		var sound_player = AudioStreamPlayer.new()
 		sound_player.stream = load("res://Assets/Sounds/death_groan.wav")
 		get_parent().add_child(sound_player)
-		var parent = get_parent()
 		sound_player.play()
-	elif rand > 0.475 and rand < 0.95:
+	elif rand > 0.49 and rand < 0.98:
 		var sound_player = AudioStreamPlayer.new()
 		sound_player.stream = load("res://Assets/Sounds/death_grunt.wav")
 		get_parent().add_child(sound_player)
-		var parent = get_parent()
 		sound_player.play()
 	else:
 		var sound_player = AudioStreamPlayer.new()
 		sound_player.stream = load("res://Assets/Sounds/death_terrible_scream.wav")
 		get_parent().add_child(sound_player)
-		var parent = get_parent()
 		sound_player.play()
 
 func _weapon_offsets():
