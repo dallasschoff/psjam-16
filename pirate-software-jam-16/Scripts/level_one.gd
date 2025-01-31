@@ -28,7 +28,7 @@ func _process(delta):
 		level_ended = true
 		Global.master._restart_level()
 	
-	if objective_complete and not handled_win:
+	if objective_complete and not handled_win and not level_ended:
 		handled_win = true
 		Global.master._next_level()
 	#Handle weapon UI

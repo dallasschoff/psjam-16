@@ -43,7 +43,8 @@ func _hit(attack_damage):
 	blood.global_position = global_position + Vector2(0, -5)
 
 func _die():
-	Global.stamina.value += 1000
+	if Global.stamina.value > 0:
+		Global.stamina.value += 1000
 	_play_sound()
 	
 	if weapon != null and !weapon.dropped:

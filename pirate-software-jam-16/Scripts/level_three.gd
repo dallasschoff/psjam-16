@@ -27,14 +27,9 @@ func _process(delta):
 		level_ended = true
 		Global.master._restart_level()
 	
-	if objective_complete and not handled_win:
+	if objective_complete and not handled_win and not level_ended:
 		handled_win = true
-		#For now i have a fade and restart game because no new level, but this can be replaced with similar to how level one 
-		#does it. Billy wants to put in a popup for objective complete as well.
-		await get_tree().create_timer(1).timeout
-		Global.Transitioner._fade(false)
-		await get_tree().create_timer(2).timeout
-		get_tree().reload_current_scene()
+		Global.master._next_level()
 # This shit doesn't work cause the camera drag and boundaries on this level
 # means it needs a different approach
 ##Handle weapon UI

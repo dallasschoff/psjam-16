@@ -6,7 +6,8 @@ var current_level
 var levels: Array[String] = [
 	"res://Scenes/LevelOne.tscn",
 	"res://Scenes/LevelTwo.tscn",
-	"res://Scenes/LevelThree.tscn"
+	"res://Scenes/LevelThree.tscn",
+	"res://Scenes/LevelFour.tscn"
 	]
 var level_index: int = 0
 @onready var winningSFXLength = $WinningSound.stream.get_length()
@@ -31,10 +32,11 @@ func _next_level():
 	$OST.stop()
 	await get_tree().create_timer(1).timeout
 	$WinningSound.play()
-	await get_tree().create_timer(winningSFXLength).timeout
+	_next_level2()
+	await get_tree().create_timer(winningSFXLength + 1).timeout
 	$OST.play()
-	
-	#await get_tree().create_timer(1).timeout
+func _next_level2():
+	await get_tree().create_timer(1.5).timeout
 	Global.Transitioner._fade(false)
 	await get_tree().create_timer(1.5).timeout
 	level_index += 1
@@ -64,3 +66,8 @@ func _restart_level():
 	add_child(scene)
 	current_level = scene
 	Global.Transitioner._unfade()
+
+func _last_level_win():
+	$OST.stop()
+	await get_tree().create_timer(1).timeout
+	$WinningSound.play()

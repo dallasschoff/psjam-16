@@ -119,7 +119,7 @@ tile_map_data = PackedByteArray("AAAhAPn/AAAAAAAAAAAHAAcAAAAAAAAAAAAIAAcAAAAAAAA
 tile_set = SubResource("TileSet_8hl0q")
 
 [node name="Player" parent="." instance=ExtResource("4_ypcf6")]
-position = Vector2(-43, 188)
+position = Vector2(356, 185)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(27, -5)
@@ -328,14 +328,14 @@ initial_state = NodePath("Path")
 script = ExtResource("15_5g28b")
 path = "128,475/128,400/192,400/192,475"
 
-[node name="Orc4" parent="." instance=ExtResource("10_b1y2t")]
-position = Vector2(22, 472)
-left_handed = true
-
 [node name="Sword3" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("5_hgcr7")]
 modulate = Color(0.847059, 0.203922, 0, 1)
 position = Vector2(163, 414)
 wielder = NodePath("../Orc3")
+
+[node name="Orc4" parent="." instance=ExtResource("10_b1y2t")]
+position = Vector2(22, 472)
+left_handed = true
 
 [node name="Sword" parent="." instance=ExtResource("5_hgcr7")]
 position = Vector2(181, 196)

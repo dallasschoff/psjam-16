@@ -145,6 +145,8 @@ position = Vector2(-145, -42)
 
 [node name="Campfire" parent="Set" instance=ExtResource("5_ujxpj")]
 position = Vector2(-15, -7)
+frame = 4
+frame_progress = 0.0
 
 [node name="Campfire2" parent="Set" instance=ExtResource("5_ujxpj")]
 position = Vector2(-144, -104)
