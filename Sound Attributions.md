@@ -5,6 +5,7 @@
 	- "Whoosh" sound
 	- Nightflame file
 	- https://freesound.org/people/Nightflame/sounds/422499/
+ 	- Swinging staff whoosh (low) 07.wav by Nightflame -- https://freesound.org/s/422499/ -- License: Creative Commons 0
 - Crack sound
 	- https://freesound.org/people/Halleck/sounds/21914/
 - Grunt death
