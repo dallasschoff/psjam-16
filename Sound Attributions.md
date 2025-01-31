@@ -1,26 +1,19 @@
-- Sword swing:
+# Sword swing:
 	- [Sword Slash Attack](http://www.freesound.org/people/qubodup/sounds/184422/) Copyright 2013 [Iwan Gabovitch](http://qubodup.net/), [CC-BY3 license](http://creativecommons.org/licenses/by/3.0/).  [Blood and gore FX performance 1](http://freesound.org/people/Slave2theLight/sounds/157112/) Copyright 2012 [Slave2theLight](http://freesound.org/people/Slave2theLight/), [CC-BY3 license](http://creativecommons.org/licenses/by/3.0/).
-	- https://freesound.org/people/qubodup/sounds/184422/
-- Sword throw, "whoosh" sound:
+# Sword throw, "whoosh" sound:
  	- Swinging staff whoosh (low) 07.wav by Nightflame -- https://freesound.org/s/422499/ -- License: Creative Commons 0
-    	- https://freesound.org/people/Nightflame/sounds/422499/
-- Crack sound:
+# Crack sound:
 	- neck_crack.wav by Halleck -- https://freesound.org/s/21914/ -- License: Attribution 4.0
- 	- https://freesound.org/people/Halleck/sounds/21914/
 - Grunt death:
 	- Death sound (male) by Replix -- https://freesound.org/s/173126/ -- License: Creative Commons 0
-    	- https://freesound.org/people/Replix/sounds/173126/
 - Groan death:
 	- monster_sound_medium_death.wav by Leadstarson -- https://freesound.org/s/559621/ -- License: Creative Commons 0
-	- https://freesound.org/people/Leadstarson/sounds/559621/?
 - Scream death:
 	- death_scream.wav by Syna-Max -- https://freesound.org/s/58793/ -- License: Attribution NonCommercial 4.0
-	- https://freesound.org/people/Syna-Max/sounds/58793/
 - Possess:
 	- Random from jsfxr (sfxr.org)
 - Vacate:
 	- Strange_wave.mp3 by Taira Komori -- https://freesound.org/s/214040/ -- License: Attribution 4.0
- 	- https://freesound.org/people/Taira%20Komori/sounds/214040/
 
 
 Music / personally made sound effects:
