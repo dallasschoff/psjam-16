@@ -1,5 +1,5 @@
 # Sword swing:
-	- [Sword Slash Attack](http://www.freesound.org/people/qubodup/sounds/184422/) Copyright 2013 [Iwan Gabovitch](http://qubodup.net/), [CC-BY3 license](http://creativecommons.org/licenses/by/3.0/).  [Blood and gore FX performance 1](http://freesound.org/people/Slave2theLight/sounds/157112/) Copyright 2012 [Slave2theLight](http://freesound.org/people/Slave2theLight/), [CC-BY3 license](http://creativecommons.org/licenses/by/3.0/).
+[Sword Slash Attack](http://www.freesound.org/people/qubodup/sounds/184422/) Copyright 2013 [Iwan Gabovitch](http://qubodup.net/), [CC-BY3 license](http://creativecommons.org/licenses/by/3.0/).  [Blood and gore FX performance 1](http://freesound.org/people/Slave2theLight/sounds/157112/) Copyright 2012 [Slave2theLight](http://freesound.org/people/Slave2theLight/), [CC-BY3 license](http://creativecommons.org/licenses/by/3.0/).
 # Sword throw, "whoosh" sound:
  	- Swinging staff whoosh (low) 07.wav by Nightflame -- https://freesound.org/s/422499/ -- License: Creative Commons 0
 # Crack sound:
