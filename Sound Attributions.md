@@ -1,27 +1,26 @@
 - Sword swing:
 	- [Sword Slash Attack](http://www.freesound.org/people/qubodup/sounds/184422/) Copyright 2013 [Iwan Gabovitch](http://qubodup.net/), [CC-BY3 license](http://creativecommons.org/licenses/by/3.0/).  [Blood and gore FX performance 1](http://freesound.org/people/Slave2theLight/sounds/157112/) Copyright 2012 [Slave2theLight](http://freesound.org/people/Slave2theLight/), [CC-BY3 license](http://creativecommons.org/licenses/by/3.0/).
 	- https://freesound.org/people/qubodup/sounds/184422/
-- Sword throw
-	- "Whoosh" sound
-	- Nightflame file
-	- https://freesound.org/people/Nightflame/sounds/422499/
+- Sword throw, "whoosh" sound:
  	- Swinging staff whoosh (low) 07.wav by Nightflame -- https://freesound.org/s/422499/ -- License: Creative Commons 0
-- Crack sound
-	- https://freesound.org/people/Halleck/sounds/21914/
-- Grunt death
-	- https://freesound.org/people/Replix/sounds/173126/
-	- Creative commons
-- Groan death
-	- Original sound replaced with CC one
+    	- https://freesound.org/people/Nightflame/sounds/422499/
+- Crack sound:
+	- neck_crack.wav by Halleck -- https://freesound.org/s/21914/ -- License: Attribution 4.0
+ 	- https://freesound.org/people/Halleck/sounds/21914/
+- Grunt death:
+	- Death sound (male) by Replix -- https://freesound.org/s/173126/ -- License: Creative Commons 0
+    	- https://freesound.org/people/Replix/sounds/173126/
+- Groan death:
+	- monster_sound_medium_death.wav by Leadstarson -- https://freesound.org/s/559621/ -- License: Creative Commons 0
 	- https://freesound.org/people/Leadstarson/sounds/559621/?
-- Scream death
+- Scream death:
+	- death_scream.wav by Syna-Max -- https://freesound.org/s/58793/ -- License: Attribution NonCommercial 4.0
 	- https://freesound.org/people/Syna-Max/sounds/58793/
-	- Attribution required, no method provided
-- Possess 
+- Possess:
 	- Random from jsfxr (sfxr.org)
-- Vacate 
-	- "strange" on freesound, have original file
-	- - https://freesound.org/people/Taira%20Komori/sounds/214040/
+- Vacate:
+	- Strange_wave.mp3 by Taira Komori -- https://freesound.org/s/214040/ -- License: Attribution 4.0
+ 	- https://freesound.org/people/Taira%20Komori/sounds/214040/
 
 
 Music / personally made sound effects:
@@ -30,4 +29,5 @@ Music / personally made sound effects:
 - Losing sound
 	- https://www.beepbox.co/#9n31sbk0l00e03t2za7g0fj07r3i0o432T0v1u13f10o5q00d03w5h1E0T1v1u56f0qwx10p711d03A5F5B9Q0001PfaedE4b762663777T1v0u44f0qwx10l511d03A1F0B7Q005dPd444E5b661862763677T4v1uf0f0q011z6666ji8k8k3jSBKSJJAArriiiiii07JCABrzrrrrrrr00YrkqHrsrrrrjr005zrAqzrjzrrqr1jRjrqGGrrzsrsA099ijrABJJJIAzrrtirqrqjqixzsrAjrqjiqaqqysttAJqjikikrizrHtBJJAzArzrIsRCITKSS099ijrAJS____Qg99habbCAYrDzh00E0b4h400000000h4g000000014h000000004h400000000p1LFyNQxnjj8kQO5dcxjj8kQO5dcxjj8kQDsw02sAPmsste000
 - Winning sound
-	- https://www.beepbox.co/#9n31sbk0l00e00t2-a7g0fj07r3i0o432T5v1ud3f10m8q011d23HVxh90000000000h0E0T1v1u56f0qwx10p711d03A5F5B9Q0001PfaedE4b762663777T3v0ud8f10t5q011d35SU006050woha9999E0T4v1uf0f0q011z6666ji8k8k3jSBKSJJAArriiiiii07JCABrzrrrrrrr00YrkqHrsrrrrjr005zrAqzrjzrrqr1jRjrqGGrrzsrsA099ijrABJJJIAzrrtirqrqjqixzsrAjrqjiqaqqysttAJqjikikrizrHtBJJAzArzrIsRCITKSS099ijrAJS____Qg99habbCAYrDzh00E0b4000000000000000000001000000000000000000000p1JGq3BM0AwaXw080210w07dvwU8sS009S3FUd7AEr1NN800
+	-
+https://www.beepbox.co/#9n31sbk0l00e00t2-a7g0fj07r3i0o432T5v1ud3f10m8q011d23HVxh90000000000h0E0T1v1u56f0qwx10p711d03A5F5B9Q0001PfaedE4b762663777T3v0ud8f10t5q011d35SU006050woha9999E0T4v1uf0f0q011z6666ji8k8k3jSBKSJJAArriiiiii07JCABrzrrrrrrr00YrkqHrsrrrrjr005zrAqzrjzrrqr1jRjrqGGrrzsrsA099ijrABJJJIAzrrtirqrqjqixzsrAjrqjiqaqqysttAJqjikikrizrHtBJJAzArzrIsRCITKSS099ijrAJS____Qg99habbCAYrDzh00E0b4000000000000000000001000000000000000000000p1JGq3BM0AwaXw080210w07dvwU8sS009S3FUd7AEr1NN800
