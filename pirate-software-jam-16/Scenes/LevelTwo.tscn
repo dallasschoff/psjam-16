@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://ce5fsdpixrbo8"]
+[gd_scene load_steps=37 format=4 uid="uid://ce5fsdpixrbo8"]
 
 [ext_resource type="Script" path="res://Scripts/level_two.gd" id="1_0pbyy"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_jbcap"]
@@ -8,8 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="4_sypqk"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="5_nw1d1"]
 [ext_resource type="Texture2D" uid="uid://cg01g0f1co0ex" path="res://Assets/WeaponUI.png" id="5_sn1gl"]
+[ext_resource type="Texture2D" uid="uid://iv5dtv2mfg6p" path="res://Assets/WeaponUIthrow_bg.png" id="6_1itpc"]
 [ext_resource type="Texture2D" uid="uid://bhhdg5whl4pp" path="res://Assets/Log.png" id="6_merbx"]
 [ext_resource type="AudioStream" uid="uid://bxebd81repvvg" path="res://Assets/Sounds/tree_crack.wav" id="7_0nq5b"]
+[ext_resource type="Texture2D" uid="uid://c30l6if8orcmk" path="res://Assets/WeaponUIthrow.png" id="7_icrti"]
 [ext_resource type="PackedScene" uid="uid://by1wba68g70s" path="res://Scenes/Tree.tscn" id="7_jnmwv"]
 [ext_resource type="PackedScene" uid="uid://17d1cdsasioy" path="res://Scenes/TreeBranch.tscn" id="8_c1vv3"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="9_eqpak"]
@@ -18,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/StateMachine.tscn" id="13_n2uoa"]
 [ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="14_fufo4"]
 [ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/Roam.tscn" id="14_ud2yd"]
+[ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="17_xfd3d"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -132,15 +135,29 @@ zoom = Vector2(5, 5)
 modulate = Color(1, 1, 1, 0.568627)
 z_index = 6
 z_as_relative = false
-position = Vector2(0, 137)
+position = Vector2(-34, 137)
 texture = ExtResource("4_sypqk")
 
 [node name="WeaponUI" type="Sprite2D" parent="Camera2D"]
 modulate = Color(1, 1, 1, 0.745098)
 z_index = 6
 z_as_relative = false
-position = Vector2(0, 139)
+position = Vector2(-34, 139)
 texture = ExtResource("5_sn1gl")
+
+[node name="bg2" type="Sprite2D" parent="Camera2D"]
+modulate = Color(1, 1, 1, 0.568627)
+z_index = 6
+z_as_relative = false
+position = Vector2(19, 137)
+texture = ExtResource("6_1itpc")
+
+[node name="WeaponThrowUI" type="Sprite2D" parent="Camera2D"]
+modulate = Color(1, 1, 1, 0.745098)
+z_index = 6
+z_as_relative = false
+position = Vector2(19, 137)
+texture = ExtResource("7_icrti")
 
 [node name="Player" parent="." instance=ExtResource("2_jbcap")]
 position = Vector2(276, -103)
@@ -148,10 +165,10 @@ position = Vector2(276, -103)
 [node name="Set" type="Node2D" parent="."]
 
 [node name="Tree6" parent="Set" instance=ExtResource("7_jnmwv")]
-position = Vector2(539, -158)
+position = Vector2(561, -158)
 
 [node name="Tree" parent="Set" instance=ExtResource("7_jnmwv")]
-position = Vector2(492, -177)
+position = Vector2(514, -177)
 
 [node name="TreeBranch" parent="Set" instance=ExtResource("8_c1vv3")]
 z_index = 1
@@ -161,10 +178,14 @@ position = Vector2(471, -153)
 stream = ExtResource("7_0nq5b")
 
 [node name="Tree2" parent="Set" instance=ExtResource("7_jnmwv")]
-position = Vector2(541, -72)
+z_index = 10
+z_as_relative = false
+position = Vector2(563, -72)
 
 [node name="Tree4" parent="Set" instance=ExtResource("7_jnmwv")]
-position = Vector2(509, -3)
+z_index = 10
+z_as_relative = false
+position = Vector2(531, -3)
 
 [node name="Campfire" parent="Set" instance=ExtResource("4_5oow8")]
 position = Vector2(-15, -7)
@@ -199,10 +220,18 @@ position = Vector2(452, -95)
 target = true
 
 [node name="Orc2" parent="." instance=ExtResource("9_eqpak")]
-position = Vector2(413, -10)
+position = Vector2(454, 53)
+left_handed = true
+
+[node name="StateMachine" parent="Orc2" node_paths=PackedStringArray("initial_state") instance=ExtResource("13_n2uoa")]
+initial_state = NodePath("Path")
+
+[node name="Path" type="Node" parent="Orc2/StateMachine"]
+script = ExtResource("17_xfd3d")
+path = "443,20/443,-5/443,-30/371,-30/371,0"
 
 [node name="Sword2" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("10_uisd6")]
-position = Vector2(418, -17)
+position = Vector2(452, 60)
 wielder = NodePath("../Orc2")
 
 [node name="Orc3" parent="." instance=ExtResource("9_eqpak")]

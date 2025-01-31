@@ -139,7 +139,7 @@ position = Vector2(0, 139)
 texture = ExtResource("4_befo6")
 
 [node name="Player" parent="." instance=ExtResource("2_uyec4")]
-position = Vector2(-120, -23)
+position = Vector2(-145, -42)
 
 [node name="Set" type="Node2D" parent="."]
 

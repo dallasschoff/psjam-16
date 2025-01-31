@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cfo8qepsskxfh"]
+[gd_scene load_steps=14 format=3 uid="uid://cfo8qepsskxfh"]
 
 [ext_resource type="Texture2D" uid="uid://byfuauui3emwx" path="res://Assets/campfire.png" id="1_v11d4"]
 [ext_resource type="Texture2D" uid="uid://b51ula0lrxrbn" path="res://Assets/circle.png" id="2_3erip"]
@@ -22,10 +22,6 @@ region = Rect2(96, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_lu4ml"]
 atlas = ExtResource("1_v11d4")
 region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_40yna"]
-atlas = ExtResource("1_v11d4")
-region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j85tn"]
 atlas = ExtResource("1_v11d4")
@@ -54,9 +50,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_lu4ml")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_40yna")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_j85tn")
 }, {
 "duration": 1.0,
@@ -83,6 +76,7 @@ z_as_relative = false
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_iqlb7")
 autoplay = "default"
+frame_progress = 0.955232
 offset = Vector2(0, -10)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]

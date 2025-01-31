@@ -310,7 +310,7 @@ debug_color = Color(0.664119, 0.512489, 0, 0.42)
 
 [node name="SwingSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_fk0yp")
-volume_db = -10.0
+volume_db = -18.0
 
 [node name="ThrowSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_y6ci4")

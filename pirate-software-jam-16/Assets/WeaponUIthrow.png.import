@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwo2djn4wobed"
-path="res://.godot/imported/Tree.png-0dac7debc624d47f88ee9d66755e5bae.ctex"
+uid="uid://c30l6if8orcmk"
+path="res://.godot/imported/WeaponUIthrow.png-075424d4c14d58bbee8a8e2e28c58353.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Tree.png"
-dest_files=["res://.godot/imported/Tree.png-0dac7debc624d47f88ee9d66755e5bae.ctex"]
+source_file="res://Assets/WeaponUIthrow.png"
+dest_files=["res://.godot/imported/WeaponUIthrow.png-075424d4c14d58bbee8a8e2e28c58353.ctex"]
 
 [params]
 

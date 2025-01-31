@@ -31,7 +31,7 @@ func _next_level():
 	$OST.stop()
 	await get_tree().create_timer(1).timeout
 	$WinningSound.play()
-	await get_tree().create_timer(winningSFXLength + 1).timeout
+	await get_tree().create_timer(winningSFXLength).timeout
 	$OST.play()
 	
 	#await get_tree().create_timer(1).timeout

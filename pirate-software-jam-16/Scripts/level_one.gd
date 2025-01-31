@@ -35,10 +35,10 @@ func _process(delta):
 	if player.isPossessing and not weapon_ui_active:
 		weapon_ui_active = true
 		var tween = get_tree().create_tween()
-		tween.tween_property(ui_bg, "position", Vector2(0, 101), 0.8)
+		tween.tween_property(ui_bg, "position", Vector2(0, 101), 0.6)
 		tween.tween_property(ui_bg, "position", Vector2(0, 103), 0.2)
 		var tween2 = get_tree().create_tween()
-		tween2.tween_property(weapon_ui, "position", Vector2(0, 101), 0.8)
+		tween2.tween_property(weapon_ui, "position", Vector2(0, 101), 0.6)
 		tween2.tween_property(weapon_ui, "position", Vector2(0, 103), 0.2)
 	if player.isPossessing == false and weapon_ui_active:
 		weapon_ui_active = false

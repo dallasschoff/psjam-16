@@ -55,16 +55,19 @@ func _play_sound():
 	if rand < 0.49:
 		var sound_player = AudioStreamPlayer.new()
 		sound_player.stream = load("res://Assets/Sounds/death_groan.wav")
+		sound_player.volume_db = -15
 		get_parent().add_child(sound_player)
 		sound_player.play()
 	elif rand > 0.49 and rand < 0.98:
 		var sound_player = AudioStreamPlayer.new()
 		sound_player.stream = load("res://Assets/Sounds/death_grunt.wav")
+		sound_player.volume_db = -15
 		get_parent().add_child(sound_player)
 		sound_player.play()
 	else:
 		var sound_player = AudioStreamPlayer.new()
 		sound_player.stream = load("res://Assets/Sounds/death_terrible_scream.wav")
+		sound_player.volume_db = -15
 		get_parent().add_child(sound_player)
 		sound_player.play()
 
