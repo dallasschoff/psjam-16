@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=4 uid="uid://bxowhm8xdip7k"]
 
 [ext_resource type="Script" path="res://Scripts/level_three.gd" id="1_geaok"]
-[ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="2_ddlto"]
+[ext_resource type="Texture2D" uid="uid://btfmg0eafojmt" path="res://Assets/tileset2.png" id="2_ddlto"]
 [ext_resource type="Texture2D" uid="uid://cts7fobx1g5du" path="res://Assets/collision texture.png" id="3_n2ywm"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="4_ypcf6"]
 [ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="5_02bvr"]

@@ -7,8 +7,8 @@ var levels: Array[String] = [
 	"res://Scenes/LevelOne.tscn",
 	"res://Scenes/LevelTwo.tscn",
 	"res://Scenes/LevelThree.tscn",
-	"res://Scenes/LevelFour.tscn"
-	]
+	"res://Scenes/LevelFour.tscn",
+	"res://Scenes/LevelFive.tscn"]
 var level_index: int = 0
 @onready var winningSFXLength = $WinningSound.stream.get_length()
 @onready var losingSFXLength = $LosingSound.stream.get_length()

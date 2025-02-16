@@ -1,9 +1,9 @@
-[gd_scene load_steps=37 format=4 uid="uid://ce5fsdpixrbo8"]
+[gd_scene load_steps=39 format=4 uid="uid://ce5fsdpixrbo8"]
 
 [ext_resource type="Script" path="res://Scripts/level_two.gd" id="1_0pbyy"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_jbcap"]
 [ext_resource type="Texture2D" uid="uid://cts7fobx1g5du" path="res://Assets/collision texture.png" id="3_08q8x"]
-[ext_resource type="Texture2D" uid="uid://cwykv6ewnbmuf" path="res://Assets/tileset2.png" id="3_cqg6x"]
+[ext_resource type="Texture2D" uid="uid://btfmg0eafojmt" path="res://Assets/tileset2.png" id="3_cqg6x"]
 [ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Set Pieces/Campfire.tscn" id="4_5oow8"]
 [ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="4_sypqk"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="5_nw1d1"]
@@ -16,11 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://17d1cdsasioy" path="res://Scenes/TreeBranch.tscn" id="8_c1vv3"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="9_eqpak"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="10_uisd6"]
+[ext_resource type="Texture2D" uid="uid://dp8mchn3t8v8i" path="res://Assets/Nub_Tree Branch.png" id="12_tf6sw"]
 [ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="12_vr7xp"]
 [ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/StateMachine.tscn" id="13_n2uoa"]
 [ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="14_fufo4"]
 [ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/Roam.tscn" id="14_ud2yd"]
 [ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="17_xfd3d"]
+[ext_resource type="PackedScene" uid="uid://bwieaeyggg8pu" path="res://Scenes/Characters/OrcColor.tscn" id="20_t6i4m"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -177,6 +179,11 @@ position = Vector2(471, -153)
 [node name="CrackSound" type="AudioStreamPlayer2D" parent="Set/TreeBranch"]
 stream = ExtResource("7_0nq5b")
 
+[node name="NubTreeBranch" type="Sprite2D" parent="Set"]
+z_index = 1
+position = Vector2(468, -119)
+texture = ExtResource("12_tf6sw")
+
 [node name="Tree2" parent="Set" instance=ExtResource("7_jnmwv")]
 z_index = 10
 z_as_relative = false
@@ -234,20 +241,22 @@ path = "443,20/443,-5/443,-30/371,-30/371,0"
 position = Vector2(452, 60)
 wielder = NodePath("../Orc2")
 
-[node name="Orc3" parent="." instance=ExtResource("9_eqpak")]
+[node name="OrcColor" parent="." instance=ExtResource("20_t6i4m")]
 position = Vector2(350, -168)
+color = "Red"
 
 [node name="Axe3" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("12_vr7xp")]
 position = Vector2(361, -165)
-wielder = NodePath("../Orc3")
+wielder = NodePath("../OrcColor")
 
-[node name="Orc4" parent="." instance=ExtResource("9_eqpak")]
+[node name="OrcColor2" parent="." instance=ExtResource("20_t6i4m")]
 position = Vector2(320, -37)
+color = "Purple"
 
-[node name="StateMachine" parent="Orc4" node_paths=PackedStringArray("initial_state") instance=ExtResource("13_n2uoa")]
+[node name="StateMachine" parent="OrcColor2" node_paths=PackedStringArray("initial_state") instance=ExtResource("13_n2uoa")]
 initial_state = NodePath("RoamState")
 
-[node name="RoamState" parent="Orc4/StateMachine" instance=ExtResource("14_ud2yd")]
+[node name="RoamState" parent="OrcColor2/StateMachine" instance=ExtResource("14_ud2yd")]
 
 [node name="Orc5" parent="." instance=ExtResource("9_eqpak")]
 position = Vector2(230, -131)

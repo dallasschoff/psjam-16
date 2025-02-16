@@ -2,19 +2,17 @@ extends CharacterBody2D
 class_name Orc
 
 var bloodScene = load("res://Scenes/Blood.tscn")
-@onready var head = $Head
-@onready var body = $Body
-@onready var leftArm = $"Left Arm"
-@onready var rightArm = $"Right Arm"
 @onready var walking_raycast: RayCast2D = $WalkingRaycast
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var target_particles = $TargetParticles
+@onready var body = $Body
 var direction
 var weapon
 var dropped_weapon
 @export var left_handed : bool
 @export var move_speed: int = 30
 @export var target: bool = false
+@export_enum("Green", "Purple", "Blue", "Red") var color : String
 
 func _ready():
 	if target:
@@ -22,6 +20,15 @@ func _ready():
 		target_particles.emitting = true
 	add_to_group("Orcs")
 	animation_tree.active = true
+	
+	if color == "Green":
+		body.sprite_frames = load("res://Assets/SpriteFrames/OrcGreen.tres")
+	if color == "Purple":
+		body.sprite_frames = load("res://Assets/SpriteFrames/OrcPurple.tres")
+	if color == "Blue":
+		body.sprite_frames = load("res://Assets/SpriteFrames/OrcBlue.tres")
+	if color == "Red":
+		body.sprite_frames = load("res://Assets/SpriteFrames/OrcRed.tres")
 
 func _process(delta):
 	if weapon != null and not weapon.possessed:

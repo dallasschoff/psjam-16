@@ -29,4 +29,10 @@ func _process(delta):
 	
 	if objective_complete and not handled_win:
 		handled_win = true
-		Global.master._next_level()
+		#For now i have a fade and restart game because no new level, but this can be replaced with similar to how level one 
+		#does it. Billy wants to put in a popup for objective complete as well.
+		Global.master._last_level_win()
+		await get_tree().create_timer(2).timeout
+		Global.Transitioner._fade(false)
+		await get_tree().create_timer(3).timeout
+		get_tree().reload_current_scene()
