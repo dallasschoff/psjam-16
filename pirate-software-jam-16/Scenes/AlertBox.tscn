@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d12755ka56nd5"]
+
+[ext_resource type="Script" path="res://Scripts/alertBox.gd" id="1_4t8xl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5bc3i"]
+
+[node name="AlertBox" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_4t8xl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5bc3i")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=3 uid="uid://bgilc03abwm4y"]
+
+[ext_resource type="Script" path="res://Scripts/barrel.gd" id="1_mc0o4"]
+[ext_resource type="Texture2D" uid="uid://c06712rn06rxj" path="res://Assets/barrel.png" id="2_kk5om"]
+[ext_resource type="AudioStream" uid="uid://bxebd81repvvg" path="res://Assets/Sounds/tree_crack.wav" id="3_beurd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1nlc"]
+atlas = ExtResource("2_kk5om")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5fbe"]
+atlas = ExtResource("2_kk5om")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0ptx"]
+atlas = ExtResource("2_kk5om")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovpwy"]
+atlas = ExtResource("2_kk5om")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhbvk"]
+atlas = ExtResource("2_kk5om")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6b4j4"]
+atlas = ExtResource("2_kk5om")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iws3b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1nlc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5fbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0ptx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovpwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhbvk")
+}],
+"loop": false,
+"name": &"breaking",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6b4j4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mj60i"]
+size = Vector2(14, 18)
+
+[node name="Barrel" type="Node2D"]
+z_index = -1
+z_as_relative = false
+script = ExtResource("1_mc0o4")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iws3b")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_mj60i")
+
+[node name="CrackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_beurd")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

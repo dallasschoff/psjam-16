@@ -12,15 +12,18 @@ class_name Weapon
 @onready var hitbox: Area2D = $AnimatedSprite2D/Hitbox
 @export var throwRatioVH = 0.6
 
+@onready var confusion_box_scene: PackedScene = load("res://Scenes/ConfusionBox.tscn")
+
 var possessed = false
 var thrown : bool = false
 var wielded : bool #Use "wielder != null" instead
 var dropped : bool
 var swing_cooldown: Timer
-var swingAvailable: bool = true
+var swingAvailable: bool = false
 var throw_cooldown: Timer
-var throwAvailable: bool = true
+var throwAvailable: bool = false
 var flash_and_grow_timer: Timer
+var first_action_timer: Timer
 var weapon_flash_and_grow: bool = false
 var direction
 @export var tug: Vector2
@@ -34,7 +37,7 @@ func _ready() -> void:
 	SignalBus.vacated.connect(_vacated) #Emitted by player
 	
 	swing_cooldown = Timer.new()
-	swing_cooldown.wait_time = 0.35
+	swing_cooldown.wait_time = 0.4
 	swing_cooldown.one_shot = true
 	swing_cooldown.connect("timeout", _reset_swing)
 	add_child(swing_cooldown)
@@ -50,6 +53,12 @@ func _ready() -> void:
 	flash_and_grow_timer.one_shot = false
 	flash_and_grow_timer.connect("timeout", _test)
 	add_child(flash_and_grow_timer)
+	
+	first_action_timer = Timer.new()
+	first_action_timer.wait_time = 1.0
+	first_action_timer.one_shot = true
+	first_action_timer.connect("timeout", _reset_swing)
+	add_child(first_action_timer)
 	
 	if wielder != null:
 		hitbox.wielder = wielder
@@ -86,15 +95,21 @@ func _process(delta: float) -> void:
 			if (Input.is_action_just_released("left") or Input.is_action_just_released("right")
 			or Input.is_action_just_released("down") or Input.is_action_just_released("up")):
 				_activate_swing_hitbox()
+				_create_confusion("default")
 				swingAvailable = false
+				throwAvailable = false
 				swing_cooldown.start()
+				if get_parent().handled_win == false:
+					Global.stamina.value -= 500
 				await get_tree().create_timer(0.1).timeout
 				weapon_smear.visible = true
-				Global.stamina.value -= 500
 				await get_tree().create_timer(0.1).timeout
 				weapon_smear.visible = false
+		if Global.stamina.value <= 0:
+			swingAvailable = false
+			throwAvailable = false
 		
-		if Input.is_action_pressed("enter"):
+		if Input.is_action_pressed("enter") and throwAvailable:
 			_throwing()
 		else:
 			$ThrowUI.visible = false
@@ -283,10 +298,14 @@ func _swing_down():
 		tug = Vector2(0,10)
 
 func _reset_swing():
-	swingAvailable = true
+	if Global.stamina.value > 0:
+		swingAvailable = true
+		throwAvailable = true
 	
 func _reset_throw():
-	throwAvailable = true
+	if Global.stamina.value > 0:
+		throwAvailable = true
+		swingAvailable = true
 
 ##Possession functions##
 func _picked_up(new_wielder):
@@ -301,14 +320,14 @@ func _unassign_wielder():
 	wielder = null
 	hitbox.wielder = null
 
-func _can_be_possessed():
+func _can_be_possessed(): #Called by interactionArea.gd
 	if possessed == false:
 		#Make weapon flash and grow
 		flash_and_grow_timer.start()
 		_weapon_flash_and_grow()
 		#anim_player.play("can_be_possessed")
 
-func _cannot_be_possessed():
+func _cannot_be_possessed(): #Called by interactionArea.gd
 	if possessed == false:
 		#Stop weapon flash and grow
 		flash_and_grow_timer.stop()
@@ -316,11 +335,12 @@ func _cannot_be_possessed():
 		#anim_player.play("stop_fx")
 
 func _possessed():
-	
 	if dropped:
 		_pickup_weapon()
 	_raise_weapon()
 	possessed = true
+	_create_confusion("default")
+	first_action_timer.start()
 	#Stop weapon flash and grow
 	flash_and_grow_timer.stop()
 	_reset_weapon_flash_and_grow()
@@ -333,6 +353,7 @@ func _possessed():
 
 func _vacated():
 	_drop_weapon()
+	_create_confusion("default")
 	possessed = false
 	$ThrowUI.visible = false
 	possess_particles.emitting = false
@@ -349,7 +370,9 @@ func _throwing():
 
 func _throw():
 	_active_throw_hitbox()
-	Global.stamina.value -= 1000
+	_create_confusion(50)
+	if get_parent().handled_win == false:
+		Global.stamina.value -= 1000 * Global.throwStrength
 	weapon_smear.visible = true
 	shadow.visible = true
 	thrown = true
@@ -433,7 +456,7 @@ func throwCalc(throwStrength,throwAngle) -> Array:
 	var vertTweens = vertScaled.map(func(x): return -x*directionScalar*throwStrength)
 	
 	return [horzTweens,vertTweens]
-
+# This is needed, not a test anymore lol
 func _test():
 	_reset_weapon_flash_and_grow()
 	_weapon_flash_and_grow()
@@ -507,3 +530,10 @@ func _active_throw_hitbox():
 	hitbox.set_collision_mask_value(2, true)
 	await get_tree().create_timer(0.7).timeout
 	hitbox.set_collision_mask_value(2, false)
+
+func _create_confusion(final_radius):
+	var confusion_box = confusion_box_scene.instantiate()
+	get_parent().add_child(confusion_box)
+	if final_radius is int:
+		confusion_box.final_radius = final_radius
+	confusion_box.global_position = global_position

@@ -4,6 +4,7 @@ class_name Player
 # Possession variables
 var possessCooldownTimer: Timer
 var vacateCooldownTimer: Timer
+var staminaWarningTimer: Timer
 @export var possessCooldown = 1
 @export var vacateCooldown = 1.5
 var isPossessing = false
@@ -12,6 +13,7 @@ var isFree = true
 var vacateAvailable = false
 var canPossess: bool
 var cannotPossess: bool
+var stamina_warning: bool
 
 # Physics variables
 var direction
@@ -23,6 +25,7 @@ var tempMaxSpeed = 120.0
 # Node tree
 @onready var particlesOut = $CPUParticles2D
 @onready var particlesIn = $CPUParticles2D2
+@onready var particlesStaminaLost = $CPUParticles2D3
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var text_sprite = $Text
@@ -51,6 +54,12 @@ func _ready():
 	vacateCooldownTimer.one_shot = true
 	vacateCooldownTimer.connect("timeout",onVacateCooldownTimeout)
 	add_child(vacateCooldownTimer)
+	
+	staminaWarningTimer = Timer.new()
+	staminaWarningTimer.wait_time = 1.0
+	staminaWarningTimer.one_shot = false
+	staminaWarningTimer.connect("timeout", _stamina_warning_anim)
+	add_child(staminaWarningTimer)
 
 func _process(delta):
 	#Possessing
@@ -96,13 +105,43 @@ func _physics_process(delta: float) -> void:
 	
 	if Global.stamina.value <= 0:
 		velocity = Vector2.ZERO
+		particlesStaminaLost.emitting = true
 
 func updatePlayerStamina():
 	direction = Input.get_vector("left","right","up","down")
 	
-	if direction != Vector2.ZERO and isFree:
+	if direction != Vector2.ZERO and isFree and get_parent().handled_win == false:
 		$StaminaBar.value -= 1
-		
+	
+	var warning_ratio = 0.5
+	#Above warning ratio
+	if $StaminaBar.get_as_ratio() > warning_ratio and stamina_warning == true:
+		staminaWarningTimer.stop()
+		_reset_stamina_warning_anim()
+		stamina_warning = false
+	#Below warning ratio, but below 0
+	if $StaminaBar.get_as_ratio() <= warning_ratio and stamina_warning == false and $StaminaBar.get_as_ratio() > 0:
+		staminaWarningTimer.start()
+		_stamina_warning_anim()
+		stamina_warning = true
+	#No stamina
+	if $StaminaBar.value <= 0:
+		staminaWarningTimer.stop()
+		_reset_stamina_warning_anim()
+		stamina_warning = false
+		$StaminaBar.scale = Vector2(0.15,0.15)
+	
+	
+	#Update stamina color
+	var stamina_color
+	var stamina_ratio = $StaminaBar.get_as_ratio()
+	var yellow_value = 0.8
+	
+	if stamina_ratio > yellow_value:
+		stamina_color = lerp(Color.YELLOW, Color8(54,161,255,255), (stamina_ratio - yellow_value) / (1-yellow_value))
+	if stamina_ratio <= yellow_value:
+		stamina_color = lerp(Color.RED, Color.YELLOW, stamina_ratio / yellow_value)
+	$StaminaBar.tint_progress = Color(stamina_color)
 
 func possess():
 	# Play audio
@@ -164,3 +203,14 @@ func update_animation_parameters():
 	if (direction != Vector2.ZERO):
 		animation_tree["parameters/idle/blend_position"] = direction
 		animation_tree["parameters/walk/blend_position"] = direction
+
+func _stamina_warning_anim():
+	var sizeTween = get_tree().create_tween()
+	sizeTween.tween_property($StaminaBar, "scale", $StaminaBar.scale * 1.15, 0.125)
+	sizeTween.tween_property($StaminaBar, "scale", $StaminaBar.scale / 1.0, 0.25)
+	sizeTween.tween_property($StaminaBar, "scale", $StaminaBar.scale * 1.15, 0.25)
+	sizeTween.tween_property($StaminaBar, "scale", $StaminaBar.scale / 1.0, 0.25)
+	sizeTween.tween_property($StaminaBar, "scale", $StaminaBar.scale * 1.0, 0.125)
+
+func _reset_stamina_warning_anim():
+	$StaminaBar.scale = Vector2(0.1,0.1)

@@ -42,11 +42,10 @@ func _physics_process(delta: float) -> void:
 		controller.position.y = distanceFrom * sin(angle)
 	
 	# Scaling movement
-	var direction_ud := Input.get_axis("up", "down")
-	if direction_ud:
+	if Input.is_action_pressed("enter"):
 		# Setting position
-		controller.position.x += direction_ud * directionFrom.x * scalingSpeed
-		controller.position.y += direction_ud * directionFrom.y * scalingSpeed
+		controller.position.x += 1 * directionFrom.x * scalingSpeed
+		controller.position.y += 1 * directionFrom.y * scalingSpeed
 	
 	# Clamping scaling 
 	if controller.position.length() < innerLimit:
@@ -58,3 +57,7 @@ func _physics_process(delta: float) -> void:
 	Global.throwStrength = controller.position.length() / outerLimit
 	
 	controller.move_and_slide()
+	
+	if Input.is_action_just_released("enter"):
+		# Resetting position
+		controller.position = controller.position.normalized() * innerLimit

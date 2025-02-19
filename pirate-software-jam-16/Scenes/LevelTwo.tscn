@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://ce5fsdpixrbo8"]
+[gd_scene load_steps=40 format=4 uid="uid://ce5fsdpixrbo8"]
 
 [ext_resource type="Script" path="res://Scripts/level_two.gd" id="1_0pbyy"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_jbcap"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/Roam.tscn" id="14_ud2yd"]
 [ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="17_xfd3d"]
 [ext_resource type="PackedScene" uid="uid://bwieaeyggg8pu" path="res://Scenes/Characters/OrcColor.tscn" id="20_t6i4m"]
+[ext_resource type="PackedScene" uid="uid://bgilc03abwm4y" path="res://Scenes/Barrel.tscn" id="24_8e0pe"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -269,3 +270,12 @@ range = 5
 
 [node name="OST" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_fufo4")
+
+[node name="Barrel" parent="." instance=ExtResource("24_8e0pe")]
+position = Vector2(294, -125)
+
+[node name="Barrel2" parent="." instance=ExtResource("24_8e0pe")]
+position = Vector2(294, -151)
+
+[node name="Barrel3" parent="." instance=ExtResource("24_8e0pe")]
+position = Vector2(269, -125)

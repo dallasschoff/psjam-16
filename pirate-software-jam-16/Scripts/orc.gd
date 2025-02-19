@@ -9,6 +9,7 @@ var bloodScene = load("res://Scenes/Blood.tscn")
 var direction
 var weapon
 var dropped_weapon
+var alerted: bool = false
 @export var left_handed : bool
 @export var move_speed: int = 30
 @export var target: bool = false
@@ -43,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		direction = walking_raycast.target_position.normalized()
 
-func _hit(attack_damage):
+func _hit(attack_damage): #Called by hurtboxComponent.gd
 	#Use this to handle hurting animations or any other FX when the orc gets hit
 	var blood = bloodScene.instantiate()
 	get_parent().add_child(blood)
@@ -57,6 +58,24 @@ func _die():
 	if weapon != null and !weapon.dropped:
 		weapon._drop_weapon()
 	queue_free()
+
+func _alerted(): #Called by alertBox.gd, which is instantiated by alerting items
+	alerted = true
+	$ConfusedSprite.visible = false
+	$AlertSprite.visible = true
+	$AlertSprite.play("default")
+	
+	## Goal of this is to execute a function in the StateMachine, 
+	## which is only a child of the Orc in the Level scenes
+	
+	#if $"../OrcColor/StateMachine" != null:
+		#$"../OrcColor/StateMachine"._alerted()
+	#transition orc state to alerted
+
+func _confused(): #Called by confusionBox.gd, which is instantiated by confusing events
+	if not alerted:
+		$ConfusedSprite.visible = true
+		$ConfusedSprite.play("default")
 
 func _play_sound():
 	var rand = randf()

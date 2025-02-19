@@ -1,4 +1,4 @@
-[gd_scene load_steps=162 format=3 uid="uid://dlq3qb87jnxby"]
+[gd_scene load_steps=171 format=3 uid="uid://dlq3qb87jnxby"]
 
 [ext_resource type="Script" path="res://Scripts/orc.gd" id="1_oeyq7"]
 [ext_resource type="PackedScene" uid="uid://7q0wmfw8tjbw" path="res://Scenes/Components/HurtboxComponent.tscn" id="2_vc6gh"]
@@ -9,9 +9,67 @@
 [ext_resource type="Texture2D" uid="uid://dv85vrogmosmt" path="res://Assets/Orc Left Arm.png" id="5_2i5na"]
 [ext_resource type="Texture2D" uid="uid://dufffopdqq2dp" path="res://Assets/orcshadow.png" id="6_m011b"]
 [ext_resource type="Texture2D" uid="uid://bcyjmpnrg604n" path="res://Assets/Orc Right Arm.png" id="6_w40pn"]
+[ext_resource type="Texture2D" uid="uid://cmx24g1clo35k" path="res://Assets/alert.png" id="7_wt7ho"]
 [ext_resource type="Texture2D" uid="uid://1nii5pobq6ek" path="res://Assets/star.png" id="13_11bju"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6ilw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sheqr"]
+atlas = ExtResource("7_wt7ho")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxcbg"]
+atlas = ExtResource("7_wt7ho")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsjwy"]
+atlas = ExtResource("7_wt7ho")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unega"]
+atlas = ExtResource("7_wt7ho")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7bge"]
+atlas = ExtResource("7_wt7ho")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmm3m"]
+atlas = ExtResource("7_wt7ho")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5vc7"]
+atlas = ExtResource("7_wt7ho")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t1mly"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sheqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxcbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsjwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unega")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7bge")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmm3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5vc7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 24.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwnfw"]
 atlas = ExtResource("4_u2tw1")
@@ -2300,6 +2358,13 @@ modulate = Color(0, 0, 0, 0.278431)
 position = Vector2(0, 6)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("6_m011b")
+
+[node name="AlertSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(1, -35)
+sprite_frames = SubResource("SpriteFrames_t1mly")
+
+[node name="ConfusedSprite" type="AnimatedSprite2D" parent="."]
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d406k")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b78fkf0mi430r"]
+[gd_scene load_steps=44 format=3 uid="uid://b78fkf0mi430r"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_q5a3x"]
 [ext_resource type="Texture2D" uid="uid://bnkhu8ye3wg0e" path="res://Assets/sprite.png" id="1_rd32p"]
@@ -35,6 +35,14 @@ colors = PackedColorArray(0.447059, 0.686275, 1, 1, 1, 1, 1, 1)
 [sub_resource type="Gradient" id="Gradient_w7s6y"]
 offsets = PackedFloat32Array(0, 0.456667, 1)
 colors = PackedColorArray(0, 0.141186, 1, 1, 0.235588, 0.1163, 0.999955, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_tysah"]
+offsets = PackedFloat32Array(0, 0.541667, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_cyxcy"]
+offsets = PackedFloat32Array(0.453125, 0.473958)
+colors = PackedColorArray(2.40654e-06, 0.336436, 0.549462, 1, 0.702566, 1.81694e-06, 9.62615e-07, 1)
 
 [sub_resource type="Animation" id="Animation_6hb6q"]
 length = 0.001
@@ -325,6 +333,27 @@ scale_amount_min = 0.5
 scale_amount_max = 1.5
 color = Color(0, 1, 1, 1)
 color_ramp = SubResource("Gradient_w7s6y")
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+position = Vector2(13, -12)
+emitting = false
+amount = 64
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+local_coords = true
+texture = ExtResource("3_5qy5l")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 90.0
+damping_min = 300.0
+damping_max = 300.0
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_tysah")
+color_initial_ramp = SubResource("Gradient_cyxcy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bc8vbwvt71gfy"]
+[gd_scene load_steps=36 format=4 uid="uid://bc8vbwvt71gfy"]
 
 [ext_resource type="Script" path="res://Scripts/level_one.gd" id="1_j8rgj"]
 [ext_resource type="Texture2D" uid="uid://btfmg0eafojmt" path="res://Assets/tileset2.png" id="1_ovse1"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="16_f7veu"]
 [ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="19_umo6v"]
 [ext_resource type="PackedScene" uid="uid://bwieaeyggg8pu" path="res://Scenes/Characters/OrcColor.tscn" id="20_hq0t2"]
+[ext_resource type="PackedScene" uid="uid://bgilc03abwm4y" path="res://Scenes/Barrel.tscn" id="21_hck3y"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -254,3 +255,6 @@ position = Vector2(371, -58)
 
 [node name="OST" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_f7veu")
+
+[node name="Barrel" parent="." instance=ExtResource("21_hck3y")]
+position = Vector2(-15, -43)
