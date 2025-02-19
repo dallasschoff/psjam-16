@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="8_e0sl4"]
 [ext_resource type="Texture2D" uid="uid://bhhdg5whl4pp" path="res://Assets/Log.png" id="9_mbrdi"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="10_b1y2t"]
-[ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/StateMachine.tscn" id="12_q72fx"]
+[ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/States/StateMachine.tscn" id="12_q72fx"]
 [ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="15_5g28b"]
 [ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="18_1cefi"]
 

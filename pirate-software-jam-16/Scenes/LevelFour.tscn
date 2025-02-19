@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://by1wba68g70s" path="res://Scenes/Tree.tscn" id="8_yr56p"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="10_bsfqq"]
 [ext_resource type="PackedScene" uid="uid://cq4u3b0wh4x7l" path="res://Scenes/Torch.tscn" id="10_t34ha"]
-[ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/StateMachine.tscn" id="11_5se05"]
+[ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/States/StateMachine.tscn" id="11_5se05"]
 [ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="12_cpr3y"]
 [ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="13_6hww8"]
 

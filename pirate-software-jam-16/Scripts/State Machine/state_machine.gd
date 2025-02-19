@@ -1,7 +1,8 @@
 extends Node
+class_name StateMachine
 
 @export var initial_state: State
-@onready var alert_state_scene: PackedScene = load("res://Scenes/AlertState.tscn")
+@onready var alert_state_scene: PackedScene = load("res://Scenes/States/Alert.tscn")
 
 var current_state: State
 var states: Dictionary = {}
@@ -37,9 +38,10 @@ func on_child_transition(state, new_state_name):
 	new_state.enter()
 	current_state = new_state
 
-func _alerted():
-	pass
-	## This isn't working rn, need Dallas
+func _create_alert_state():
 	var alert_state = alert_state_scene.instantiate()
-	get_parent().add_child(alert_state)
+	add_child(alert_state)
+	states[alert_state.name.to_lower()] = alert_state
+	alert_state.transitioned.connect(on_child_transition)
+	alert_state.enter()
 	current_state = alert_state

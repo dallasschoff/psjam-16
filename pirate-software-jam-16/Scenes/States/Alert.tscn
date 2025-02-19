@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://di8kshf53852j"]
+
+[ext_resource type="Script" path="res://Scripts/State Machine/alert_state.gd" id="1_0nhyf"]
+
+[node name="Alert" type="Node"]
+script = ExtResource("1_0nhyf")

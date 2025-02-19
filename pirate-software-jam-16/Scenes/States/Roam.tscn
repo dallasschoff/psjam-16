@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://Scripts/State Machine/roam_state.gd" id="1_2ge4x"]
 
-[node name="RoamState" type="Node"]
+[node name="Roam" type="Node"]
 script = ExtResource("1_2ge4x")

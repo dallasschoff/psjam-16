@@ -10,6 +10,7 @@ var direction
 var weapon
 var dropped_weapon
 var alerted: bool = false
+var alert_target_position: Vector2
 @export var left_handed : bool
 @export var move_speed: int = 30
 @export var target: bool = false
@@ -59,18 +60,17 @@ func _die():
 		weapon._drop_weapon()
 	queue_free()
 
-func _alerted(): #Called by alertBox.gd, which is instantiated by alerting items
+func _alerted(target_position): #Called by alertBox.gd, which is instantiated by alerting items
 	alerted = true
 	$ConfusedSprite.visible = false
 	$AlertSprite.visible = true
 	$AlertSprite.play("default")
-	
+	alert_target_position = target_position
 	## Goal of this is to execute a function in the StateMachine, 
 	## which is only a child of the Orc in the Level scenes
-	
-	#if $"../OrcColor/StateMachine" != null:
-		#$"../OrcColor/StateMachine"._alerted()
-	#transition orc state to alerted
+	for child in get_children():
+		if child is StateMachine:
+			child._create_alert_state()
 
 func _confused(): #Called by confusionBox.gd, which is instantiated by confusing events
 	if not alerted:

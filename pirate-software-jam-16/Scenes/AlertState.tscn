@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://di8kshf53852j"]
-
-[ext_resource type="Script" path="res://Scripts/State Machine/alert_state.gd" id="1_f4ler"]
-
-[node name="AlertState" type="Node"]
-script = ExtResource("1_f4ler")

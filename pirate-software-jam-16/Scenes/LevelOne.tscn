@@ -9,9 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cg01g0f1co0ex" path="res://Assets/WeaponUI.png" id="4_befo6"]
 [ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="4_svvix"]
 [ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Set Pieces/Campfire.tscn" id="5_ujxpj"]
-[ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/StateMachine.tscn" id="6_0sbho"]
+[ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/States/StateMachine.tscn" id="6_0sbho"]
 [ext_resource type="Texture2D" uid="uid://bhhdg5whl4pp" path="res://Assets/Log.png" id="6_kb34f"]
-[ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/Roam.tscn" id="7_a4vdp"]
+[ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/States/Roam.tscn" id="7_a4vdp"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="7_lp3k2"]
 [ext_resource type="PackedScene" uid="uid://bgbmmxngfk50r" path="res://Scenes/Weapons/Mace.tscn" id="7_xhepl"]
 [ext_resource type="PackedScene" uid="uid://cua8qnmgh54rp" path="res://Scenes/Weapons/Club.tscn" id="9_kiola"]
@@ -198,9 +198,6 @@ left_handed = true
 target = true
 
 [node name="StateMachine" parent="Orc2" instance=ExtResource("6_0sbho")]
-
-[node name="Roam" parent="Orc2/StateMachine" instance=ExtResource("7_a4vdp")]
-spawned_with_weapon = true
 
 [node name="OrcColor" parent="." instance=ExtResource("20_hq0t2")]
 position = Vector2(-68, -167)
