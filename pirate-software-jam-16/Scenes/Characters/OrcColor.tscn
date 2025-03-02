@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://bwieaeyggg8pu"]
+[gd_scene load_steps=45 format=3 uid="uid://bwieaeyggg8pu"]
 
 [ext_resource type="Script" path="res://Scripts/orc.gd" id="1_b4it2"]
 [ext_resource type="Texture2D" uid="uid://dufffopdqq2dp" path="res://Assets/orcshadow.png" id="2_k08cf"]
 [ext_resource type="SpriteFrames" uid="uid://d0wrcvwvchcyj" path="res://Assets/SpriteFrames/OrcRed.tres" id="3_n4p8f"]
 [ext_resource type="Texture2D" uid="uid://cmx24g1clo35k" path="res://Assets/alert.png" id="4_6hf0h"]
+[ext_resource type="SpriteFrames" uid="uid://mflqnfa4pqqi" path="res://Assets/SpriteFrames/Confused.tres" id="4_bqajb"]
 [ext_resource type="PackedScene" uid="uid://7q0wmfw8tjbw" path="res://Scenes/Components/HurtboxComponent.tscn" id="4_vvwj1"]
 [ext_resource type="PackedScene" uid="uid://da3k14i54lb2q" path="res://Scenes/Components/HealthComponent.tscn" id="5_xqpji"]
 [ext_resource type="PackedScene" uid="uid://b25a1cg647tcp" path="res://Scenes/Components/HealthBar.tscn" id="6_1fkgg"]
@@ -439,7 +440,6 @@ colors = PackedColorArray(1, 1, 0, 1, 1, 0.262745, 0, 1)
 
 [node name="OrcColor" type="CharacterBody2D"]
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_b4it2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -457,6 +457,11 @@ position = Vector2(1, -35)
 sprite_frames = SubResource("SpriteFrames_l1nh8")
 
 [node name="ConfusedSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -34)
+sprite_frames = ExtResource("4_bqajb")
+frame = 9
+frame_progress = 1.0
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("3_n4p8f")

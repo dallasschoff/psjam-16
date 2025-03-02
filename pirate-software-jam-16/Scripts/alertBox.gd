@@ -3,7 +3,7 @@ extends Area2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var tween = get_tree().create_tween()
-	tween.tween_property($CollisionShape2D.shape, "radius", 100, 0.2)
+	tween.tween_property($CollisionShape2D.shape, "radius", 80, 0.2)
 	await get_tree().create_timer(0.2).timeout
 	queue_free()
 

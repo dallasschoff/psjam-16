@@ -243,11 +243,11 @@ position = Vector2(452, 60)
 wielder = NodePath("../Orc2")
 
 [node name="OrcColor" parent="." instance=ExtResource("20_t6i4m")]
-position = Vector2(350, -168)
+position = Vector2(350, -158)
 color = "Red"
 
 [node name="Axe3" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("12_vr7xp")]
-position = Vector2(361, -165)
+position = Vector2(361, -153)
 wielder = NodePath("../OrcColor")
 
 [node name="OrcColor2" parent="." instance=ExtResource("20_t6i4m")]

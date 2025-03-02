@@ -263,6 +263,7 @@ z_as_relative = false
 collision_layer = 4
 collision_mask = 12
 script = ExtResource("1_q5a3x")
+vacateCooldown = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8l2lu")

@@ -57,15 +57,38 @@ func _move_to_y():
 	character.velocity.x = 0
 
 func set_move_to():
-	move_to = Vector2(randi_range(target_point.x-25, target_point.x+25),
-		randi_range(target_point.y-25, target_point.y+25))
+	# Sets a position for the orc to go to when alerted. Within a box but outside of an inner rectangle
+	await get_tree().create_timer(1.0).timeout #Gives orcs a sec to think before moving
+	
+	## All of this should let you get an x component that is outside of -5 to 5 range.
+	## We use randi_range to find a value, then if it's not within our parameters, we change it
+	var halfBoxLength = 20
+	var exlcudedValues = 10
+	
+	var move_to_x = randi_range(target_point.x-halfBoxLength, target_point.x+halfBoxLength)
+	#Checking for if value is -5 to 0
+	if move_to_x > target_point.x - exlcudedValues and move_to_x < target_point.x:
+		move_to_x = target_point.x - exlcudedValues
+	#Checking for if value is 0 to 5
+	if move_to_x < target_point.x + exlcudedValues and move_to_x > target_point.x:
+		move_to_x = target_point.x + exlcudedValues
+	
+	var move_to_y = randi_range(target_point.y-halfBoxLength, target_point.y+halfBoxLength)
+	#Checking for if value is -5 to 0
+	if move_to_y > target_point.y - exlcudedValues and move_to_y < target_point.y:
+		move_to_y = target_point.y - exlcudedValues
+	#Checking for if value is 0 to 5
+	if move_to_y < target_point.y + exlcudedValues and move_to_y > target_point.y:
+		move_to_y = target_point.y + exlcudedValues
+
+	move_to = Vector2(move_to_x, move_to_y)
 	home_location = move_to
 	allow_roaming = true
-		
+
 func randomize_wander():
 	wander_option = randi_range(1, 3)
 	var direction = Vector2([-1, 1].pick_random(), [-1, 1].pick_random())
-	var length = Vector2(randi_range(10, 15), randi_range(10, 15))
+	var length = Vector2(randi_range(15, 20), randi_range(15, 20))
 	move_to = (direction * length) + round(character.global_position)
 	#Return to first move_to
 	if wander_option == 1:

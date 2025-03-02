@@ -26,7 +26,7 @@ radius = 2.23607
 [node name="ThrowUI" type="Node2D"]
 z_index = 1
 script = ExtResource("1_hyhhw")
-scalingSpeed = 0.25
+scalingSpeed = 0.5
 radialSpeed = 5.0
 
 [node name="Arrow" type="AnimatedSprite2D" parent="."]

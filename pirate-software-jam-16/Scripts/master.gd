@@ -49,6 +49,7 @@ func _next_level2():
 	Global.Transitioner._unfade()
 
 func _restart_level():
+	await get_tree().create_timer(0.5).timeout
 	# play losing sound
 	$OST.stop()
 	await get_tree().create_timer(1).timeout

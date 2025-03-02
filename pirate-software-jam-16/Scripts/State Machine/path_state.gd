@@ -8,6 +8,7 @@ var point_index: int = 0
 var back_track: bool = false
 var move_to: Vector2
 var allow_pathing: bool = false
+var stuck1frame : bool = false
 
 func enter():
 	var point_strings = path.split("/")
@@ -35,7 +36,16 @@ func physics_update(_delta: float):
 				await get_tree().create_timer(1).timeout
 				_set_and_iterate_path_point()
 		character.move_and_slide()
-				
+	var character_position = character.global_position
+	character_position
+
+#Checks if char is stuck on this frame and the previous frame, then unsticks
+	if character.velocity == Vector2(0,0) and move_to != round(character.global_position) and stuck1frame:
+			_unstick()
+#Checks if char is stuck on this frame
+	if character.velocity == Vector2(0,0) and move_to != round(character.global_position):
+		stuck1frame = true
+
 func _move_to_x():
 	var direction = 1 if character.global_position.direction_to(move_to).x > 0 else -1
 	character.walking_raycast.target_position = Vector2(direction, 0).normalized() * 20
@@ -55,3 +65,7 @@ func _set_and_iterate_path_point():
 		point_index -= 1
 	move_to = points[point_index]
 	allow_pathing = true
+
+func _unstick():
+	await get_tree().create_timer(1.5).timeout
+	_set_and_iterate_path_point()

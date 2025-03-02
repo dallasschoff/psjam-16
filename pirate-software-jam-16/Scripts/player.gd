@@ -5,7 +5,7 @@ class_name Player
 var possessCooldownTimer: Timer
 var vacateCooldownTimer: Timer
 var staminaWarningTimer: Timer
-@export var possessCooldown = 1
+@export var possessCooldown = 1.0
 @export var vacateCooldown = 1.5
 var isPossessing = false
 var possessAvailable = true
@@ -14,6 +14,7 @@ var vacateAvailable = false
 var canPossess: bool
 var cannotPossess: bool
 var stamina_warning: bool
+var had_stamina = true
 
 # Physics variables
 var direction
@@ -103,9 +104,9 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
+	#This will hit repeatedly in physics process. There's more one-shot code in the below function
 	if Global.stamina.value <= 0:
-		velocity = Vector2.ZERO
-		particlesStaminaLost.emitting = true
+		velocity = Vector2.ZERO 
 
 func updatePlayerStamina():
 	direction = Input.get_vector("left","right","up","down")
@@ -125,12 +126,16 @@ func updatePlayerStamina():
 		_stamina_warning_anim()
 		stamina_warning = true
 	#No stamina
-	if $StaminaBar.value <= 0:
+	if $StaminaBar.value <= 0 and had_stamina:
+		had_stamina = false
 		staminaWarningTimer.stop()
 		_reset_stamina_warning_anim()
 		stamina_warning = false
 		$StaminaBar.scale = Vector2(0.15,0.15)
-	
+		particlesStaminaLost.emitting = true
+		set_collision_layer_value(3, false) #Prevents any more posession interactions
+		await get_tree().create_timer(0.45).timeout
+		vacate()
 	
 	#Update stamina color
 	var stamina_color
@@ -161,7 +166,7 @@ func possess():
 
 func vacate():
 	# Play audio
-	$VacateSound.play()
+	if had_stamina: $VacateSound.play()
 	
 	interactionArea.root._vacated()
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",1,0.25)

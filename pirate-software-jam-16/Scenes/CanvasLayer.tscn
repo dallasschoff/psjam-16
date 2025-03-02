@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca74a2ebevhny"]
+
+[ext_resource type="Script" path="res://Scripts/canvasLayer.gd" id="1_owfxk"]
+[ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="2_idrlr"]
+[ext_resource type="Texture2D" uid="uid://cg01g0f1co0ex" path="res://Assets/WeaponUI.png" id="3_1u8gs"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_owfxk")
+
+[node name="bg" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.568627)
+z_index = 6
+z_as_relative = false
+position = Vector2(800, 1295)
+scale = Vector2(5, 5)
+texture = ExtResource("2_idrlr")
+
+[node name="WeaponUI" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.745098)
+z_index = 6
+z_as_relative = false
+position = Vector2(800, 1295)
+scale = Vector2(5, 5)
+texture = ExtResource("3_1u8gs")

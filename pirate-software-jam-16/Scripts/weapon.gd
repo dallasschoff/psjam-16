@@ -522,6 +522,7 @@ func _undo_spins():
 		animated_sprite.rotation_degrees = (fmod(animated_sprite.rotation_degrees,-360.0))
 
 func _activate_swing_hitbox():
+	await get_tree().create_timer(0.1).timeout
 	hitbox.set_collision_mask_value(2, true)
 	await get_tree().create_timer(0.2).timeout
 	hitbox.set_collision_mask_value(2, false)

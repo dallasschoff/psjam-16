@@ -10,6 +10,12 @@ var randomize: bool = false
 var allow_roaming = false
 var arrived_x: bool = false
 var wander_option: int
+var stuck1frame : bool = false
+var unsticking: bool = false
+var stillStuck: bool = false
+var character_velocity : Vector2
+var character_global_position: Vector2
+var previous_position : Vector2
 
 func enter():
 	character = get_parent().get_parent()
@@ -29,25 +35,26 @@ func update(_delta: float):
 		randomize_wander(false)
 	
 func physics_update(_delta: float):
-	if allow_roaming and not character.walking_raycast.is_colliding():
-		if round(character.global_position.x) != move_to.x:
-			_move_to_x()
+	if allow_roaming: #and not character.walking_raycast.is_colliding():
+		if round(character.global_position.y) != move_to.y:
+			_move_to_y()
 		else:
-			if round(character.global_position.y) != move_to.y:
-				_move_to_y()
+			if round(character.global_position.x) != move_to.x:
+				_move_to_x()
 			else:
-				#print("Arrived at ", move_to)
 				character.velocity = Vector2(0,0)
 				allow_roaming = false
 				randomize = true
-	if allow_roaming and character.walking_raycast.is_colliding():
-		character.velocity = Vector2(0,0)
-		#Flip character raycast so its not colliding anymore
-		character.walking_raycast.target_position = Vector2.ZERO - character.walking_raycast.target_position
-		allow_roaming = false
-		await get_tree().create_timer(1).timeout
-		randomize_wander(true)
+				
+	#if allow_roaming and character.walking_raycast.is_colliding():
+		#character.velocity = Vector2(0,0)
+		##Flip character raycast so its not colliding anymore
+		#character.walking_raycast.target_position = Vector2.ZERO - character.walking_raycast.target_position
+		#allow_roaming = false
+		#await get_tree().create_timer(1).timeout
+		#randomize_wander(true)
 	character.move_and_slide()
+	
 		
 func _move_to_x():
 	var direction = 1 if character.global_position.direction_to(move_to).x > 0 else -1
@@ -76,3 +83,7 @@ func randomize_wander(override_to_home: bool):
 		var length = Vector2(randi_range(20, 30), randi_range(20, 30))
 		move_to = (direction * length) + round(character.global_position)
 	allow_roaming = true
+
+func _unstick():
+	unsticking = false
+	randomize_wander(false)

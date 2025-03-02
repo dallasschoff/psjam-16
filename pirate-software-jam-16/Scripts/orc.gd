@@ -2,6 +2,8 @@ extends CharacterBody2D
 class_name Orc
 
 var bloodScene = load("res://Scenes/Blood.tscn")
+@onready var alert_box_scene: PackedScene = load("res://Scenes/AlertBox.tscn")
+
 @onready var walking_raycast: RayCast2D = $WalkingRaycast
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var target_particles = $TargetParticles
@@ -10,6 +12,7 @@ var direction
 var weapon
 var dropped_weapon
 var alerted: bool = false
+var confused: bool = false
 var alert_target_position: Vector2
 @export var left_handed : bool
 @export var move_speed: int = 30
@@ -55,10 +58,15 @@ func _die():
 	if Global.stamina.value > 0:
 		Global.stamina.value += 1000
 	_play_sound()
-	
+	_create_alert()
 	if weapon != null and !weapon.dropped:
 		weapon._drop_weapon()
 	queue_free()
+
+func _create_alert():
+	var alert_box = alert_box_scene.instantiate()
+	get_parent().add_child(alert_box)
+	alert_box.global_position = global_position
 
 func _alerted(target_position): #Called by alertBox.gd, which is instantiated by alerting items
 	alerted = true
@@ -73,7 +81,8 @@ func _alerted(target_position): #Called by alertBox.gd, which is instantiated by
 			child._create_alert_state()
 
 func _confused(): #Called by confusionBox.gd, which is instantiated by confusing events
-	if not alerted:
+	if not alerted and not confused:
+		confused = true
 		$ConfusedSprite.visible = true
 		$ConfusedSprite.play("default")
 
