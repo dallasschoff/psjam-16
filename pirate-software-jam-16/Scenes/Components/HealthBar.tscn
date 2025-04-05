@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b25a1cg647tcp"]
 
-[ext_resource type="Script" path="res://Scripts/textureProgressBar.gd" id="1_17iqm"]
+[ext_resource type="Script" uid="uid://bg6117uupml6" path="res://Scripts/textureProgressBar.gd" id="1_17iqm"]
 [ext_resource type="Texture2D" uid="uid://to0nmm2w7dov" path="res://Assets/healthbar back.png" id="1_taxkm"]
 [ext_resource type="Texture2D" uid="uid://6tyn2qqcb485" path="res://Assets/healthbar top.png" id="2_1x7nv"]
 

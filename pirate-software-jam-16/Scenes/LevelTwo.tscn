@@ -1,17 +1,14 @@
-[gd_scene load_steps=40 format=4 uid="uid://ce5fsdpixrbo8"]
+[gd_scene load_steps=37 format=4 uid="uid://ce5fsdpixrbo8"]
 
-[ext_resource type="Script" path="res://Scripts/level_two.gd" id="1_0pbyy"]
+[ext_resource type="Script" uid="uid://blojdu5ibgebq" path="res://Scripts/level_two.gd" id="1_0pbyy"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_jbcap"]
+[ext_resource type="PackedScene" uid="uid://ca74a2ebevhny" path="res://Scenes/UICanvasLayer.tscn" id="2_ljhw6"]
 [ext_resource type="Texture2D" uid="uid://cts7fobx1g5du" path="res://Assets/collision texture.png" id="3_08q8x"]
 [ext_resource type="Texture2D" uid="uid://btfmg0eafojmt" path="res://Assets/tileset2.png" id="3_cqg6x"]
 [ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Set Pieces/Campfire.tscn" id="4_5oow8"]
-[ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="4_sypqk"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="5_nw1d1"]
-[ext_resource type="Texture2D" uid="uid://cg01g0f1co0ex" path="res://Assets/WeaponUI.png" id="5_sn1gl"]
-[ext_resource type="Texture2D" uid="uid://iv5dtv2mfg6p" path="res://Assets/WeaponUIthrow_bg.png" id="6_1itpc"]
 [ext_resource type="Texture2D" uid="uid://bhhdg5whl4pp" path="res://Assets/Log.png" id="6_merbx"]
 [ext_resource type="AudioStream" uid="uid://bxebd81repvvg" path="res://Assets/Sounds/tree_crack.wav" id="7_0nq5b"]
-[ext_resource type="Texture2D" uid="uid://c30l6if8orcmk" path="res://Assets/WeaponUIthrow.png" id="7_icrti"]
 [ext_resource type="PackedScene" uid="uid://by1wba68g70s" path="res://Scenes/Tree.tscn" id="7_jnmwv"]
 [ext_resource type="PackedScene" uid="uid://17d1cdsasioy" path="res://Scenes/TreeBranch.tscn" id="8_c1vv3"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="9_eqpak"]
@@ -21,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/States/StateMachine.tscn" id="13_n2uoa"]
 [ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="14_fufo4"]
 [ext_resource type="PackedScene" uid="uid://bv0243m7x7b2k" path="res://Scenes/States/Roam.tscn" id="14_ud2yd"]
-[ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="17_xfd3d"]
+[ext_resource type="Script" uid="uid://c0xo710ypbtou" path="res://Scripts/State Machine/path_state.gd" id="17_xfd3d"]
 [ext_resource type="PackedScene" uid="uid://bwieaeyggg8pu" path="res://Scenes/Characters/OrcColor.tscn" id="20_t6i4m"]
 [ext_resource type="PackedScene" uid="uid://bgilc03abwm4y" path="res://Scenes/Barrel.tscn" id="24_8e0pe"]
 
@@ -118,6 +115,8 @@ sources/0 = SubResource("TileSetAtlasSource_rgblb")
 [node name="LevelTwo" type="Node2D"]
 script = ExtResource("1_0pbyy")
 
+[node name="UICanvasLayer" parent="." instance=ExtResource("2_ljhw6")]
+
 [node name="TileMap" type="TileMapLayer" parent="."]
 modulate = Color(0.827958, 0.848281, 0.993222, 1)
 z_index = -5
@@ -133,34 +132,6 @@ tile_set = SubResource("TileSet_03h36")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(352, -88)
 zoom = Vector2(5, 5)
-
-[node name="bg" type="Sprite2D" parent="Camera2D"]
-modulate = Color(1, 1, 1, 0.568627)
-z_index = 6
-z_as_relative = false
-position = Vector2(-34, 137)
-texture = ExtResource("4_sypqk")
-
-[node name="WeaponUI" type="Sprite2D" parent="Camera2D"]
-modulate = Color(1, 1, 1, 0.745098)
-z_index = 6
-z_as_relative = false
-position = Vector2(-34, 139)
-texture = ExtResource("5_sn1gl")
-
-[node name="bg2" type="Sprite2D" parent="Camera2D"]
-modulate = Color(1, 1, 1, 0.568627)
-z_index = 6
-z_as_relative = false
-position = Vector2(19, 137)
-texture = ExtResource("6_1itpc")
-
-[node name="WeaponThrowUI" type="Sprite2D" parent="Camera2D"]
-modulate = Color(1, 1, 1, 0.745098)
-z_index = 6
-z_as_relative = false
-position = Vector2(19, 137)
-texture = ExtResource("7_icrti")
 
 [node name="Player" parent="." instance=ExtResource("2_jbcap")]
 position = Vector2(276, -103)

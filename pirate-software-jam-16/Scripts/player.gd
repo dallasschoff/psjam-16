@@ -15,6 +15,7 @@ var canPossess: bool
 var cannotPossess: bool
 var stamina_warning: bool
 var had_stamina = true
+var stamina_color
 
 # Physics variables
 var direction
@@ -62,7 +63,7 @@ func _ready():
 	staminaWarningTimer.connect("timeout", _stamina_warning_anim)
 	add_child(staminaWarningTimer)
 
-func _process(delta):
+func _process(_delta):
 	#Possessing
 	if Input.is_action_just_pressed("space")\
 	 and isFree and possessAvailable and canPossess:
@@ -80,7 +81,7 @@ func _process(delta):
 	updatePlayerStamina()
 	update_animation_parameters()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# Horizontal movement
 	var direction_lr := Input.get_axis("left", "right")
@@ -138,7 +139,7 @@ func updatePlayerStamina():
 		vacate()
 	
 	#Update stamina color
-	var stamina_color
+	#var stamina_color
 	var stamina_ratio = $StaminaBar.get_as_ratio()
 	var yellow_value = 0.8
 	
@@ -188,8 +189,11 @@ func onVacateCooldownTimeout():
 
 func _can_possess(area):
 	if !isPossessing:
+		if interactionArea:
+			interactionArea.get_parent().get_parent()._cannot_be_possessed()
 		canPossess = true
 		interactionArea = area
+		interactionArea.get_parent().get_parent()._can_be_possessed()
 		#Appear text
 		create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
 
@@ -199,7 +203,6 @@ func _cannot_possess():
 	canPossess = false
 	#Disappear text
 	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
-
 
 func update_animation_parameters():
 	animation_tree["parameters/conditions/idle"] = true if velocity == Vector2.ZERO else false

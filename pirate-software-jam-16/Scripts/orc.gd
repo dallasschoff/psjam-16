@@ -35,20 +35,20 @@ func _ready():
 	if color == "Red":
 		body.sprite_frames = load("res://Assets/SpriteFrames/OrcRed.tres")
 
-func _process(delta):
+func _process(_delta):
 	if weapon != null and not weapon.possessed:
 		update_animation_parameters()
 	else:
 		update_animation_parameters()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if weapon != null and weapon.possessed and weapon.direction != null:
 		direction = weapon.direction
 		walking_raycast.target_position = weapon.direction * 20
 	else:
 		direction = walking_raycast.target_position.normalized()
 
-func _hit(attack_damage): #Called by hurtboxComponent.gd
+func _hit(_attack_damage): #Called by hurtboxComponent.gd
 	#Use this to handle hurting animations or any other FX when the orc gets hit
 	var blood = bloodScene.instantiate()
 	get_parent().add_child(blood)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=35 format=4 uid="uid://bc8vbwvt71gfy"]
 
-[ext_resource type="Script" path="res://Scripts/level_one.gd" id="1_j8rgj"]
+[ext_resource type="Script" uid="uid://dfqmuw08jly83" path="res://Scripts/level_one.gd" id="1_j8rgj"]
 [ext_resource type="Texture2D" uid="uid://btfmg0eafojmt" path="res://Assets/tileset2.png" id="1_ovse1"]
-[ext_resource type="PackedScene" uid="uid://ca74a2ebevhny" path="res://Scenes/CanvasLayer.tscn" id="2_ghkwe"]
+[ext_resource type="PackedScene" uid="uid://ca74a2ebevhny" path="res://Scenes/UICanvasLayer.tscn" id="2_ghkwe"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="2_uyec4"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="3_4hdwt"]
 [ext_resource type="Texture2D" uid="uid://cts7fobx1g5du" path="res://Assets/collision texture.png" id="3_egeal"]
@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://ps3600av7t4n" path="res://Scenes/Weapons/Spear.tscn" id="10_rcs68"]
 [ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="10_sptgw"]
 [ext_resource type="AudioStream" uid="uid://cujmt1iau7qtt" path="res://Assets/Sounds/doobeedoobeedoobeedoo.wav" id="16_f7veu"]
-[ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="19_umo6v"]
+[ext_resource type="Script" uid="uid://c0xo710ypbtou" path="res://Scripts/State Machine/path_state.gd" id="19_umo6v"]
 [ext_resource type="PackedScene" uid="uid://bwieaeyggg8pu" path="res://Scenes/Characters/OrcColor.tscn" id="20_hq0t2"]
 [ext_resource type="PackedScene" uid="uid://bgilc03abwm4y" path="res://Scenes/Barrel.tscn" id="21_hck3y"]
 
@@ -110,7 +110,7 @@ sources/0 = SubResource("TileSetAtlasSource_vycev")
 [node name="LevelOne" type="Node2D"]
 script = ExtResource("1_j8rgj")
 
-[node name="CanvasLayer" parent="." instance=ExtResource("2_ghkwe")]
+[node name="UICanvasLayer" parent="." instance=ExtResource("2_ghkwe")]
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 modulate = Color(0.827958, 0.848281, 0.993222, 1)

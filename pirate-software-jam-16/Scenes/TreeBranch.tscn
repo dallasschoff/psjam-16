@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://17d1cdsasioy"]
 
-[ext_resource type="Script" path="res://Scripts/tree_branch.gd" id="1_akora"]
+[ext_resource type="Script" uid="uid://d323qyf8xhdu8" path="res://Scripts/tree_branch.gd" id="1_akora"]
 [ext_resource type="Texture2D" uid="uid://30c7s0afbbvr" path="res://Assets/Tree Branch.png" id="2_6f7j7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbt8o"]

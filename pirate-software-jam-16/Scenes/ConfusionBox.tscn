@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dkks6qx4bv87m"]
 
-[ext_resource type="Script" path="res://Scripts/confusionBox.gd" id="1_0gs48"]
+[ext_resource type="Script" uid="uid://k28mv5i458jc" path="res://Scripts/confusionBox.gd" id="1_0gs48"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wucs8"]
 

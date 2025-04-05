@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bgilc03abwm4y"]
 
-[ext_resource type="Script" path="res://Scripts/barrel.gd" id="1_mc0o4"]
+[ext_resource type="Script" uid="uid://du6wv6ju6a8os" path="res://Scripts/barrel.gd" id="1_mc0o4"]
 [ext_resource type="Texture2D" uid="uid://c06712rn06rxj" path="res://Assets/barrel.png" id="2_kk5om"]
 [ext_resource type="AudioStream" uid="uid://bxebd81repvvg" path="res://Assets/Sounds/tree_crack.wav" id="3_beurd"]
 

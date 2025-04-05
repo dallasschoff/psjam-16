@@ -8,7 +8,6 @@ class_name Weapon
 @onready var possess_particles = $AnimatedSprite2D/PossessParticles
 @onready var weapon_smear = $AnimatedSprite2D/WeaponSmear
 @onready var throwUI = $ThrowUI
-@onready var text = $Text
 @onready var hitbox: Area2D = $AnimatedSprite2D/Hitbox
 @export var throwRatioVH = 0.6
 
@@ -31,8 +30,14 @@ var direction
 @export var animated_sprite_rotation : float
 @export var flip_left : bool = false
 
+#Tweens
+var sizeTween
+var modulateTween
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("Weapons")
+	
 	SignalBus.possessed.connect(_possessed) #Emitted by player
 	SignalBus.vacated.connect(_vacated) #Emitted by player
 	
@@ -51,7 +56,7 @@ func _ready() -> void:
 	flash_and_grow_timer = Timer.new()
 	flash_and_grow_timer.wait_time = 1.0
 	flash_and_grow_timer.one_shot = false
-	flash_and_grow_timer.connect("timeout", _test)
+	flash_and_grow_timer.connect("timeout", _weapon_flash_and_grow)
 	add_child(flash_and_grow_timer)
 	
 	first_action_timer = Timer.new()
@@ -71,8 +76,15 @@ func _ready() -> void:
 		animated_sprite.rotation_degrees = animated_sprite_rotation
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if possessed:
+		##Throwing
+		if Input.is_action_just_released("enter") and throwAvailable:
+			_throw()
+			swingAvailable = false
+			swing_cooldown.start()
+			throwAvailable = false
+			throw_cooldown.start()
 		##swinging
 		if not Input.is_action_pressed("enter") and swingAvailable and throwAvailable:
 			if Input.is_action_pressed("left"):
@@ -113,13 +125,6 @@ func _process(delta: float) -> void:
 			_throwing()
 		else:
 			$ThrowUI.visible = false
-		##Throwing
-		if Input.is_action_just_released("enter") and throwAvailable:
-			_throw()
-			swingAvailable = false
-			swing_cooldown.start()
-			throwAvailable = false
-			throw_cooldown.start()
 		
 		#Updates the wielder's location when a swing happens and the weapon has not been thrown yet
 		if wielder != null and not thrown:
@@ -333,6 +338,10 @@ func _cannot_be_possessed(): #Called by interactionArea.gd
 		flash_and_grow_timer.stop()
 		_reset_weapon_flash_and_grow()
 		#anim_player.play("stop_fx")
+		if sizeTween:
+			sizeTween.kill()
+		if modulateTween:
+			modulateTween.kill()
 
 func _possessed():
 	if dropped:
@@ -441,7 +450,7 @@ func throwCalc(throwStrength,throwAngle) -> Array:
 	
 	# Calculating arc adjustment for throw
 	var arcHorz = arcAdjust.map(func(i): return i*horzMag)
-	var arcVert = arcAdjust.map(func(i): return i*vertMag)
+	#Not used, commented #var arcVert = arcAdjust.map(func(i): return i*vertMag)
 	
 	# Getting scaler value for shortening due to vertical component of throw
 	var directionScalar = sqrt((horzMag**2) + ((throwRatioVH*vertMag)**2))
@@ -456,19 +465,15 @@ func throwCalc(throwStrength,throwAngle) -> Array:
 	var vertTweens = vertScaled.map(func(x): return -x*directionScalar*throwStrength)
 	
 	return [horzTweens,vertTweens]
-# This is needed, not a test anymore lol
-func _test():
-	_reset_weapon_flash_and_grow()
-	_weapon_flash_and_grow()
 
 func _weapon_flash_and_grow():
-	var sizeTween = get_tree().create_tween()
+	sizeTween = get_tree().create_tween()
 	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale * 1.1, 0.125)
 	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale / 1.1, 0.25)
 	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale * 1.1, 0.25)
 	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale / 1.1, 0.25)
 	sizeTween.tween_property(animated_sprite, "scale", animated_sprite.scale * 1.0, 0.125)
-	var modulateTween = get_tree().create_tween()
+	modulateTween = get_tree().create_tween()
 	modulateTween.tween_property(animated_sprite, "modulate", Color.html("#6091ff"), 0.4)
 	modulateTween.tween_property(animated_sprite, "modulate", Color.WHITE, 0.6)
 
@@ -477,6 +482,7 @@ func _reset_weapon_flash_and_grow():
 		animated_sprite.scale = Vector2(-1,1)
 	if animated_sprite.scale.x > 0:
 		animated_sprite.scale = Vector2(1,1)
+	animated_sprite.modulate = Color.WHITE
 
 func _drop_weapon():
 	if wielder != null:

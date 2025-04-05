@@ -36,8 +36,6 @@ func physics_update(_delta: float):
 				await get_tree().create_timer(1).timeout
 				_set_and_iterate_path_point()
 		character.move_and_slide()
-	var character_position = character.global_position
-	character_position
 
 #Checks if char is stuck on this frame and the previous frame, then unsticks
 	if character.velocity == Vector2(0,0) and move_to != round(character.global_position) and stuck1frame:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=4 uid="uid://crbpr44j6osfs"]
+[gd_scene load_steps=29 format=4 uid="uid://crbpr44j6osfs"]
 
-[ext_resource type="Script" path="res://Scripts/level_four.gd" id="1_kolwo"]
+[ext_resource type="Script" uid="uid://djd4k1egqqmhp" path="res://Scripts/level_four.gd" id="1_kolwo"]
 [ext_resource type="Texture2D" uid="uid://btfmg0eafojmt" path="res://Assets/tileset2.png" id="2_1alct"]
+[ext_resource type="PackedScene" uid="uid://ca74a2ebevhny" path="res://Scenes/UICanvasLayer.tscn" id="2_nsnff"]
 [ext_resource type="Texture2D" uid="uid://cts7fobx1g5du" path="res://Assets/collision texture.png" id="3_52j8r"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="4_v4lhp"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="5_gb628"]
@@ -12,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="10_bsfqq"]
 [ext_resource type="PackedScene" uid="uid://cq4u3b0wh4x7l" path="res://Scenes/Torch.tscn" id="10_t34ha"]
 [ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/States/StateMachine.tscn" id="11_5se05"]
-[ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="12_cpr3y"]
+[ext_resource type="Script" uid="uid://c0xo710ypbtou" path="res://Scripts/State Machine/path_state.gd" id="12_cpr3y"]
 [ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="13_6hww8"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
@@ -103,6 +104,8 @@ sources/0 = SubResource("TileSetAtlasSource_na5lc")
 
 [node name="LevelFour" type="Node2D"]
 script = ExtResource("1_kolwo")
+
+[node name="UICanvasLayer" parent="." instance=ExtResource("2_nsnff")]
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 modulate = Color(0.827958, 0.848281, 0.993222, 1)

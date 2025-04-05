@@ -1,21 +1,18 @@
-[gd_scene load_steps=32 format=4 uid="uid://bxowhm8xdip7k"]
+[gd_scene load_steps=29 format=4 uid="uid://bxowhm8xdip7k"]
 
-[ext_resource type="Script" path="res://Scripts/level_three.gd" id="1_geaok"]
+[ext_resource type="Script" uid="uid://detyeforglkdc" path="res://Scripts/level_three.gd" id="1_geaok"]
 [ext_resource type="Texture2D" uid="uid://btfmg0eafojmt" path="res://Assets/tileset2.png" id="2_ddlto"]
+[ext_resource type="PackedScene" uid="uid://ca74a2ebevhny" path="res://Scenes/UICanvasLayer.tscn" id="2_h2835"]
 [ext_resource type="Texture2D" uid="uid://cts7fobx1g5du" path="res://Assets/collision texture.png" id="3_n2ywm"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="4_ypcf6"]
-[ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="5_02bvr"]
 [ext_resource type="PackedScene" uid="uid://dwoejeo4nfi3l" path="res://Scenes/Weapons/Sword.tscn" id="5_hgcr7"]
 [ext_resource type="PackedScene" uid="uid://by1wba68g70s" path="res://Scenes/Tree.tscn" id="5_ib50v"]
-[ext_resource type="Texture2D" uid="uid://cg01g0f1co0ex" path="res://Assets/WeaponUI.png" id="6_5hgrv"]
-[ext_resource type="Texture2D" uid="uid://iv5dtv2mfg6p" path="res://Assets/WeaponUIthrow_bg.png" id="7_0ips7"]
 [ext_resource type="PackedScene" uid="uid://cfo8qepsskxfh" path="res://Scenes/Set Pieces/Campfire.tscn" id="7_gdrb7"]
-[ext_resource type="Texture2D" uid="uid://c30l6if8orcmk" path="res://Assets/WeaponUIthrow.png" id="8_8py6b"]
 [ext_resource type="PackedScene" uid="uid://vj20fsue0ntk" path="res://Scenes/Set Pieces/OrcHall.tscn" id="8_e0sl4"]
 [ext_resource type="Texture2D" uid="uid://bhhdg5whl4pp" path="res://Assets/Log.png" id="9_mbrdi"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="10_b1y2t"]
 [ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/States/StateMachine.tscn" id="12_q72fx"]
-[ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="15_5g28b"]
+[ext_resource type="Script" uid="uid://c0xo710ypbtou" path="res://Scripts/State Machine/path_state.gd" id="15_5g28b"]
 [ext_resource type="PackedScene" uid="uid://b5jw48f8dhq0t" path="res://Scenes/Weapons/Axe.tscn" id="18_1cefi"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
@@ -107,6 +104,8 @@ sources/0 = SubResource("TileSetAtlasSource_eybn0")
 [node name="LevelThree" type="Node2D"]
 script = ExtResource("1_geaok")
 
+[node name="UICanvasLayer" parent="." instance=ExtResource("2_h2835")]
+
 [node name="TileMap" type="TileMapLayer" parent="."]
 modulate = Color(0.827958, 0.848281, 0.993222, 1)
 z_index = -5
@@ -130,38 +129,6 @@ limit_right = 448
 limit_bottom = 640
 limit_smoothed = true
 position_smoothing_enabled = true
-
-[node name="bg" type="Sprite2D" parent="Player"]
-visible = false
-modulate = Color(1, 1, 1, 0.568627)
-z_index = 6
-z_as_relative = false
-position = Vector2(-7, 132)
-texture = ExtResource("5_02bvr")
-
-[node name="WeaponUI" type="Sprite2D" parent="Player"]
-visible = false
-modulate = Color(1, 1, 1, 0.745098)
-z_index = 6
-z_as_relative = false
-position = Vector2(-7, 134)
-texture = ExtResource("6_5hgrv")
-
-[node name="bg2" type="Sprite2D" parent="Player"]
-visible = false
-modulate = Color(1, 1, 1, 0.568627)
-z_index = 6
-z_as_relative = false
-position = Vector2(46, 132)
-texture = ExtResource("7_0ips7")
-
-[node name="WeaponThrowUI" type="Sprite2D" parent="Player"]
-visible = false
-modulate = Color(1, 1, 1, 0.745098)
-z_index = 6
-z_as_relative = false
-position = Vector2(46, 132)
-texture = ExtResource("8_8py6b")
 
 [node name="Set" type="Node2D" parent="."]
 
@@ -329,7 +296,6 @@ script = ExtResource("15_5g28b")
 path = "128,475/128,400/192,400/192,475"
 
 [node name="Sword3" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("5_hgcr7")]
-modulate = Color(0.847059, 0.203922, 0, 1)
 position = Vector2(163, 414)
 wielder = NodePath("../Orc3")
 

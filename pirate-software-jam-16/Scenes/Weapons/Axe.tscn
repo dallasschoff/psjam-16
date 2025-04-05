@@ -1,10 +1,10 @@
 [gd_scene load_steps=21 format=3 uid="uid://b5jw48f8dhq0t"]
 
-[ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_xglu4"]
+[ext_resource type="Script" uid="uid://liw1eu6wvfac" path="res://Scripts/weapon.gd" id="1_xglu4"]
 [ext_resource type="PackedScene" uid="uid://bv0pn0x3edqlq" path="res://Scenes/Weapons/ThrowUI.tscn" id="2_e3kr0"]
 [ext_resource type="Texture2D" uid="uid://dsnuf2ooglpeg" path="res://Assets/weapons.png" id="2_ji0il"]
 [ext_resource type="Texture2D" uid="uid://kns3t8jy6e0" path="res://Assets/sword smear.png" id="5_nkejv"]
-[ext_resource type="Script" path="res://Scripts/hitbox.gd" id="6_nwk7p"]
+[ext_resource type="Script" uid="uid://bgtdj8rsfdwbo" path="res://Scripts/hitbox.gd" id="6_nwk7p"]
 [ext_resource type="AudioStream" uid="uid://u4ufjvnoayxs" path="res://Assets/Sounds/swing.wav" id="7_bu6cv"]
 [ext_resource type="PackedScene" uid="uid://bb0y5fm38iw30" path="res://Scenes/Components/InteractionArea.tscn" id="7_umx76"]
 [ext_resource type="AudioStream" uid="uid://dkpwegk37ayxn" path="res://Assets/Sounds/throw.wav" id="8_8cw3o"]
@@ -192,10 +192,10 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f4f76"]
 _data = {
-"RESET": SubResource("Animation_uwbi7"),
-"can_be_possessed": SubResource("Animation_8bfcv"),
-"stop_fx": SubResource("Animation_chvvk"),
-"throw": SubResource("Animation_6vt4e")
+&"RESET": SubResource("Animation_uwbi7"),
+&"can_be_possessed": SubResource("Animation_8bfcv"),
+&"stop_fx": SubResource("Animation_chvvk"),
+&"throw": SubResource("Animation_6vt4e")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7e5r"]

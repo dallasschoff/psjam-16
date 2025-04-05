@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhwv4e6atajm8"]
 
-[ext_resource type="Script" path="res://Scripts/blood.gd" id="1_cx6g2"]
+[ext_resource type="Script" uid="uid://d3anlf03stgtu" path="res://Scripts/blood.gd" id="1_cx6g2"]
 [ext_resource type="Texture2D" uid="uid://b51ula0lrxrbn" path="res://Assets/circle.png" id="2_sbx1a"]
 [ext_resource type="Texture2D" uid="uid://bmy0xqsjsdv6g" path="res://Assets/splatter.png" id="2_xkaim"]
 

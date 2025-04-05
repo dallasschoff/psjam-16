@@ -1,0 +1,117 @@
+[gd_scene load_steps=15 format=3 uid="uid://ca74a2ebevhny"]
+
+[ext_resource type="Script" uid="uid://dadgacp8325v1" path="res://Scripts/canvasLayer.gd" id="1_owfxk"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="2_bxi0w"]
+[ext_resource type="Texture2D" uid="uid://d26l5u5mttxh" path="res://Assets/WeaponUI_bg.png" id="2_idrlr"]
+[ext_resource type="Texture2D" uid="uid://cg01g0f1co0ex" path="res://Assets/WeaponUI.png" id="3_1u8gs"]
+[ext_resource type="Texture2D" uid="uid://iv5dtv2mfg6p" path="res://Assets/WeaponUIthrow_bg.png" id="4_ydkpc"]
+[ext_resource type="Texture2D" uid="uid://c30l6if8orcmk" path="res://Assets/WeaponUIthrow.png" id="5_8wea7"]
+[ext_resource type="Texture2D" uid="uid://ciuss1t4kjpnv" path="res://Assets/MWeaponUI.png" id="7_klkn7"]
+[ext_resource type="Texture2D" uid="uid://dulab32nw0xxh" path="res://Assets/UpMWeaponUI.png" id="8_qg67v"]
+[ext_resource type="Texture2D" uid="uid://d03kdcremvode" path="res://Assets/RightMWeaponUI.png" id="9_6aqk6"]
+[ext_resource type="Texture2D" uid="uid://cvlj8e7smjhpy" path="res://Assets/UpPressedMWeaponUI.png" id="9_vhd47"]
+[ext_resource type="Texture2D" uid="uid://b26xgq8a5inog" path="res://Assets/RightPressedMWeaponUI.png" id="10_qg67v"]
+[ext_resource type="Texture2D" uid="uid://fvj0si8rpk85" path="res://Assets/spacebutton.png" id="12_vhd47"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vhd47"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xcwx"]
+size = Vector2(50, 20)
+
+[node name="UICanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_owfxk")
+
+[node name="GhostMovement" parent="." instance=ExtResource("2_bxi0w")]
+modulate = Color(1, 1, 1, 0.745098)
+offset_top = -300.0
+offset_bottom = 0.0
+joystick_mode = 1
+
+[node name="ThrowJS" parent="." instance=ExtResource("2_bxi0w")]
+modulate = Color(1, 1, 1, 0.745098)
+offset_left = 1300.0
+offset_top = -300.0
+offset_right = 1600.0
+offset_bottom = 0.0
+joystick_mode = 1
+throw_js = true
+
+[node name="bg" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.568627)
+z_index = 6
+z_as_relative = false
+position = Vector2(800, 1295)
+scale = Vector2(5, 5)
+texture = ExtResource("2_idrlr")
+
+[node name="WeaponUI" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.745098)
+z_index = 6
+z_as_relative = false
+position = Vector2(800, 1295)
+scale = Vector2(5, 5)
+texture = ExtResource("3_1u8gs")
+
+[node name="bg2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.568627)
+z_index = 6
+z_as_relative = false
+position = Vector2(1071, 1295)
+scale = Vector2(5, 5)
+texture = ExtResource("4_ydkpc")
+
+[node name="WeaponThrowUI" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.745098)
+z_index = 6
+z_as_relative = false
+position = Vector2(1071, 1295)
+scale = Vector2(5, 5)
+texture = ExtResource("5_8wea7")
+
+[node name="MWeaponUI" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.745098)
+z_index = 6
+z_as_relative = false
+position = Vector2(180, 1380)
+scale = Vector2(10, 10)
+texture = ExtResource("7_klkn7")
+
+[node name="UpTouchScreenButton" type="TouchScreenButton" parent="MWeaponUI"]
+position = Vector2(-7, -17)
+texture_normal = ExtResource("8_qg67v")
+texture_pressed = ExtResource("9_vhd47")
+shape = SubResource("CircleShape2D_vhd47")
+action = "up"
+
+[node name="LeftTouchScreenButton" type="TouchScreenButton" parent="MWeaponUI"]
+position = Vector2(-5, -6)
+rotation = 3.14159
+scale = Vector2(1, -1)
+texture_normal = ExtResource("9_6aqk6")
+texture_pressed = ExtResource("10_qg67v")
+shape = SubResource("CircleShape2D_vhd47")
+action = "left"
+
+[node name="RightTouchScreenButton" type="TouchScreenButton" parent="MWeaponUI"]
+position = Vector2(4, -6)
+texture_normal = ExtResource("9_6aqk6")
+texture_pressed = ExtResource("10_qg67v")
+shape = SubResource("CircleShape2D_vhd47")
+action = "right"
+
+[node name="DownTouchScreenButton" type="TouchScreenButton" parent="MWeaponUI"]
+position = Vector2(-7, 18)
+scale = Vector2(1, -1)
+texture_normal = ExtResource("8_qg67v")
+texture_pressed = ExtResource("9_vhd47")
+shape = SubResource("CircleShape2D_vhd47")
+action = "down"
+
+[node name="SpaceTouchScreenButton" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.745098)
+position = Vector2(560, 1200)
+scale = Vector2(5, 5)
+texture_normal = ExtResource("12_vhd47")
+shape = SubResource("RectangleShape2D_5xcwx")
+action = "space"

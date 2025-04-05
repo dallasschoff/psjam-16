@@ -1,6 +1,6 @@
 [gd_scene load_steps=172 format=3 uid="uid://dlq3qb87jnxby"]
 
-[ext_resource type="Script" path="res://Scripts/orc.gd" id="1_oeyq7"]
+[ext_resource type="Script" uid="uid://dqjtcx1cwenlq" path="res://Scripts/orc.gd" id="1_oeyq7"]
 [ext_resource type="PackedScene" uid="uid://7q0wmfw8tjbw" path="res://Scenes/Components/HurtboxComponent.tscn" id="2_vc6gh"]
 [ext_resource type="Texture2D" uid="uid://cr1wfppurtbdc" path="res://Assets/Orc Head.png" id="3_8hqmy"]
 [ext_resource type="PackedScene" uid="uid://da3k14i54lb2q" path="res://Scenes/Components/HealthComponent.tscn" id="3_kuk6f"]
@@ -2330,15 +2330,15 @@ tracks/7/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tufl2"]
 _data = {
-"RESET": SubResource("Animation_4gyvb"),
-"idle_down": SubResource("Animation_mkxj6"),
-"idle_left": SubResource("Animation_dmfka"),
-"idle_right": SubResource("Animation_nxlvy"),
-"idle_up": SubResource("Animation_c234t"),
-"walk_down": SubResource("Animation_vtnxa"),
-"walk_left": SubResource("Animation_tgvjp"),
-"walk_right": SubResource("Animation_yaekp"),
-"walk_up": SubResource("Animation_cj5gh")
+&"RESET": SubResource("Animation_4gyvb"),
+&"idle_down": SubResource("Animation_mkxj6"),
+&"idle_left": SubResource("Animation_dmfka"),
+&"idle_right": SubResource("Animation_nxlvy"),
+&"idle_up": SubResource("Animation_c234t"),
+&"walk_down": SubResource("Animation_vtnxa"),
+&"walk_left": SubResource("Animation_tgvjp"),
+&"walk_right": SubResource("Animation_yaekp"),
+&"walk_up": SubResource("Animation_cj5gh")
 }
 
 [sub_resource type="Gradient" id="Gradient_sy5gg"]
@@ -2424,18 +2424,18 @@ parameters/walk/blend_position = Vector2(0, -0.0151515)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_tufl2")
+&"": SubResource("AnimationLibrary_tufl2")
 }
 
 [node name="TargetParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 16
+texture = ExtResource("13_11bju")
 lifetime = 4.0
 preprocess = 2.0
 randomness = 0.5
 lifetime_randomness = 0.5
 local_coords = true
-texture = ExtResource("13_11bju")
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 10.0

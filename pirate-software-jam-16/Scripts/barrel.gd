@@ -5,7 +5,7 @@ var destroyed: bool = false
 @onready var alert_box_scene: PackedScene = load("res://Scenes/AlertBox.tscn")
 
 #When barrel is hit by a weapon, break
-func _hurtbox_entered(area):
+func _hurtbox_entered(_area):
 	if not destroyed:
 		# Play audio
 		$CrackSound.play()

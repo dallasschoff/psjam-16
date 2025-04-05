@@ -7,10 +7,6 @@ var objective_complete: bool
 var handled_win: bool
 var level_ended: bool = false
 @onready var player = $Player
-@onready var ui_bg = $Camera2D/bg
-@onready var weapon_ui = $Camera2D/WeaponUI
-@onready var ui_bg2 = $Camera2D/bg2
-@onready var weaponthrow_ui = $Camera2D/WeaponThrowUI
 var weapon_ui_active: bool = false
 
 func _ready():

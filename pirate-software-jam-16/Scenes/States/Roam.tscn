@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bv0243m7x7b2k"]
 
-[ext_resource type="Script" path="res://Scripts/State Machine/roam_state.gd" id="1_2ge4x"]
+[ext_resource type="Script" uid="uid://bth37npj3uwl7" path="res://Scripts/State Machine/roam_state.gd" id="1_2ge4x"]
 
 [node name="Roam" type="Node"]
 script = ExtResource("1_2ge4x")

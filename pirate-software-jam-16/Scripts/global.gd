@@ -6,3 +6,4 @@ var stamina
 var throw_angle
 var throwStrength
 var Transitioner
+var MainMenu

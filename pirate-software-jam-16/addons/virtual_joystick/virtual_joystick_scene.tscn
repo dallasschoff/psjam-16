@@ -1,0 +1,105 @@
+[gd_scene load_steps=10 format=3 uid="uid://dmr0fcamx7t56"]
+
+[ext_resource type="Script" uid="uid://cc3qau7yvav61" path="res://addons/virtual_joystick/virtual_joystick.gd" id="1_8x4dy"]
+[ext_resource type="Texture2D" uid="uid://bm30au8mjfc2f" path="res://addons/virtual_joystick/textures/joystick_base_outline.png" id="2_jhjs2"]
+[ext_resource type="Texture2D" uid="uid://dt13r06u87fib" path="res://addons/virtual_joystick/textures/joystick_tip_arrows.png" id="3_3etdg"]
+[ext_resource type="Texture2D" uid="uid://63t6f5veapn7" path="res://Assets/base.png" id="3_xq8jp"]
+[ext_resource type="Texture2D" uid="uid://dqvw7cr8gebhi" path="res://Assets/tip.png" id="5_bq86g"]
+[ext_resource type="Texture2D" uid="uid://cxtaajlr4m4n4" path="res://Assets/arrow.png" id="6_bq86g"]
+[ext_resource type="Texture2D" uid="uid://cgbxk1slpqn5o" path="res://Assets/throwtext.png" id="6_qa6of"]
+[ext_resource type="Texture2D" uid="uid://y4350i07pdiy" path="res://Assets/bigcontroller.png" id="6_xq8jp"]
+[ext_resource type="Texture2D" uid="uid://loo7xmsmt12j" path="res://Assets/circle_progress_bar.png" id="8_5w7b4"]
+
+[node name="Virtual Joystick" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -308.0
+offset_right = 300.0
+offset_bottom = -8.0
+grow_vertical = 0
+script = ExtResource("1_8x4dy")
+action_left = "left"
+action_right = "right"
+action_up = "up"
+action_down = "down"
+
+[node name="Base" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(100, 100)
+mouse_force_pass_scroll_events = false
+texture = ExtResource("2_jhjs2")
+stretch_mode = 5
+
+[node name="BaseSprite" type="Sprite2D" parent="Base"]
+visible = false
+z_index = 1
+position = Vector2(100, 101)
+scale = Vector2(5, 5)
+texture = ExtResource("3_xq8jp")
+
+[node name="StaminaBar" type="TextureProgressBar" parent="Base"]
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 65.0
+offset_bottom = 65.0
+scale = Vector2(3, 3)
+max_value = 2500.0
+value = 50.0
+fill_mode = 4
+texture_under = ExtResource("8_5w7b4")
+texture_progress = ExtResource("8_5w7b4")
+tint_under = Color(0.095214, 0.0123632, 0.00355774, 1)
+
+[node name="Tip" type="TextureRect" parent="Base"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+texture = ExtResource("3_3etdg")
+stretch_mode = 5
+
+[node name="TipSprite" type="Sprite2D" parent="Base/Tip"]
+visible = false
+position = Vector2(50, 51)
+scale = Vector2(5, 5)
+texture = ExtResource("5_bq86g")
+
+[node name="ThrowText" type="Sprite2D" parent="Base/Tip/TipSprite"]
+texture = ExtResource("6_qa6of")
+
+[node name="ControllerSprite" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(150, 151)
+scale = Vector2(5, 5)
+texture = ExtResource("6_xq8jp")
+
+[node name="ArrowSprite" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(150, 151)
+scale = Vector2(5, 5)
+texture = ExtResource("6_bq86g")

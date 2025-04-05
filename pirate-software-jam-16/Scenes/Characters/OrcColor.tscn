@@ -1,6 +1,6 @@
 [gd_scene load_steps=45 format=3 uid="uid://bwieaeyggg8pu"]
 
-[ext_resource type="Script" path="res://Scripts/orc.gd" id="1_b4it2"]
+[ext_resource type="Script" uid="uid://dqjtcx1cwenlq" path="res://Scripts/orc.gd" id="1_b4it2"]
 [ext_resource type="Texture2D" uid="uid://dufffopdqq2dp" path="res://Assets/orcshadow.png" id="2_k08cf"]
 [ext_resource type="SpriteFrames" uid="uid://d0wrcvwvchcyj" path="res://Assets/SpriteFrames/OrcRed.tres" id="3_n4p8f"]
 [ext_resource type="Texture2D" uid="uid://cmx24g1clo35k" path="res://Assets/alert.png" id="4_6hf0h"]
@@ -424,15 +424,15 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tufl2"]
 _data = {
-"RESET": SubResource("Animation_4gyvb"),
-"idle_down": SubResource("Animation_mkxj6"),
-"idle_left": SubResource("Animation_dmfka"),
-"idle_right": SubResource("Animation_nxlvy"),
-"idle_up": SubResource("Animation_c234t"),
-"walk_down": SubResource("Animation_vtnxa"),
-"walk_left": SubResource("Animation_tgvjp"),
-"walk_right": SubResource("Animation_yaekp"),
-"walk_up": SubResource("Animation_cj5gh")
+&"RESET": SubResource("Animation_4gyvb"),
+&"idle_down": SubResource("Animation_mkxj6"),
+&"idle_left": SubResource("Animation_dmfka"),
+&"idle_right": SubResource("Animation_nxlvy"),
+&"idle_up": SubResource("Animation_c234t"),
+&"walk_down": SubResource("Animation_vtnxa"),
+&"walk_left": SubResource("Animation_tgvjp"),
+&"walk_right": SubResource("Animation_yaekp"),
+&"walk_up": SubResource("Animation_cj5gh")
 }
 
 [sub_resource type="Gradient" id="Gradient_2nd4v"]
@@ -500,18 +500,18 @@ parameters/walk/blend_position = Vector2(-0.00484431, -0.126697)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_tufl2")
+&"": SubResource("AnimationLibrary_tufl2")
 }
 
 [node name="TargetParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 16
+texture = ExtResource("7_wyrts")
 lifetime = 4.0
 preprocess = 2.0
 randomness = 0.5
 lifetime_randomness = 0.5
 local_coords = true
-texture = ExtResource("7_wyrts")
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 10.0

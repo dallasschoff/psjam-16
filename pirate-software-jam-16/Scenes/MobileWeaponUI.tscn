@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpx81lu851du"]
+
+[ext_resource type="Texture2D" uid="uid://ciuss1t4kjpnv" path="res://Assets/MWeaponUI.png" id="1_l42fv"]
+[ext_resource type="Texture2D" uid="uid://dulab32nw0xxh" path="res://Assets/UpMWeaponUI.png" id="2_wopp0"]
+[ext_resource type="Texture2D" uid="uid://d03kdcremvode" path="res://Assets/RightMWeaponUI.png" id="3_wopp0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dgiml"]
+radius = 8.0
+
+[node name="MWeaponUI" type="Node2D"]
+
+[node name="WeaponUI" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.745098)
+z_index = 6
+z_as_relative = false
+scale = Vector2(5, 5)
+texture = ExtResource("1_l42fv")
+
+[node name="UpTouchScreenButton" type="TouchScreenButton" parent="WeaponUI"]
+position = Vector2(-7, -17)
+texture_normal = ExtResource("2_wopp0")
+shape = SubResource("CircleShape2D_dgiml")
+action = "up"
+
+[node name="RightTouchScreenButton2" type="TouchScreenButton" parent="WeaponUI"]
+position = Vector2(4, -6)
+texture_normal = ExtResource("3_wopp0")
+shape = SubResource("CircleShape2D_dgiml")
+action = "right"
+
+[node name="LeftTouchScreenButton3" type="TouchScreenButton" parent="WeaponUI"]
+position = Vector2(-5, -6)
+scale = Vector2(-1, 1)
+texture_normal = ExtResource("3_wopp0")
+shape = SubResource("CircleShape2D_dgiml")
+action = "left"
+
+[node name="DownTouchScreenButton2" type="TouchScreenButton" parent="WeaponUI"]
+position = Vector2(-7, 18)
+scale = Vector2(1, -1)
+texture_normal = ExtResource("2_wopp0")
+shape = SubResource("CircleShape2D_dgiml")
+action = "down"

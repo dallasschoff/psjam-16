@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c4ty38rhpqlw8"]
 
-[ext_resource type="Script" path="res://Scripts/transitioner.gd" id="1_qmq0h"]
+[ext_resource type="Script" uid="uid://cy8v8rs7xvk1e" path="res://Scripts/transitioner.gd" id="1_qmq0h"]
 
 [sub_resource type="Animation" id="Animation_jf8or"]
 length = 0.001
@@ -49,9 +49,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_282k5"]
 _data = {
-"RESET": SubResource("Animation_jf8or"),
-"fade_to_black": SubResource("Animation_gqw4x"),
-"fade_to_normal": SubResource("Animation_xkysk")
+&"RESET": SubResource("Animation_jf8or"),
+&"fade_to_black": SubResource("Animation_gqw4x"),
+&"fade_to_normal": SubResource("Animation_xkysk")
 }
 
 [node name="Transitioner" type="CanvasLayer"]

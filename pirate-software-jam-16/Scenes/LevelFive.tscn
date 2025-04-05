@@ -1,13 +1,14 @@
-[gd_scene load_steps=23 format=4 uid="uid://d12ta1aodhtxy"]
+[gd_scene load_steps=24 format=4 uid="uid://d12ta1aodhtxy"]
 
-[ext_resource type="Script" path="res://Scripts/level_five.gd" id="1_axxry"]
+[ext_resource type="Script" uid="uid://bn56tk5ggi8g5" path="res://Scripts/level_five.gd" id="1_axxry"]
+[ext_resource type="PackedScene" uid="uid://ca74a2ebevhny" path="res://Scenes/UICanvasLayer.tscn" id="2_kd46x"]
 [ext_resource type="Texture2D" uid="uid://btfmg0eafojmt" path="res://Assets/tileset2.png" id="2_r1ot3"]
 [ext_resource type="Texture2D" uid="uid://c8l6mv55emohi" path="res://Assets/tileset3.png" id="2_r5b4v"]
 [ext_resource type="Texture2D" uid="uid://cts7fobx1g5du" path="res://Assets/collision texture.png" id="3_hag5f"]
 [ext_resource type="PackedScene" uid="uid://b78fkf0mi430r" path="res://Scenes/Characters/Player.tscn" id="4_enyt7"]
 [ext_resource type="PackedScene" uid="uid://dlq3qb87jnxby" path="res://Scenes/Characters/Orc.tscn" id="5_584as"]
 [ext_resource type="PackedScene" uid="uid://cqemyhjqyjc2h" path="res://Scenes/States/StateMachine.tscn" id="6_lahbm"]
-[ext_resource type="Script" path="res://Scripts/State Machine/path_state.gd" id="7_tk4wp"]
+[ext_resource type="Script" uid="uid://c0xo710ypbtou" path="res://Scripts/State Machine/path_state.gd" id="7_tk4wp"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_yoyhx"]
 tile_data = PackedInt32Array(0, 196610, 2, 65536, 196610, 3, 1, 262146, 2, 65537, 262146, 3)
@@ -439,6 +440,8 @@ sources/0 = SubResource("TileSetAtlasSource_fiecg")
 
 [node name="LevelFive" type="Node2D"]
 script = ExtResource("1_axxry")
+
+[node name="UICanvasLayer" parent="." instance=ExtResource("2_kd46x")]
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 modulate = Color(0.827958, 0.848281, 0.993222, 1)

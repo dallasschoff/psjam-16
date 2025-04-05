@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d12755ka56nd5"]
 
-[ext_resource type="Script" path="res://Scripts/alertBox.gd" id="1_4t8xl"]
+[ext_resource type="Script" uid="uid://byot2xg1l2ik3" path="res://Scripts/alertBox.gd" id="1_4t8xl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5bc3i"]
 

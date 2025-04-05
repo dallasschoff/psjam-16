@@ -1,13 +1,12 @@
 extends State
 class_name Alert
 
-@export var range: int = 50
 @export var spawned_with_weapon: bool = false
 @onready var character: CharacterBody2D
 var home_location: Vector2
 var move_to: Vector2
 var target_point: Vector2
-var randomize: bool = false
+var random: bool = false
 var allow_roaming = false
 var arrived_x: bool = false
 var wander_option: int
@@ -22,9 +21,9 @@ func update(_delta: float):
 		pass
 	if spawned_with_weapon and character.weapon != null and character.weapon.possessed:
 		allow_roaming = false
-		randomize = false
-	if randomize:
-		randomize = false
+		random = false
+	if random:
+		random = false
 		await get_tree().create_timer(2).timeout
 		randomize_wander()
 	
@@ -38,7 +37,7 @@ func physics_update(_delta: float):
 			else:
 				character.velocity = Vector2(0,0)
 				allow_roaming = false
-				randomize = true
+				random = true
 	if allow_roaming and character.walking_raycast.is_colliding():
 		character.velocity = Vector2(0,0)
 		

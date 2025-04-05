@@ -8,7 +8,7 @@ var fallen: bool = false
 
 #When broken area is hit by a weapon, fall off tree and activate hitbox area mask
 #When falling branch hits a character with a hurtbox, deal collision damage
-func _hurtbox_entered(area): #Called by hitbox.gd from weapons
+func _hurtbox_entered(_area): #Called by hitbox.gd from weapons
 	if not fallen:
 		# Play audio
 		$CrackSound.play()
