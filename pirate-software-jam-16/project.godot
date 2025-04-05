@@ -26,7 +26,7 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/viewport_width=1600
+window/size/viewport_width=2130
 window/size/viewport_height=1200
 window/stretch/mode="viewport"
 

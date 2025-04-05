@@ -13,6 +13,7 @@ func _ready():
 	orcs = get_tree().get_nodes_in_group("Orcs")
 	originalOrcCount = orcs.size()
 	targets = get_tree().get_nodes_in_group("Targets")
+	$TileMapLayer.visible = false
 
 func _process(delta):
 	targets = get_tree().get_nodes_in_group("Targets")
