@@ -35,6 +35,7 @@ func _next_level():
 	_next_level2()
 	await get_tree().create_timer(winningSFXLength + 1).timeout
 	$OST.play()
+
 func _next_level2():
 	await get_tree().create_timer(1.5).timeout
 	Global.Transitioner._fade(false)
@@ -62,6 +63,7 @@ func _restart_level():
 	await get_tree().create_timer(1.5).timeout
 	$OST.play()
 	current_level.queue_free()
+	await get_tree().process_frame #Need to wait a frame to clear the level from memory
 	var scene = load(current_level_string).instantiate()
 	mainMenu.hide()
 	add_child(scene)

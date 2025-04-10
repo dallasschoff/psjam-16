@@ -51,6 +51,7 @@ scale = Vector2(5, 5)
 texture = ExtResource("3_xq8jp")
 
 [node name="StaminaBar" type="TextureProgressBar" parent="Base"]
+layout_mode = 0
 offset_left = -5.0
 offset_top = -5.0
 offset_right = 65.0

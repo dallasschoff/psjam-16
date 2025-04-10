@@ -31,3 +31,4 @@ stream = ExtResource("5_cnisp")
 
 [node name="LosingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_5tmj3")
+volume_db = -5.0

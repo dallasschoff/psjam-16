@@ -101,7 +101,7 @@ func _process(delta: float) -> void:
 	controllerSprite.global_position = tipSprite.global_position
 	##Make throw arrow visible on the JS itself
 	if throw_js and Input.is_action_pressed("enter"):
-		arrowSprite.visible = true
+		#arrowSprite.visible = true
 		controllerSprite.visible = true
 		tipSprite.visible = false
 	if throw_js and not Input.is_action_pressed("enter"):

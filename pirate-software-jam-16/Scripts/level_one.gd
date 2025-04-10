@@ -35,9 +35,9 @@ func _process(_delta):
 		handled_win = true
 		Global.master._next_level()
 	
-	if Input.is_action_just_pressed("enter"):
-		weaponsGroup = get_tree().get_nodes_in_group("Weapons")
-		for i in weaponsGroup:
-			if i.possessed == true:
-				possessedWeapon = i
-				print(possessedWeapon)
+	#if Input.is_action_just_pressed("enter"):
+		#weaponsGroup = get_tree().get_nodes_in_group("Weapons")
+		#for i in weaponsGroup:
+			#if i.possessed == true:
+				#possessedWeapon = i
+				#print(possessedWeapon)

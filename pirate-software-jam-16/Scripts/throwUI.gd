@@ -82,14 +82,14 @@ func _mobile_throw_ui(delta:float) -> void:
 	#controller.position = direction * outerLimit ##Throw UI will immediately follow the ThrowJS
 	var distanceFrom = controller.position.distance_to(dot.position)
 	if distanceFrom < previousDistanceFrom:
-		#Throw UI will be slightly behind, giving a pulling affect
+		#Throw UI will be slightly behind, giving a pulling effect
 		value1 = controller.position
 		value2 = direction * outerLimit
-		t = 4.0 * delta
+		t = 40.0 * delta
 		controller.position = value1.lerp(value2, t)
 	else:
-		#Throw UI will be slightly behind, giving a pulling affect
+		#Throw UI will be slightly behind, giving a pulling effect
 		value1 = controller.position
 		value2 = direction * outerLimit
-		t = 5.0 * delta
+		t = 50.0 * delta
 		controller.position = value1.lerp(value2, t)
