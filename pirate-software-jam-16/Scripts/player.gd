@@ -12,10 +12,10 @@ var possessAvailable = true
 var isFree = true
 var vacateAvailable = false
 var canPossess: bool
-var cannotPossess: bool
 var stamina_warning: bool
 var had_stamina = true
 var stamina_color
+var interaction_stack : Array[Area2D] = []
 
 # Physics variables
 var direction
@@ -34,7 +34,7 @@ var tempMaxSpeed = 120.0
 var interactionArea : Area2D
 
 func _ready():
-	SignalBus.can_possess.connect(_can_possess) #Emitted by interactionArea
+	#SignalBus.can_possess.connect(_can_possess) #Emitted by interactionArea
 	
 	Global.player = self
 	Global.stamina = $StaminaBar
@@ -64,6 +64,15 @@ func _ready():
 	add_child(staminaWarningTimer)
 
 func _process(_delta):
+	#If interaction_stack has at least one interaction area, canPossess is true and show
+	#possess text above player, else opposite
+	if interaction_stack.size() > 0 and not isPossessing and possessAvailable:
+		canPossess = true
+		create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
+	elif interaction_stack.size() == 0 and not isPossessing:
+		canPossess = false
+		create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
+		
 	#Possessing
 	if Input.is_action_just_pressed("space")\
 	 and isFree and possessAvailable and canPossess:
@@ -77,7 +86,7 @@ func _process(_delta):
 	
 	if interactionArea != null and isPossessing and vacateAvailable:
 		global_position = interactionArea.global_position
-		
+	
 	updatePlayerStamina()
 	update_animation_parameters()
 
@@ -152,7 +161,7 @@ func updatePlayerStamina():
 func possess():
 	# Play audio
 	$PossessSound.play()
-	
+	interactionArea = interaction_stack.back()
 	interactionArea.root._possessed()
 	#Disappear text
 	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
@@ -167,19 +176,22 @@ func possess():
 
 func vacate():
 	# Play audio
-	if had_stamina: $VacateSound.play()
-	
-	interactionArea.root._vacated()
+	if had_stamina: 
+		$VacateSound.play()
+	if interactionArea != null:
+		interactionArea.root._vacated()
+	interactionArea = null
 	create_tween().tween_property($AnimatedSprite2D, "modulate:a",1,0.25)
 	tempMaxSpeed = globalMaxSpeed
 	isPossessing = false
 	isFree = true
 	possessAvailable = false
-	canPossess = true
+	#canPossess = true
 	possessCooldownTimer.start()
 	#Moves the player up when vacating
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "global_position", (global_position+Vector2(-5,-5)), 0.4)
+	print("vacated")
 
 func onPossessCooldownTimeout():
 	possessAvailable = true
@@ -187,22 +199,26 @@ func onPossessCooldownTimeout():
 func onVacateCooldownTimeout():
 	vacateAvailable = true
 
-func _can_possess(area):
-	if !isPossessing:
-		if interactionArea:
-			interactionArea.get_parent().get_parent()._cannot_be_possessed()
-		canPossess = true
-		interactionArea = area
-		interactionArea.get_parent().get_parent()._can_be_possessed()
-		#Appear text
-		create_tween().tween_property(text_sprite, "modulate:a",1,0.25)
+func _add_to_interaction_stack(area):
+	#FYI area.root = Weapon
+	#Turn off the blinking and pulsing for the previous "top" weapon in interaction_stack
+	if interaction_stack.size() > 0:
+		var lastArea = interaction_stack.back()
+		lastArea.root._cannot_be_possessed()
+	#Add area's root (Weapon) to the interaction_stack and turn on weapon blinking and pulsing
+	interaction_stack.push_back(area)
+	area.root._can_be_possessed()
 
-func _cannot_possess():
-	#This needs changes, since it is called whenever you leave the interactionArea.
-	#If you leave one while entering another, you'll lose the ability to possess either
-	canPossess = false
-	#Disappear text
-	create_tween().tween_property(text_sprite, "modulate:a",0,0.5)
+func _remove_from_interaction_stack(area):
+	#Remove area from the interaction_stack by finding its index (in some cases, may not be the last element)
+	var index = interaction_stack.find(area)
+	#Turn off weapon blinking and pulsing
+	area.root._cannot_be_possessed()
+	interaction_stack.remove_at(index)
+	#Get the new last area in the stack and turn on weapon blinking and pulsing
+	if interaction_stack.size() > 0:
+		var lastArea = interaction_stack.back()
+		lastArea.root._can_be_possessed()
 
 func update_animation_parameters():
 	animation_tree["parameters/conditions/idle"] = true if velocity == Vector2.ZERO else false

@@ -129,8 +129,6 @@ zoom = Vector2(5, 5)
 
 [node name="Player" parent="." instance=ExtResource("2_uyec4")]
 position = Vector2(-145, -42)
-possessCooldown = 0.5
-vacateCooldown = 0.8
 
 [node name="Set" type="Node2D" parent="."]
 
