@@ -38,35 +38,33 @@ joystick_mode = 1
 throw_js = true
 
 [node name="bg" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.568627)
+self_modulate = Color(1, 1, 1, 0.568627)
 z_index = 6
 z_as_relative = false
 position = Vector2(800, 1295)
 scale = Vector2(5, 5)
 texture = ExtResource("2_idrlr")
 
-[node name="WeaponUI" type="Sprite2D" parent="."]
+[node name="WeaponUI" type="Sprite2D" parent="bg"]
 modulate = Color(1, 1, 1, 0.745098)
 z_index = 6
 z_as_relative = false
-position = Vector2(800, 1295)
-scale = Vector2(5, 5)
+scale = Vector2(1, 1)
 texture = ExtResource("3_1u8gs")
 
 [node name="bg2" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.568627)
+self_modulate = Color(1, 1, 1, 0.568627)
 z_index = 6
 z_as_relative = false
 position = Vector2(1071, 1295)
 scale = Vector2(5, 5)
 texture = ExtResource("4_ydkpc")
 
-[node name="WeaponThrowUI" type="Sprite2D" parent="."]
+[node name="WeaponThrowUI" type="Sprite2D" parent="bg2"]
 modulate = Color(1, 1, 1, 0.745098)
 z_index = 6
 z_as_relative = false
-position = Vector2(1071, 1295)
-scale = Vector2(5, 5)
+scale = Vector2(1, 1)
 texture = ExtResource("5_8wea7")
 
 [node name="MWeaponUI" type="Sprite2D" parent="."]
@@ -74,7 +72,7 @@ modulate = Color(1, 1, 1, 0.745098)
 z_index = 6
 z_as_relative = false
 position = Vector2(180, 1380)
-scale = Vector2(10, 10)
+scale = Vector2(12, 12)
 texture = ExtResource("7_klkn7")
 
 [node name="UpTouchScreenButton" type="TouchScreenButton" parent="MWeaponUI"]
@@ -110,8 +108,8 @@ action = "down"
 
 [node name="SpaceTouchScreenButton" type="TouchScreenButton" parent="."]
 modulate = Color(1, 1, 1, 0.745098)
-position = Vector2(560, 1200)
-scale = Vector2(5, 5)
+position = Vector2(950, 1200)
+scale = Vector2(6, 6)
 texture_normal = ExtResource("12_vhd47")
 shape = SubResource("RectangleShape2D_5xcwx")
 action = "space"

@@ -125,7 +125,7 @@ tile_set = SubResource("TileSet_m86je")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-16, -40)
-zoom = Vector2(5, 5)
+zoom = Vector2(6, 6)
 
 [node name="Player" parent="." instance=ExtResource("2_uyec4")]
 position = Vector2(-145, -42)
@@ -186,22 +186,6 @@ target = true
 
 [node name="StateMachine" parent="Orc2" instance=ExtResource("6_0sbho")]
 
-[node name="OrcBlue" parent="." instance=ExtResource("20_hq0t2")]
-position = Vector2(-50, -107)
-color = "Blue"
-
-[node name="StateMachine" parent="OrcBlue" node_paths=PackedStringArray("initial_state") instance=ExtResource("6_0sbho")]
-initial_state = NodePath("Roam")
-
-[node name="Roam" parent="OrcBlue/StateMachine" instance=ExtResource("7_a4vdp")]
-
-[node name="Orc4" parent="." instance=ExtResource("3_4hdwt")]
-position = Vector2(160, -103)
-
-[node name="StateMachine" parent="Orc4" instance=ExtResource("6_0sbho")]
-
-[node name="Roam" parent="Orc4/StateMachine" instance=ExtResource("7_a4vdp")]
-
 [node name="OrcPurple" parent="." instance=ExtResource("20_hq0t2")]
 position = Vector2(29, -85)
 color = "Purple"
@@ -239,11 +223,5 @@ position = Vector2(371, -58)
 [node name="OST" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_f7veu")
 
-[node name="Barrel" parent="." instance=ExtResource("21_hck3y")]
-position = Vector2(-50, -85)
-
 [node name="Barrel2" parent="." instance=ExtResource("21_hck3y")]
 position = Vector2(-16, -49)
-
-[node name="Barrel3" parent="." instance=ExtResource("21_hck3y")]
-position = Vector2(-71, -61)

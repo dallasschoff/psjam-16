@@ -23,7 +23,6 @@ layout_mode = 1
 
 [node name="OST" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_eaq4n")
-volume_db = -80.0
 autoplay = true
 
 [node name="WinningSound" type="AudioStreamPlayer" parent="."]

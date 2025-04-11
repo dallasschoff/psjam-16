@@ -25,26 +25,39 @@ var weapon_ui_active: bool = false
 
 @onready var main_menu = Global.MainMenu
 
+#Starting positions
+var ui_bg_position_lvl_1 = Vector2(800, 1295)
+var ui_bg_position = Vector2(650, 1295)
+var ui_bg2_position = Vector2(950, 1295)
+
+var mobileWeaponUI_up_position = Vector2(275, 950)
+var mobileWeaponUI_down_position = Vector2(275, 1380)
+
+var ghostMovementStick_up_position = Vector2(100, 800)
+var ghostMovementStick_down_position = Vector2(100, 1295)
+
+var spaceButton_up_position = Vector2(950, 975)
+var spaceButton_down_position = Vector2(950, 1200)
+
+var throwJS_up_position = Vector2(2100, 900)
+var throwJS_down_position = Vector2(2100, 1230)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if main_menu.mobileControls == true:
 		mobileControls = true
-		ghostMovementStick.position = Vector2(0, 900)
+		ghostMovementStick.position = ghostMovementStick_up_position
 	if main_menu.mobileControls == false: 
 		mobileControls = false
-		ghostMovementStick.position = Vector2(0, 1295)
-	throwJS.position = Vector2(1300, 1230)
+		ghostMovementStick.position = ghostMovementStick_down_position
+	throwJS.position = throwJS_down_position
 	#Set some starting positions of UI elements
 	if parent.name == "LevelOne":
-		ui_bg.position = Vector2(800, 1295)
-		weapon_ui.position = Vector2(800, 1295)
+		ui_bg.position = ui_bg_position_lvl_1
 	if parent.name != "LevelOne":
-		ui_bg.position = Vector2(650, 1295)
-		weapon_ui.position = Vector2(650, 1295)
-		ui_bg2.position = Vector2(950, 1295)
-		weaponthrow_ui.position = Vector2(950, 1295)
-	
-
+		ui_bg.position = ui_bg_position
+		ui_bg2.position = ui_bg2_position
+	mobileWeaponUI.position = mobileWeaponUI_down_position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -70,9 +83,10 @@ func _handle_mobile_ui():
 			_lower_space_button()
 	
 	#Handle throw joystick
-	if player.isPossessing and !throwJSActive:
+
+	if player.isPossessing and !throwJSActive and parent.name != "LevelOne":
 		_raise_throwJS()
-	
+		
 	if player.isPossessing == false and throwJSActive:
 		_lower_throwJS()
 	
@@ -81,7 +95,7 @@ func _handle_mobile_ui():
 	if player.isPossessing and not mobile_weapon_ui_active:
 		_raise_weapon_ui()
 		#Make movement stick go away
-		ghostMovementStick.position = Vector2(0, 1295)
+		ghostMovementStick.position = ghostMovementStick_down_position
 	
 	#Disappear weapon UI
 	if player.isPossessing == false and mobile_weapon_ui_active:
@@ -92,42 +106,42 @@ func _handle_mobile_ui():
 func _raise_weapon_ui():
 	mobile_weapon_ui_active = true
 	var tween = get_tree().create_tween()
-	tween.tween_property(mobileWeaponUI, "position", Vector2(180, 1010), 0.6)
-	tween.tween_property(mobileWeaponUI, "position", Vector2(180, 1020), 0.2)
+	tween.tween_property(mobileWeaponUI, "position", mobileWeaponUI_up_position - Vector2(0, 10), 0.6)
+	tween.tween_property(mobileWeaponUI, "position", mobileWeaponUI_up_position, 0.2)
 func _lower_weapon_ui():
 		mobile_weapon_ui_active = false
 		#var tween = get_tree().create_tween()
 		#tween.tween_property(mobileWeaponUI, "position", Vector2(180, 1010), 0.2)
 		#tween.tween_property(mobileWeaponUI, "position", Vector2(180, 1360), 0.8)
-		mobileWeaponUI.position = Vector2(180,1380)
+		mobileWeaponUI.position = mobileWeaponUI_down_position
 
 func _raise_movement_stick():
 	var tween2 = get_tree().create_tween()
-	tween2.tween_property(ghostMovementStick, "position", Vector2(0, 890), 0.6)
-	tween2.tween_property(ghostMovementStick, "position", Vector2(0, 900), 0.2)
+	tween2.tween_property(ghostMovementStick, "position", ghostMovementStick_up_position - Vector2(0, 10), 0.6)
+	tween2.tween_property(ghostMovementStick, "position", ghostMovementStick_up_position, 0.2)
 	#ghostMovementStick.position = Vector2(0, 892)
 
 func _raise_space_button():
 	spaceButtonActive = true
 	var tween = get_tree().create_tween()
-	tween.tween_property(spaceButton, "position", Vector2(560, 1010), 0.4)
-	tween.tween_property(spaceButton, "position", Vector2(560, 1020), 0.2)
+	tween.tween_property(spaceButton, "position", spaceButton_up_position - Vector2(0, 10), 0.4)
+	tween.tween_property(spaceButton, "position", spaceButton_up_position, 0.2)
 func _lower_space_button():
 	spaceButtonActive = false
 	var tween = get_tree().create_tween()
-	tween.tween_property(spaceButton, "position", Vector2(560, 1010), 0.2)
-	tween.tween_property(spaceButton, "position", Vector2(560, 1200), 0.4)
+	tween.tween_property(spaceButton, "position", spaceButton_up_position - Vector2(0, 10), 0.2)
+	tween.tween_property(spaceButton, "position", spaceButton_down_position, 0.4)
 
 func _raise_throwJS():
 	throwJSActive = true
 	var tween = get_tree().create_tween()
-	tween.tween_property(throwJS, "position", Vector2(1300, 890), 0.4)
-	tween.tween_property(throwJS, "position", Vector2(1300, 900), 0.2)
+	tween.tween_property(throwJS, "position", throwJS_up_position - Vector2(0, 10), 0.4)
+	tween.tween_property(throwJS, "position", throwJS_up_position, 0.2)
 func _lower_throwJS():
 	throwJSActive = false
 	var tween = get_tree().create_tween()
-	tween.tween_property(throwJS, "position", Vector2(1300, 890), 0.2)
-	tween.tween_property(throwJS, "position", Vector2(1300, 1230), 0.4)
+	tween.tween_property(throwJS, "position", throwJS_up_position - Vector2(0, 10), 0.2)
+	tween.tween_property(throwJS, "position", throwJS_down_position, 0.4)
 
 func _handle_kb_ui():
 	#Handle weapon UI

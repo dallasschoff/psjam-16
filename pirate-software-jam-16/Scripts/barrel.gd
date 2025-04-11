@@ -11,6 +11,7 @@ func _hurtbox_entered(_area):
 		$CrackSound.play()
 		destroyed = true
 		$Sprite2D.play("breaking")
+		$CollisionBox.set_collision_layer_value(1, false)
 		_create_alert()
 
 func _create_alert():

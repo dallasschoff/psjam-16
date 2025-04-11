@@ -29,7 +29,6 @@ gdscript/warnings/unused_signal=0
 window/size/viewport_width=2500
 window/size/viewport_height=1200
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
 
 [global_group]
 

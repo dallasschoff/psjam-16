@@ -131,7 +131,7 @@ tile_set = SubResource("TileSet_03h36")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(352, -88)
-zoom = Vector2(5, 5)
+zoom = Vector2(6, 6)
 
 [node name="Player" parent="." instance=ExtResource("2_jbcap")]
 position = Vector2(276, -103)
@@ -214,11 +214,11 @@ position = Vector2(452, 60)
 wielder = NodePath("../Orc2")
 
 [node name="OrcColor" parent="." instance=ExtResource("20_t6i4m")]
-position = Vector2(350, -158)
+position = Vector2(350, -136)
 color = "Red"
 
 [node name="Axe3" parent="." node_paths=PackedStringArray("wielder") instance=ExtResource("12_vr7xp")]
-position = Vector2(361, -153)
+position = Vector2(359, -130)
 wielder = NodePath("../OrcColor")
 
 [node name="OrcColor2" parent="." instance=ExtResource("20_t6i4m")]
